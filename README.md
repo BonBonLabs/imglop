@@ -3,11 +3,11 @@
 AI background remover, image tools, Image-to-PDF and QR generator that run in your browser. Built by BonBon Labs.
 Your photos, PDFs and QR text are processed on your device.
 
-- Single static file: `index.html` (+ `models/u2netp.onnx`). Host on any static host (e.g. Cloudflare Pages).
+- The website is the `public/` folder: `public/index.html` (+ `public/models/u2netp.onnx`). Host on any static host (e.g. Cloudflare Pages).
 - Licensed under **AGPL-3.0** (add the `LICENSE` file, see below). Third-party licenses: `THIRD_PARTY_NOTICES.md`.
 
 ## Configure
-Edit the placeholders in `index.html`:
+Edit the placeholders in `public/index.html`:
 - `#authConfig` data attributes: your backend URLs (signup, signin, account, checkout, portal, reset-request, reset-confirm).
 - `#subscribeBtn`: Stripe price IDs / Payment Links (publishable values only).
 - Careers link and the "Source code" link (`REPLACE-ORG`).
@@ -20,7 +20,7 @@ npm install
 npm run vendor
 ```
 
-This copies the libraries into `vendor/` and fonts into `fonts/`, then rewrites `index.html` to use them. Commit the result. Re-running is safe.
+This copies the libraries into `public/vendor/` and fonts into `public/fonts/`, then rewrites `public/index.html` to use them. Commit the result. Re-running is safe.
 Check that no file is over 25 MB if you deploy on Cloudflare Pages (the script warns you).
 
 ## Secrets

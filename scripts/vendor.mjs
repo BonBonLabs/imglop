@@ -1,11 +1,12 @@
 // Self-host all third-party libraries and fonts so visitors never contact a CDN or Google.
 // Usage:  npm install && npm run vendor
-// It copies files from node_modules into ./vendor and ./fonts, then points index.html at them.
+// It copies files from node_modules into public/vendor and public/fonts, then points public/index.html at them.
 // Safe to re-run. It stops with a clear message if anything it expects is missing.
 import fs from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const site = path.join(root, 'public'); // the folder Cloudflare publishes
 const nm = path.join(root, process.env.VENDOR_NM || 'node_modules');
 const fail = m => { console.error('\n✖ ' + m + '\n'); process.exit(1); };
 const need = p => fs.existsSync(p) || fail('Missing ' + path.relative(root, p) + '. Run "npm install" first (and check the package version).');
@@ -18,7 +19,7 @@ const libs = [
   ['heic2any/dist/heic2any.min.js', 'vendor/heic2any.min.js'],
   ['onnxruntime-web/dist/ort.min.js', 'vendor/ort/ort.min.js'],
 ];
-for (const [f, t] of libs) copy(path.join(nm, f), path.join(root, t));
+for (const [f, t] of libs) copy(path.join(nm, f), path.join(site, t));
 
 // ONNX Runtime WebAssembly files (skip the big GPU/JSEP builds; this site uses the plain "wasm" provider)
 const ortDist = path.join(nm, 'onnxruntime-web/dist');
@@ -26,7 +27,7 @@ need(ortDist);
 let wasmCount = 0;
 for (const f of fs.readdirSync(ortDist)) {
   if (!/^ort-wasm.*\.(wasm|mjs)$/.test(f) || /jsep|asyncify|webgpu/i.test(f)) continue;
-  copy(path.join(ortDist, f), path.join(root, 'vendor/ort', f)); wasmCount++;
+  copy(path.join(ortDist, f), path.join(site, 'vendor/ort', f)); wasmCount++;
   const mb = fs.statSync(path.join(ortDist, f)).size / 1048576;
   if (mb > 24) console.warn('⚠ ' + f + ' is ' + mb.toFixed(1) + ' MB (Cloudflare Pages limit is 25 MB per file)');
 }
@@ -48,17 +49,17 @@ for (const [pkg, variants, subsets] of fonts) {
     for (const b of blocks) {
       if (!subsets.some(s => new RegExp('-' + s + '-\\d+-(normal|italic)\\.woff2').test(b))) continue;
       const m = b.match(/url\(\.?\/?(files\/[^)]+?\.woff2)\)/); if (!m) continue;
-      copy(path.join(base, m[1]), path.join(root, 'fonts', m[1]));
+      copy(path.join(base, m[1]), path.join(site, 'fonts', m[1]));
       css += b.replace(/src:[^;]*;/, 'src: url(./' + m[1] + ') format("woff2");').replace(/\s*\n\s*/g, ' ') + '\n'; kept++;
     }
     if (!kept) fail('No matching font files found in ' + path.relative(root, cssFile));
   }
 }
-fs.mkdirSync(path.join(root, 'fonts'), { recursive: true });
-fs.writeFileSync(path.join(root, 'fonts/fonts.css'), css);
+fs.mkdirSync(path.join(site, 'fonts'), { recursive: true });
+fs.writeFileSync(path.join(site, 'fonts/fonts.css'), css);
 
 // 3) Point index.html at the local copies
-const file = path.join(root, 'index.html');
+const file = path.join(site, 'index.html');
 let html = fs.readFileSync(file, 'utf8');
 const sub = (re, to, label) => { const n = html; html = html.replace(re, to); if (n === html && !html.includes(to)) fail('Could not update ' + label + ' in index.html'); };
 html = html.replace(/<link rel="preconnect" href="https:\/\/fonts\.g[^>]*>\s*/g, '');
