@@ -562,6 +562,15 @@
   details[open] summary .i { transform: rotate(180deg); }
   details p { margin: 0; padding: 0 20px 18px; color: var(--muted); font-size: 14.5px; }
 
+  /* Ads (free users only; hidden for Pro and while ADS.enabled is false) */
+  .ad-wrap { max-width: 980px; margin: 48px auto 0; padding: 0 20px; }
+  .ad-label { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+  .ad-label .linkbtn { font-size: 11px; text-transform: none; letter-spacing: 0; }
+  #adSlot { min-height: 100px; border-radius: 14px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); }
+  .consent { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 90; max-width: 560px; margin: 0 auto; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 12px 40px rgba(0,0,0,.2); font-size: 13.5px; }
+  .consent[hidden] { display: none; }
+  .consent p { margin: 0 0 12px; color: var(--muted); }
+  .consent .row { display: flex; gap: 8px; flex-wrap: wrap; }
   footer { border-top: 1px solid var(--border); margin-top: 70px; }
   .foot-in { max-width: 1200px; margin: 0 auto; padding: 26px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
   .foot-links { display: flex; gap: 20px; flex-wrap: wrap; }
@@ -1121,6 +1130,11 @@
   </section>
 </main>
 
+<div class="ad-wrap" id="adWrap" hidden>
+  <div class="ad-label"><span>Advertisement</span><button type="button" class="linkbtn" id="adRemove">Remove ads with Pro</button></div>
+  <div id="adSlot"></div>
+</div>
+
 <footer>
   <div class="foot-in">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -1133,6 +1147,7 @@
       <a id="careersLink" href="https://www.linkedin.com/company/bonbon-labs" target="_blank" rel="noopener noreferrer">Careers<svg class="i"><use href="#i-external"/></svg></a>
       <button data-info="support">Support</button>
       <button data-info="privacy">Privacy Policy</button>
+      <button id="adChoices" hidden>Ad choices</button>
       <button data-info="terms">Terms of Service</button>
       <button data-info="credits">Credits</button>
       <a id="sourceLink" href="https://github.com/BonBonLabs/imglop" target="_blank" rel="noopener noreferrer">Source code (AGPL-3.0)<svg class="i"><use href="#i-external"/></svg></a>
@@ -1140,6 +1155,14 @@
     </div>
   </div>
 </footer>
+
+<div class="consent" id="consent" role="dialog" aria-label="Ads and cookies" hidden>
+  <p><b style="color:var(--text)">Ads keep imgLop's free tools free.</b> Your photos, PDFs and text never leave your device and are never shared with advertisers. Ad partners may use cookies to show ads; you choose which kind. Pro removes ads entirely.</p>
+  <div class="row">
+    <button type="button" class="btn primary" id="consentYes">Allow personalized ads</button>
+    <button type="button" class="btn" id="consentNo">Non-personalized only</button>
+  </div>
+</div>
 
 <!-- Modals -->
 <div class="modal" id="proModal" hidden role="dialog" aria-modal="true" aria-labelledby="proTitle">
@@ -1331,7 +1354,7 @@
     about: ['About BonBon Labs', '<p>BonBon Labs is an American-based company with operations in Cambodia. We build simple, fast online tools that make everyday creative and document work easier.</p><p>imgLop now officially provides <b>AI background removal, image editing, client-side PDF document formatting, and QR code utility generation</b>.</p><p>Our PDF and QR tools run entirely inside your browser, so your files, links and text stay on your device. Questions or feedback? We would love to hear from you.</p><code>bonbonlabs.app@gmail.com</code>'],
     credits: ['Open-source credits & licenses', '<p>imgLop is free software: you can redistribute and modify it under the terms of the <b>GNU Affero General Public License v3.0</b>. The complete source code is available from the “Source code” link in the footer.</p><p><b>AI background removal:</b> the <b>u2netp</b> model (from <b>U²-Net</b> by Xuebin Qin et al., Apache-2.0), packaged for ONNX by the <b>rembg</b> project (MIT), run in your browser with <b>ONNX Runtime Web</b> (MIT).</p><p><b>PDF creation:</b> pdf-lib (MIT). <b>QR codes:</b> qrcode / node-qrcode (MIT). <b>HEIC conversion:</b> heic2any (MIT), which bundles libheif and libde265 (LGPL-3.0).</p><p><b>Fonts:</b> Inter, Instrument Serif and Kantumruy Pro, licensed under the SIL Open Font License 1.1.</p><p>Thank you to the authors of all of these open-source projects. Full notices are in THIRD_PARTY_NOTICES.md in the source repository.</p>'],
     support: ['Customer Support', '<p>Have questions or need help with your image processing? Reach our team anytime.</p><code>bonbonlabs.app@gmail.com</code>'],
-    privacy: ['Privacy Policy', '<p>At imgLop, your privacy is our top priority. Photos uploaded to our workspace are processed using local client-side WebAssembly models or transient processing slots.</p><p><b>Your files stay on your device.</b> Our Image-to-PDF and QR code tools run entirely within your browser, and your images, PDFs, text and links are not uploaded to our servers for these features.</p><p><b>Accounts and subscriptions.</b> The free tools do not require an account. To subscribe to Pro you create an account with your email address and a password. When you subscribe, Stripe collects and processes your email address, billing details and payment information; we do not store your full card number. We store a license record for your account, which includes your email address, account ID, plan (monthly or yearly), subscription status and renewal date, so that we can recognize your subscription when you sign in.</p><p>We do not sell your personal information, and we do not store, catalog, or share the photos, documents, text or links you process. Preferences, credit counters and your sign-in session are stored in your browser. Our pages load open-source libraries from a public content delivery network, which delivers code to your browser and does not receive your files or text.</p><p>You can ask us to delete your account and license record at any time by emailing bonbonlabs.app@gmail.com. We may keep limited records where needed for tax, accounting or legal purposes; Stripe also keeps payment records under its own policy.</p>'],
+    privacy: ['Privacy Policy', '<p>At imgLop, your privacy is our top priority. Photos uploaded to our workspace are processed using local client-side WebAssembly models or transient processing slots.</p><p><b>Your files stay on your device.</b> Our Image-to-PDF and QR code tools run entirely within your browser, and your images, PDFs, text and links are not uploaded to our servers for these features.</p><p><b>Accounts and subscriptions.</b> The free tools do not require an account. To subscribe to Pro you create an account with your email address and a password. When you subscribe, Stripe collects and processes your email address, billing details and payment information; we do not store your full card number. We store a license record for your account, which includes your email address, account ID, plan (monthly or yearly), subscription status and renewal date, so that we can recognize your subscription when you sign in.</p><p>We do not sell your personal information, and we do not store, catalog, or share the photos, documents, text or links you process. Preferences, credit counters and your sign-in session are stored in your browser. Our pages load open-source libraries from a public content delivery network, which delivers code to your browser and does not receive your files or text.</p><p><b>Advertising.</b> The free version of imgLop may show ads, served by third-party ad partners such as Google AdSense. These partners may use cookies or similar technologies to show and measure ads, and you can choose personalized or non-personalized ads, and change that choice any time with the “Ad choices” link in the footer. Ad partners never receive the photos, documents, text or links you process. Pro subscribers see no ads and no ad scripts are loaded for them.</p><p>You can ask us to delete your account and license record at any time by emailing bonbonlabs.app@gmail.com. We may keep limited records where needed for tax, accounting or legal purposes; Stripe also keeps payment records under its own policy.</p>'],
     terms: ['Terms of Service', '<p>imgLop, a product of BonBon Labs, provides AI background removal, image editing, client-side PDF document formatting, and QR code utility generation (together, the “Services”). By using the Services, you agree to these terms.</p><p><b>Acceptable use.</b> You agree not to upload, convert or encode illegal, harmful, or copyright-infringing content, and not to use the QR code generator to mislead, harass, or direct people to unlawful or malicious destinations. You are responsible for the content you process and for the links and text you encode.</p><p><b>Your files stay in your browser.</b> Our PDF formatting and QR code generation features run entirely within your browser. Your images, documents, text and links are not uploaded to or stored on our servers for these features.</p><p><b>Accounts.</b> The free tools do not require an account. A Pro subscription requires an account. You must provide a valid email address, keep your sign-in details secure, and you are responsible for activity under your account. A subscription is for your own use, and we may suspend accounts used to resell or widely share access.</p><p><b>Subscriptions and renewal.</b> Pro is offered as a monthly ($4.99) or yearly ($39.99) subscription, as shown at checkout. Subscriptions renew automatically at the end of each billing period, for the same period and at the then-current price, until you cancel. Payments are processed by Stripe.</p><p><b>Cancellation.</b> You can cancel at any time from Account → Manage subscription. Cancelling stops future renewals. You keep Pro until the end of the period you have already paid for, after which your account returns to the free plan.</p><p><b>Refunds.</b> Subscription fees are generally non-refundable, and we do not provide partial refunds for unused time. If you were charged in error, or for a renewal you did not intend, contact bonbonlabs.app@gmail.com within 14 days of the charge and we will review your request. Nothing in these terms limits any refund or cancellation rights you have under applicable law.</p><p><b>Price changes and taxes.</b> We may change prices for future billing periods and will give notice before a change takes effect. Displayed prices may exclude applicable taxes such as VAT, GST or sales tax, which are calculated and shown at checkout based on your location.</p><p><b>No warranty.</b> The Services are provided "as is" without warranty of any kind. We cannot guarantee that every generated QR code will scan on every device, so please test important codes before printing or publishing them. Free AI background-removal credits are subject to fair-usage policies and reset daily; PDF conversion and QR generation are free for basic use.</p>']
   };
   let lastFocus = null;
@@ -2645,7 +2668,47 @@
       ? '<svg class="i"><use href="#i-user"/></svg><span>Account</span>' + (pro ? '<span class="badge">PRO</span>' : '')
       : '<svg class="i"><use href="#i-crown"/></svg><span>Go Pro</span>';
     if (B.items.length) updateBatchHead();
+    updateAds();
   }
+
+  // ---- Ads (Google AdSense-ready). OFF until you set enabled:true and fill in client + slot. ----
+  // Only free users see ads. Pro users never load the ad script. Files you process never touch the ad code.
+  const ADS = { enabled: false, client: 'ca-pub-XXXXXXXXXXXXXXXX', slot: 'XXXXXXXXXX' };
+  let adsLoaded = false;
+  const adChoice = () => store.get('imgLop_adc'); // 'p' personalized, 'n' non-personalized
+  function loadAds() {
+    if (adsLoaded || !ADS.enabled || isPro() || !adChoice()) return;
+    adsLoaded = true;
+    window.adsbygoogle = window.adsbygoogle || [];
+    if (adChoice() === 'n') window.adsbygoogle.requestNonPersonalizedAds = 1;
+    const sc = document.createElement('script');
+    sc.async = true; sc.crossOrigin = 'anonymous';
+    sc.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + encodeURIComponent(ADS.client);
+    sc.onload = () => {
+      const ins = document.createElement('ins');
+      ins.className = 'adsbygoogle'; ins.style.display = 'block';
+      ins.dataset.adClient = ADS.client; ins.dataset.adSlot = ADS.slot;
+      ins.dataset.adFormat = 'auto'; ins.dataset.fullWidthResponsive = 'true';
+      $('#adSlot').appendChild(ins);
+      try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    };
+    document.head.appendChild(sc);
+  }
+  // Add ?adpreview=1 to the address to see where the ad slot and consent prompt appear (no real ads load).
+  let adPreview = false;
+  try { adPreview = new URLSearchParams(location.search).get('adpreview') === '1'; } catch (e) {}
+  function updateAds() {
+    const show = (ADS.enabled || adPreview) && !isPro();
+    $('#adWrap').hidden = !(show && adChoice());
+    $('#adChoices').hidden = !show;
+    $('#consent').hidden = !(show && !adChoice());
+    if (adPreview) { const sl = $('#adSlot'); if (!sl.firstChild) sl.innerHTML = '<div style="display:grid;place-items:center;min-height:100px;color:var(--muted);font-size:13px">Ad preview: a real ad would appear here</div>'; return; }
+    if (show && adChoice()) loadAds();
+  }
+  $('#consentYes').addEventListener('click', () => { store.set('imgLop_adc', 'p'); updateAds(); });
+  $('#consentNo').addEventListener('click', () => { store.set('imgLop_adc', 'n'); updateAds(); });
+  $('#adChoices').addEventListener('click', () => { store.set('imgLop_adc', ''); $('#adWrap').hidden = true; $('#consent').hidden = false; });
+  $('#adRemove').addEventListener('click', () => $('#proBtn').click());
 
   let authMode = 'signup';
   function setAuthMode(m) {
