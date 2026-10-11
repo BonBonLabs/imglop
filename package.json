@@ -1,0 +1,17 @@
+{
+  "name": "imglop",
+  "version": "1.0.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "description": "imgLop: browser-based background remover, Image-to-PDF and QR tools",
+  "scripts": { "vendor": "node scripts/vendor.mjs" },
+  "devDependencies": {
+    "@fontsource/inter": "5.1.0",
+    "@fontsource/instrument-serif": "5.1.0",
+    "@fontsource/kantumruy-pro": "5.1.0",
+    "heic2any": "0.0.4",
+    "onnxruntime-web": "1.20.1",
+    "pdf-lib": "1.17.1",
+    "qrcode": "1.5.3"
+  }
+}
