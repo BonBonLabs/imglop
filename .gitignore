@@ -1,0 +1,11 @@
+# secrets: never commit these
+.env
+.env.*
+!.env.example
+.dev.vars
+*.pem
+*.key
+# tooling
+node_modules/
+.wrangler/
+.DS_Store
