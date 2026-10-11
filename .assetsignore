@@ -1,0 +1,8 @@
+wrangler.jsonc
+.assetsignore
+.gitignore
+.gitattributes
+.env.example
+package.json
+README.md
+scripts/
