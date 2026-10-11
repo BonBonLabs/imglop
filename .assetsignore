@@ -4,5 +4,11 @@ wrangler.jsonc
 .gitattributes
 .env.example
 package.json
+package-lock.json
+bun.lock
+bun.lockb
 README.md
 scripts/
+node_modules
+.git
+.wrangler
