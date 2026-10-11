@@ -6,11 +6,11 @@
 <title>imgLop — AI Background Remover, Image-to-PDF &amp; QR Code Generator</title>
 <meta name="description" content="Remove image backgrounds with AI, convert images to PDF and create custom QR codes — free, private and 100% in your browser. Erase &amp; restore brushes, HEIC support, no sign-up needed for the free tools.">
 <meta name="keywords" content="background remover, free image background removal, transparent PNG, HEIC converter, image to PDF, JPG to PDF, QR code generator, custom QR code, ecommerce product photo editor">
-<link rel="canonical" href="https://imglop.com/">
+<link rel="canonical" href="https://imglop.app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="imgLop — Background Remover, Image-to-PDF &amp; QR Generator">
 <meta property="og:description" content="AI background removal, image-to-PDF and custom QR codes — all processed privately in your browser. Free to start.">
-<meta property="og:url" content="https://imglop.com/">
+<meta property="og:url" content="https://imglop.app/">
 <meta property="og:site_name" content="imgLop">
 <meta name="theme-color" content="#e11d48">
 <meta name="author" content="BonBon Labs">
@@ -26,7 +26,7 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.com/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Client-side image-to-PDF converter","Custom QR code generator"]}
+{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Client-side image-to-PDF converter","Custom QR code generator"]}
 </script>
 
 <script>
@@ -941,7 +941,7 @@
         <div class="qr-grid">
           <div class="qr-form">
             <label class="field">Text or URL
-              <textarea id="qrText" rows="4" maxlength="1000" placeholder="https://imglop.com" spellcheck="false">https://imglop.com</textarea></label>
+              <textarea id="qrText" rows="4" maxlength="1000" placeholder="https://imglop.app" spellcheck="false">https://imglop.app</textarea></label>
             <div class="row2">
               <div class="field"><span>Foreground color</span>
                 <div class="colorfield"><input type="color" id="qrFg" value="#14141f" aria-label="Foreground color"><input type="text" id="qrFgHex" value="#14141F" maxlength="7" spellcheck="false" aria-label="Foreground hex"></div></div>
@@ -2644,7 +2644,7 @@
   try {
     const dm = ALLOW_DEMO_FLAG ? new URLSearchParams(location.search).get('demo') : '';
     if (dm === 'account' || dm === 'free') {
-      AUTH.session = { demo: true, token: 'demo', email: 'demo@imglop.com', plan: dm === 'account' ? 'pro' : 'free',
+      AUTH.session = { demo: true, token: 'demo', email: 'demo@imglop.app', plan: dm === 'account' ? 'pro' : 'free',
         status: dm === 'account' ? 'active' : '', renewsAt: dm === 'account' ? new Date(Date.now() + 30 * 864e5).toISOString() : '' };
     }
   } catch (e) {}
