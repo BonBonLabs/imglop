@@ -32,7 +32,7 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Client-side image-to-PDF converter","Custom QR code generator"]}
+{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Client-side image-to-PDF converter","Custom QR code generator"]}
 </script>
 
 <script>
@@ -568,7 +568,7 @@
   details[open] summary .i { transform: rotate(180deg); }
   details p { margin: 0; padding: 0 20px 18px; color: var(--muted); font-size: 14.5px; }
 
-  /* Ads (free users only; hidden for Pro and while ADS.enabled is false) */
+  /* Ads (free users only; hidden for imgLop Pro and while ADS.enabled is false) */
   .ad-wrap { max-width: 980px; margin: 48px auto 0; padding: 0 20px; }
   .ad-label { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: flex; gap: 8px; align-items: center; justify-content: space-between; }
   .ad-label .linkbtn { font-size: 11px; text-transform: none; letter-spacing: 0; }
@@ -577,6 +577,12 @@
   .consent[hidden] { display: none; }
   .consent p { margin: 0 0 12px; color: var(--muted); }
   .consent .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .flags { display: inline-flex; gap: 7px; align-items: center; margin-left: 4px; }
+  .flag { display: inline-block; line-height: 0; }
+  .flag svg, svg.flag-i { width: 27px; height: 18px; border-radius: 3px; box-shadow: 0 0 0 1px var(--border); display: inline-block; vertical-align: -4px; }
+  .roots { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .roots li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+  .roots svg.flag-i { flex: none; margin-top: 3px; }
   .foot-social { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 13px; }
   .foot-social > span { color: var(--muted); }
   footer .foot-social a { width: 38px; height: 38px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--text); text-decoration: none; background: var(--surface); border: 1px solid var(--border); transition: transform .2s, border-color .2s, color .2s, background .2s; }
@@ -721,7 +727,7 @@
       <button class="icon-btn theme" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
         <svg class="i moon"><use href="#i-moon"/></svg><svg class="i sun"><use href="#i-sun"/></svg>
       </button>
-      <button class="btn primary sm" id="proBtn"><svg class="i"><use href="#i-crown"/></svg><span id="proBtnLabel">Go Pro</span></button>
+      <button class="btn primary sm" id="proBtn"><svg class="i"><use href="#i-crown"/></svg><span id="proBtnLabel">imgLop Pro</span></button>
     </div>
   </div>
 </header>
@@ -756,7 +762,7 @@
           <div class="tools">
             <button type="button" class="btn sm" id="batchStop" hidden>Stop</button>
             <button type="button" class="btn sm" id="batchPdf" disabled><svg class="i"><use href="#i-file"/></svg>Send all to PDF</button>
-            <button type="button" class="btn primary sm" id="batchZip" disabled><svg class="i"><use href="#i-download"/></svg>Download all (ZIP)<span class="badge" id="batchZipPro">Pro</span></button>
+            <button type="button" class="btn primary sm" id="batchZip" disabled><svg class="i"><use href="#i-download"/></svg>Download all (ZIP)<span class="badge" id="batchZipPro">imgLop Pro</span></button>
             <button type="button" class="btn ghost sm" id="batchNew"><svg class="i"><use href="#i-plus"/></svg>New batch</button>
           </div>
         </div>
@@ -897,7 +903,7 @@
 
       <div class="upsell">
         <div><strong>Want pixel-perfect edges?</strong>Brush tools, unlimited batches + ZIP, Ultra HD, no ads.</div>
-        <button class="btn sm" id="proBtn2">Go Pro</button>
+        <button class="btn sm" id="proBtn2">Get imgLop Pro</button>
       </div>
     </aside>
   </section>
@@ -1048,12 +1054,12 @@
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-spark"/></svg></div><h3>AI neural precision</h3><p>Picks up hair, fur, glass and intricate edges automatically, in seconds.</p></div>
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-phone"/></svg></div><h3>iPhone HEIC support</h3><p>Drop HEIC/HEIF photos straight in — they're decoded for you, no converter needed.</p></div>
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-shield"/></svg></div><h3>Private &amp; client-side</h3><p>Processing happens in your browser whenever possible. Your images aren't stored or reused.</p></div>
-      <div class="feature"><div class="ic"><svg class="i"><use href="#i-eraser"/></svg></div><h3>Erase &amp; restore brushes <span class="badge">Pro</span></h3><p>Paint away leftover background or bring back lost detail, with adjustable size and softness plus undo and redo.</p></div>
-      <div class="feature"><div class="ic"><svg class="i"><use href="#i-wand"/></svg></div><h3>Magic erase <span class="badge">Pro</span></h3><p>One click clears stubborn leftovers such as the inside of letters, logos and holes. Fine-tune it with tolerance.</p></div>
+      <div class="feature"><div class="ic"><svg class="i"><use href="#i-eraser"/></svg></div><h3>Erase &amp; restore brushes <span class="badge">imgLop Pro</span></h3><p>Paint away leftover background or bring back lost detail, with adjustable size and softness plus undo and redo.</p></div>
+      <div class="feature"><div class="ic"><svg class="i"><use href="#i-wand"/></svg></div><h3>Magic erase <span class="badge">imgLop Pro</span></h3><p>One click clears stubborn leftovers such as the inside of letters, logos and holes. Fine-tune it with tolerance.</p></div>
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-split"/></svg></div><h3>Compare, crop &amp; export</h3><p>Slide between before and after, crop to any ratio, and save a transparent PNG or a JPG with your chosen backdrop.</p></div>
-      <div class="feature"><div class="ic"><svg class="i"><use href="#i-layers"/></svg></div><h3>Batch cutouts <span class="badge">Pro ZIP</span></h3><p>Drop up to 40 photos at once. Free users batch up to their remaining daily credits; Pro is unlimited with a one-click ZIP download.</p></div>
+      <div class="feature"><div class="ic"><svg class="i"><use href="#i-layers"/></svg></div><h3>Batch cutouts <span class="badge">imgLop Pro ZIP</span></h3><p>Drop up to 40 photos at once. Free users batch up to their remaining daily credits; imgLop Pro is unlimited with a one-click ZIP download.</p></div>
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-file"/></svg></div><h3>Cutout-to-PDF workflow</h3><p>Send any finished cutout, or a whole batch, straight into the PDF tool with no re-uploading.</p></div>
-      <div class="feature"><div class="ic"><svg class="i"><use href="#i-bolt"/></svg></div><h3>No watermark, no sign-up to start</h3><p>Use the free tools without creating an account. An account is only needed for Pro.</p></div>
+      <div class="feature"><div class="ic"><svg class="i"><use href="#i-bolt"/></svg></div><h3>No watermark, no sign-up to start</h3><p>Use the free tools without creating an account. An account is only needed for imgLop Pro.</p></div>
     </div>
     <div class="group-label"><svg class="i"><use href="#i-file"/></svg>Document Suite &amp; Quick Utilities <span class="badge">New</span></div>
     <div class="spotlights">
@@ -1086,7 +1092,7 @@
     <div class="section-head">
       <small>Pricing</small>
       <h2>Simple pricing. Start free.</h2>
-      <p>PDF and QR tools are free and unlimited. Go Pro for unlimited AI cutouts and the brush tools.</p>
+      <p>PDF and QR tools are free and unlimited. Get imgLop Pro for unlimited AI cutouts and the brush tools.</p>
     </div>
     <div class="billing" data-plan-toggle data-plan="monthly" role="group" aria-label="Billing period">
       <span class="thumb" aria-hidden="true"></span>
@@ -1108,7 +1114,7 @@
       </div>
       <div class="plan pro">
         <span class="pop">Most popular</span>
-        <h3>Pro</h3>
+        <h3>imgLop Pro</h3>
         <div class="amt"><b data-price>$4.99</b> <span data-per>/ month</span></div>
         <small data-note>Billed monthly</small>
         <ul>
@@ -1119,10 +1125,10 @@
           <li><svg class="i"><use href="#i-check"/></svg>Ad-free experience</li>
           <li><svg class="i"><use href="#i-check"/></svg>Account required · sign in on any device</li>
         </ul>
-        <button type="button" class="btn primary block" data-open-pro><svg class="i"><use href="#i-crown"/></svg>Go Pro</button>
+        <button type="button" class="btn primary block" data-open-pro><svg class="i"><use href="#i-crown"/></svg>Get imgLop Pro</button>
       </div>
     </div>
-    <p class="cmp-note">Pro requires an account (your email). Prices exclude applicable taxes, which are calculated at checkout.</p>
+    <p class="cmp-note">imgLop Pro requires an account (your email). Prices exclude applicable taxes, which are calculated at checkout.</p>
   </section>
 
   <section class="section" id="compare-table">
@@ -1136,7 +1142,7 @@
         <thead><tr><th>Feature</th><th class="us">imgLop</th><th>Canva Pro</th><th>Adobe Photoshop</th></tr></thead>
         <tbody>
           <tr><th scope="row">Full-resolution HD download</th><td class="us"><svg class="i"><use href="#i-check"/></svg>Free daily</td><td>Subscription needed</td><td>Subscription needed</td></tr>
-          <tr><th scope="row">No sign-up for free tools</th><td class="us"><svg class="i"><use href="#i-check"/></svg>Yes (account only for Pro)</td><td>No</td><td>No</td></tr>
+          <tr><th scope="row">No sign-up for free tools</th><td class="us"><svg class="i"><use href="#i-check"/></svg>Yes (account only for imgLop Pro)</td><td>No</td><td>No</td></tr>
           <tr><th scope="row">Direct iPhone HEIC support</th><td class="us"><svg class="i"><use href="#i-check"/></svg>Native</td><td>Limited</td><td>Yes</td></tr>
           <tr><th scope="row">In-browser crop &amp; brush editing tools</th><td class="us"><svg class="i"><use href="#i-check"/></svg>Included</td><td>Included</td><td>Complex</td></tr>
           <tr><th scope="row">Client-side PDF compilation</th><td class="us"><svg class="i"><use href="#i-check"/></svg>Included · 100% in-browser</td><td>Account + cloud export</td><td>Manual, multi-step</td></tr>
@@ -1157,28 +1163,29 @@
       <details><summary>Can I edit iPhone HEIC photos?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Absolutely. HEIC/HEIF files are decoded automatically so you can cut them out and download as PNG or JPG.</p></details>
       <details><summary>What can the brush tools do?<svg class="i"><use href="#i-chevron"/></svg></summary><p>After the AI removes the background, open Refine to erase leftover pieces, restore details that were removed by mistake, or use Magic erase to clear enclosed areas such as the inside of an “O”. You can undo and redo every edit.</p></details>
       <details><summary>Is there a daily limit?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Free guests get 5 full-resolution credits every day. This limit only applies to AI background removal — PDF conversion and QR generation have no daily limit. Upgrade to imgLop Pro for $4.99/month or $39.99/year for unlimited cutouts. Credits reset at midnight in your time zone, and brush tools, crop and downloads never use credits (and neither do failed removals).</p></details>
-      <details><summary>What does Pro include?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Pro ($4.99/month, or $39.99/year — about 33% less) includes unlimited cutouts and batches with ZIP download, the erase, restore and Magic erase brush tools, Ultra HD downloads, priority AI processing and an ad-free experience.</p></details>
+      <details><summary>What does imgLop Pro include?<svg class="i"><use href="#i-chevron"/></svg></summary><p>imgLop Pro ($4.99/month, or $39.99/year — about 33% less) includes unlimited cutouts and batches with ZIP download, the erase, restore and Magic erase brush tools, Ultra HD downloads, priority AI processing and an ad-free experience.</p></details>
       <details><summary>Is the Image-to-PDF converter free and unlimited?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Converting images to PDF is free for basic use with no daily limit. Everything is compiled locally in your browser, so your files are never uploaded to our servers.</p></details>
       <details><summary>Is the QR code generator free and private?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Create as many QR codes as you like, pick your own colors and download a PNG. Your text or link is processed 100% in your browser and never sent to our servers.</p></details>
       <details><summary>Do the PDF and QR tools need an account or software?<svg class="i"><use href="#i-chevron"/></svg></summary><p>No. They run right in your browser with nothing to install and no sign-up.</p></details>
-      <details><summary>Can I remove backgrounds from many photos at once?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Drop up to 40 photos to run a batch. Free users can batch up to their remaining daily credits, and Pro has unlimited batches plus a one-click “Download all as ZIP”. Everything is processed in your browser.</p></details>
-      <details><summary>Do I need an account for Pro?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. The free tools never need an account, but Pro requires creating one with your email so your subscription is tied to you and works on any device. Your photos, PDFs and QR text still never leave your browser.</p></details>
-      <details><summary>How do I cancel, and what is the refund policy?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Cancel any time from Account → Manage subscription. Cancelling stops the next renewal and you keep Pro until the end of the period you have paid for. Fees are generally non-refundable, but if you were charged in error, contact support within 14 days and we will review it. See the Terms of Service for details.</p></details>
+      <details><summary>Can I remove backgrounds from many photos at once?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Drop up to 40 photos to run a batch. Free users can batch up to their remaining daily credits, and imgLop Pro has unlimited batches plus a one-click “Download all as ZIP”. Everything is processed in your browser.</p></details>
+      <details><summary>Do I need an account for imgLop Pro?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. The free tools never need an account, but imgLop Pro requires creating one with your email so your subscription is tied to you and works on any device. Your photos, PDFs and QR text still never leave your browser.</p></details>
+      <details><summary>How do I cancel, and what is the refund policy?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Cancel any time from Account → Manage subscription. Cancelling stops the next renewal and you keep imgLop Pro until the end of the period you have paid for. Fees are generally non-refundable, but if you were charged in error, contact support within 14 days and we will review it. See the Terms of Service for details.</p></details>
       <details><summary>Are taxes included in the price?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Prices exclude applicable taxes such as VAT, GST or sales tax. Where they apply, they are calculated and shown at checkout based on your location.</p></details>
     </div>
   </section>
 </main>
 
 <div class="ad-wrap" id="adWrap" hidden>
-  <div class="ad-label"><span>Advertisement</span><button type="button" class="linkbtn" id="adRemove">Remove ads with Pro</button></div>
+  <div class="ad-label"><span>Advertisement</span><button type="button" class="linkbtn" id="adRemove">Remove ads with imgLop Pro</button></div>
   <div id="adSlot"></div>
 </div>
 
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="flag-us" viewBox="0 0 30 20"><rect width="30" height="20" fill="#b22234"/><rect y="1.538" width="30" height="1.538" fill="#fff"/><rect y="4.615" width="30" height="1.538" fill="#fff"/><rect y="7.692" width="30" height="1.538" fill="#fff"/><rect y="10.769" width="30" height="1.538" fill="#fff"/><rect y="13.846" width="30" height="1.538" fill="#fff"/><rect y="16.923" width="30" height="1.538" fill="#fff"/><rect width="12" height="10.769" fill="#3c3b6e"/><circle cx="1.20" cy="1.35" r=".55" fill="#fff"/><circle cx="3.60" cy="1.35" r=".55" fill="#fff"/><circle cx="6.00" cy="1.35" r=".55" fill="#fff"/><circle cx="8.40" cy="1.35" r=".55" fill="#fff"/><circle cx="10.80" cy="1.35" r=".55" fill="#fff"/><circle cx="1.20" cy="3.90" r=".55" fill="#fff"/><circle cx="3.60" cy="3.90" r=".55" fill="#fff"/><circle cx="6.00" cy="3.90" r=".55" fill="#fff"/><circle cx="8.40" cy="3.90" r=".55" fill="#fff"/><circle cx="10.80" cy="3.90" r=".55" fill="#fff"/><circle cx="1.20" cy="6.45" r=".55" fill="#fff"/><circle cx="3.60" cy="6.45" r=".55" fill="#fff"/><circle cx="6.00" cy="6.45" r=".55" fill="#fff"/><circle cx="8.40" cy="6.45" r=".55" fill="#fff"/><circle cx="10.80" cy="6.45" r=".55" fill="#fff"/><circle cx="1.20" cy="9.00" r=".55" fill="#fff"/><circle cx="3.60" cy="9.00" r=".55" fill="#fff"/><circle cx="6.00" cy="9.00" r=".55" fill="#fff"/><circle cx="8.40" cy="9.00" r=".55" fill="#fff"/><circle cx="10.80" cy="9.00" r=".55" fill="#fff"/></symbol><symbol id="flag-uk" viewBox="0 0 60 30" preserveAspectRatio="none"><clipPath id="flag-uk-c"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#flag-uk-c)" stroke="#c8102e" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#c8102e" stroke-width="6"/></symbol><symbol id="flag-kh" viewBox="0 0 30 20"><rect width="30" height="20" fill="#032ea1"/><rect y="5" width="30" height="10" fill="#e00025"/><g fill="#fff"><rect x="8.6" y="12.6" width="12.8" height="1.1"/><rect x="9.6" y="11.2" width="10.8" height="1.2"/><path d="M15 5.2 L16.5 8 L16.5 11.2 L13.5 11.2 L13.5 8Z"/><path d="M11.9 7.6 L13 9.2 L13 11.2 L10.8 11.2 L10.8 9.2Z"/><path d="M18.1 7.6 L19.2 9.2 L19.2 11.2 L17 11.2 L17 9.2Z"/><path d="M9.2 9.2 L10 10.3 L10 11.2 L8.4 11.2 L8.4 10.3Z"/><path d="M20.8 9.2 L21.6 10.3 L21.6 11.2 L20 11.2 L20 10.3Z"/></g></symbol></svg>
 <footer>
   <div class="foot-in">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
       <span class="logo" style="width:28px;height:28px;border-radius:9px;font-size:14px"><svg class="i"><use href="#i-scissors"/></svg></span>
-      <b style="color:var(--text)">imgLop</b><span style="font-family:var(--khmer)">រូបភាព លុប</span><span>© 2026 BonBon Labs. All rights reserved.</span>
+      <b style="color:var(--text)">imgLop</b><span style="font-family:var(--khmer)">រូបភាព លុប</span><span>© 2026 BonBon Labs. All rights reserved.</span><span class="flags" role="group" aria-label="United States, United Kingdom and Cambodia"><span class="flag" title="United States"><svg aria-hidden="true"><use href="#flag-us"/></svg></span><span class="flag" title="United Kingdom"><svg aria-hidden="true"><use href="#flag-uk"/></svg></span><span class="flag" title="Cambodia"><svg aria-hidden="true"><use href="#flag-kh"/></svg></span></span>
     </div>
     <div class="foot-links">
       <button data-info="about">About</button>
@@ -1197,7 +1204,7 @@
 </footer>
 
 <div class="consent" id="consent" role="dialog" aria-label="Ads and cookies" hidden>
-  <p><b style="color:var(--text)">Ads keep imgLop's free tools free.</b> Your photos, PDFs and text never leave your device and are never shared with advertisers. Ad partners may use cookies to show ads; you choose which kind. Pro removes ads entirely.</p>
+  <p><b style="color:var(--text)">Ads keep imgLop's free tools free.</b> Your photos, PDFs and text never leave your device and are never shared with advertisers. Ad partners may use cookies to show ads; you choose which kind. imgLop Pro removes ads entirely.</p>
   <div class="row">
     <button type="button" class="btn primary" id="consentYes">Allow personalized ads</button>
     <button type="button" class="btn" id="consentNo">Non-personalized only</button>
@@ -1251,7 +1258,7 @@
         <p class="warn" id="authErr" hidden></p>
         <button type="submit" class="btn primary block" id="authSubmit">Create account &amp; continue</button>
       </form>
-      <p class="authnote">The free tools never need an account. Pro uses your email to attach your subscription to you, so you can sign in on any device.</p>
+      <p class="authnote">The free tools never need an account. imgLop Pro uses your email to attach your subscription to you, so you can sign in on any device.</p>
     </div>
 
     <div id="authForgot" hidden>
@@ -1391,11 +1398,11 @@
 
   /* ───────── Modals ───────── */
   const INFO = {
-    about: ['About BonBon Labs', '<p>BonBon Labs is an American-based company with operations in Cambodia. We build simple, fast online tools that make everyday creative and document work easier.</p><p>imgLop now officially provides <b>AI background removal, image editing, client-side PDF document formatting, and QR code utility generation</b>.</p><p>Our PDF and QR tools run entirely inside your browser, so your files, links and text stay on your device. Questions or feedback? We would love to hear from you.</p><code>bonbonlabs.app@gmail.com</code>'],
+    about: ['About BonBon Labs', '<p>BonBon Labs is an American company with operational branches in the United Kingdom and Cambodia. We build simple, fast online tools that make everyday creative and document work easier.</p><p>imgLop now officially provides <b>AI background removal, image editing, client-side PDF document formatting, and QR code utility generation</b>.</p><p>Our PDF and QR tools run entirely inside your browser, so your files, links and text stay on your device. Questions or feedback? We would love to hear from you.</p><code>bonbonlabs.app@gmail.com</code>'],
     credits: ['Open-source credits & licenses', '<p>imgLop is free software: you can redistribute and modify it under the terms of the <b>GNU Affero General Public License v3.0</b>. The complete source code is available from the “Source code” link in the footer.</p><p><b>AI background removal:</b> the <b>u2netp</b> model (from <b>U²-Net</b> by Xuebin Qin et al., Apache-2.0), packaged for ONNX by the <b>rembg</b> project (MIT), run in your browser with <b>ONNX Runtime Web</b> (MIT).</p><p><b>PDF creation:</b> pdf-lib (MIT). <b>QR codes:</b> qrcode / node-qrcode (MIT). <b>HEIC conversion:</b> heic2any (MIT), which bundles libheif and libde265 (LGPL-3.0).</p><p><b>Fonts:</b> Inter, Instrument Serif and Kantumruy Pro, licensed under the SIL Open Font License 1.1.</p><p>Thank you to the authors of all of these open-source projects. Full notices are in THIRD_PARTY_NOTICES.md in the source repository.</p>'],
     support: ['Customer Support', '<p>Have questions or need help with your image processing? Reach our team anytime.</p><code>bonbonlabs.app@gmail.com</code>'],
-    privacy: ['Privacy Policy', '<p>At imgLop, your privacy is our top priority. Photos uploaded to our workspace are processed using local client-side WebAssembly models or transient processing slots.</p><p><b>Your files stay on your device.</b> Our Image-to-PDF and QR code tools run entirely within your browser, and your images, PDFs, text and links are not uploaded to our servers for these features.</p><p><b>Accounts and subscriptions.</b> The free tools do not require an account. To subscribe to Pro you create an account with your email address and a password. When you subscribe, Stripe collects and processes your email address, billing details and payment information; we do not store your full card number. We store a license record for your account, which includes your email address, account ID, plan (monthly or yearly), subscription status and renewal date, so that we can recognize your subscription when you sign in.</p><p>We do not sell your personal information, and we do not store, catalog, or share the photos, documents, text or links you process. Preferences, credit counters and your sign-in session are stored in your browser. Our pages load open-source libraries from a public content delivery network, which delivers code to your browser and does not receive your files or text.</p><p><b>Advertising.</b> The free version of imgLop may show ads, served by third-party ad partners such as Google AdSense. These partners may use cookies or similar technologies to show and measure ads, and you can choose personalized or non-personalized ads, and change that choice any time with the “Ad choices” link in the footer. Ad partners never receive the photos, documents, text or links you process. Pro subscribers see no ads and no ad scripts are loaded for them.</p><p>You can ask us to delete your account and license record at any time by emailing bonbonlabs.app@gmail.com. We may keep limited records where needed for tax, accounting or legal purposes; Stripe also keeps payment records under its own policy.</p>'],
-    terms: ['Terms of Service', '<p>imgLop, a product of BonBon Labs, provides AI background removal, image editing, client-side PDF document formatting, and QR code utility generation (together, the “Services”). By using the Services, you agree to these terms.</p><p><b>Acceptable use.</b> You agree not to upload, convert or encode illegal, harmful, or copyright-infringing content, and not to use the QR code generator to mislead, harass, or direct people to unlawful or malicious destinations. You are responsible for the content you process and for the links and text you encode.</p><p><b>Your files stay in your browser.</b> Our PDF formatting and QR code generation features run entirely within your browser. Your images, documents, text and links are not uploaded to or stored on our servers for these features.</p><p><b>Accounts.</b> The free tools do not require an account. A Pro subscription requires an account. You must provide a valid email address, keep your sign-in details secure, and you are responsible for activity under your account. A subscription is for your own use, and we may suspend accounts used to resell or widely share access.</p><p><b>Subscriptions and renewal.</b> Pro is offered as a monthly ($4.99) or yearly ($39.99) subscription, as shown at checkout. Subscriptions renew automatically at the end of each billing period, for the same period and at the then-current price, until you cancel. Payments are processed by Stripe.</p><p><b>Cancellation.</b> You can cancel at any time from Account → Manage subscription. Cancelling stops future renewals. You keep Pro until the end of the period you have already paid for, after which your account returns to the free plan.</p><p><b>Refunds.</b> Subscription fees are generally non-refundable, and we do not provide partial refunds for unused time. If you were charged in error, or for a renewal you did not intend, contact bonbonlabs.app@gmail.com within 14 days of the charge and we will review your request. Nothing in these terms limits any refund or cancellation rights you have under applicable law.</p><p><b>Price changes and taxes.</b> We may change prices for future billing periods and will give notice before a change takes effect. Displayed prices may exclude applicable taxes such as VAT, GST or sales tax, which are calculated and shown at checkout based on your location.</p><p><b>No warranty.</b> The Services are provided "as is" without warranty of any kind. We cannot guarantee that every generated QR code will scan on every device, so please test important codes before printing or publishing them. Free AI background-removal credits are subject to fair-usage policies and reset daily; PDF conversion and QR generation are free for basic use.</p>']
+    privacy: ['Privacy Policy', '<p>At imgLop, your privacy is our top priority. Photos uploaded to our workspace are processed using local client-side WebAssembly models or transient processing slots.</p><p><b>Your files stay on your device.</b> Our Image-to-PDF and QR code tools run entirely within your browser, and your images, PDFs, text and links are not uploaded to our servers for these features.</p><p><b>Accounts and subscriptions.</b> The free tools do not require an account. To subscribe to imgLop Pro you create an account with your email address and a password. When you subscribe, Stripe collects and processes your email address, billing details and payment information; we do not store your full card number. We store a license record for your account, which includes your email address, account ID, plan (monthly or yearly), subscription status and renewal date, so that we can recognize your subscription when you sign in.</p><p>We do not sell your personal information, and we do not store, catalog, or share the photos, documents, text or links you process. Preferences, credit counters and your sign-in session are stored in your browser. Our pages load open-source libraries from a public content delivery network, which delivers code to your browser and does not receive your files or text.</p><p><b>Advertising.</b> The free version of imgLop may show ads, served by third-party ad partners such as Google AdSense. These partners may use cookies or similar technologies to show and measure ads, and you can choose personalized or non-personalized ads, and change that choice any time with the “Ad choices” link in the footer. Ad partners never receive the photos, documents, text or links you process. imgLop Pro subscribers see no ads and no ad scripts are loaded for them.</p><p>You can ask us to delete your account and license record at any time by emailing bonbonlabs.app@gmail.com. We may keep limited records where needed for tax, accounting or legal purposes; Stripe also keeps payment records under its own policy.</p>'],
+    terms: ['Terms of Service', '<p>imgLop, a product of BonBon Labs, provides AI background removal, image editing, client-side PDF document formatting, and QR code utility generation (together, the “Services”). By using the Services, you agree to these terms.</p><p><b>Acceptable use.</b> You agree not to upload, convert or encode illegal, harmful, or copyright-infringing content, and not to use the QR code generator to mislead, harass, or direct people to unlawful or malicious destinations. You are responsible for the content you process and for the links and text you encode.</p><p><b>Your files stay in your browser.</b> Our PDF formatting and QR code generation features run entirely within your browser. Your images, documents, text and links are not uploaded to or stored on our servers for these features.</p><p><b>Accounts.</b> The free tools do not require an account. An imgLop Pro subscription requires an account. You must provide a valid email address, keep your sign-in details secure, and you are responsible for activity under your account. A subscription is for your own use, and we may suspend accounts used to resell or widely share access.</p><p><b>Subscriptions and renewal.</b> imgLop Pro is offered as a monthly ($4.99) or yearly ($39.99) subscription, as shown at checkout. Subscriptions renew automatically at the end of each billing period, for the same period and at the then-current price, until you cancel. Payments are processed by Stripe.</p><p><b>Cancellation.</b> You can cancel at any time from Account → Manage subscription. Cancelling stops future renewals. You keep imgLop Pro until the end of the period you have already paid for, after which your account returns to the free plan.</p><p><b>Refunds.</b> Subscription fees are generally non-refundable, and we do not provide partial refunds for unused time. If you were charged in error, or for a renewal you did not intend, contact bonbonlabs.app@gmail.com within 14 days of the charge and we will review your request. Nothing in these terms limits any refund or cancellation rights you have under applicable law.</p><p><b>Price changes and taxes.</b> We may change prices for future billing periods and will give notice before a change takes effect. Displayed prices may exclude applicable taxes such as VAT, GST or sales tax, which are calculated and shown at checkout based on your location.</p><p><b>No warranty.</b> The Services are provided "as is" without warranty of any kind. We cannot guarantee that every generated QR code will scan on every device, so please test important codes before printing or publishing them. Free AI background-removal credits are subject to fair-usage policies and reset daily; PDF conversion and QR generation are free for basic use.</p>']
   };
   let lastFocus = null;
   function openModal(id) { if (id === 'proModal' && typeof renderAuthModal === 'function') renderAuthModal(); lastFocus = document.activeElement; const m = $('#' + id); m.hidden = false; const c = $('[data-close]', m); c && c.focus(); }
@@ -1404,7 +1411,7 @@
   $$('[data-close]').forEach(b => b.addEventListener('click', closeModals));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModals(); });
   ['proBtn', 'proBtn2'].forEach(id => $('#' + id).addEventListener('click', () => {
-    $('#proSub').textContent = (typeof AUTH !== 'undefined' && AUTH && AUTH.session) ? 'You’re signed in. Choose a plan to unlock Pro.' : 'Unlock high-volume background removal without limits.';
+    $('#proSub').textContent = (typeof AUTH !== 'undefined' && AUTH && AUTH.session) ? 'You’re signed in. Choose a plan to unlock imgLop Pro.' : 'Unlock high-volume background removal without limits.';
     openModal('proModal');
   }));
   ['tipBtn', 'footTip'].forEach(id => $('#' + id).addEventListener('click', () => openModal('tipModal')));
@@ -1722,7 +1729,7 @@
     if (S.busy || !S.origBlob) return;
     if (cropping) exitCrop(true);
     if (cr.credits <= 0 && !isPro()) {
-      $('#proSub').textContent = 'You’ve used all 5 free credits today. Go Pro for unlimited cutouts.';
+      $('#proSub').textContent = 'You’ve used all 5 free credits today. Get imgLop Pro for unlimited cutouts.';
       openModal('proModal'); toast('Out of free credits for today.', 'error');
       $('#runBtn').hidden = false; setState('ready'); return;
     }
@@ -1965,11 +1972,11 @@
   // Set to false to give the brush tools to every visitor. NOTE: this check runs in the browser,
   // so it is only a placeholder until real accounts + payments (e.g. Stripe + login) exist.
   const REFINE_PRO_ONLY = true;
-  // Testing shortcut: opening the page with ?pro=1 unlocks Pro on that browser. Set to false before launch.
-  const ALLOW_PRO_TEST_FLAG = false; // keep false in production; real Pro status must come from your server
+  // Testing shortcut: opening the page with ?pro=1 unlocks imgLop Pro on that browser. Set to false before launch.
+  const ALLOW_PRO_TEST_FLAG = false; // keep false in production; real imgLop Pro status must come from your server
   let proMem = false;
   try { if (ALLOW_PRO_TEST_FLAG && new URLSearchParams(location.search).get('pro') === '1') { proMem = true; store.set('imgLop_pro', '1'); } } catch (e) {}
-  // Pro = a signed-in account on the Pro plan (see the Accounts section) or the test flag above
+  // imgLop Pro = a signed-in account on the imgLop Pro plan (see the Accounts section) or the test flag above
   const isPro = () => !!(AUTH && AUTH.session && AUTH.session.plan === 'pro') || (ALLOW_PRO_TEST_FLAG && (proMem || store.get('imgLop_pro') === '1'));
 
   const refineEl = $('#refine'), rcv = $('#rcv'), rx = rcv.getContext('2d', { willReadFrequently: true });
@@ -2013,7 +2020,7 @@
   async function enterRefine() {
     if (refining || S.busy || !S.resultUrl) return;
     if (REFINE_PRO_ONLY && !isPro()) {
-      $('#proSub').textContent = 'The erase, restore and Magic erase brush tools are a Pro feature.';
+      $('#proSub').textContent = 'The erase, restore and Magic erase brush tools are an imgLop Pro feature.';
       openModal('proModal'); return;
     }
     if (cropping) exitCrop(true);
@@ -2496,7 +2503,7 @@
     return new Blob([...parts, ...central, new Uint8Array(end.buffer)], { type: 'application/zip' });
   }
 
-  /* ───────── Batch background removal (free: up to remaining credits · Pro: unlimited + ZIP) ───────── */
+  /* ───────── Batch background removal (free: up to remaining credits · imgLop Pro: unlimited + ZIP) ───────── */
   // Placeholder gating (runs in the browser). Real enforcement needs accounts + server checks.
   const BATCH_ZIP_PRO_ONLY = true;
   const BATCH_MAX = 40;
@@ -2514,7 +2521,7 @@
       act = '<button type="button" class="icon-btn" data-act="dl" aria-label="Download PNG" title="Download PNG"><svg class="i"><use href="#i-download"/></svg></button>' +
             '<button type="button" class="icon-btn" data-act="pdf" aria-label="Add to PDF" title="Add to PDF"><svg class="i"><use href="#i-file"/></svg></button>';
     } else if (it.status === 'locked') {
-      act = '<button type="button" class="btn primary sm" data-act="upgrade">Go Pro</button>';
+      act = '<button type="button" class="btn primary sm" data-act="upgrade">Get imgLop Pro</button>';
     }
     return '<li class="bcard ' + it.status + '" data-id="' + it.id + '">' +
       '<div class="bthumb' + (it.resUrl ? ' checker' : '') + '">' + thumb + (it.status === 'working' ? '<span class="bspin"></span>' : '') + '</div>' +
@@ -2540,7 +2547,7 @@
     else {
       sub = done + ' done';
       if (failed) sub += ' · ' + failed + ' failed';
-      if (locked) sub += ' · ' + locked + ' need credits (Go Pro for unlimited batches)';
+      if (locked) sub += ' · ' + locked + ' need credits (Get imgLop Pro for unlimited batches)';
       if (stopped) sub += ' · ' + stopped + ' stopped';
     }
     $('#batchSub').textContent = sub;
@@ -2572,7 +2579,7 @@
     if (files.length > BATCH_MAX) { problems += files.length - BATCH_MAX; files = files.slice(0, BATCH_MAX); }
     const pro = isPro();
     if (!pro && cr.credits <= 0) {
-      $('#proSub').textContent = 'You’ve used all 5 free credits today. Go Pro for unlimited batches.';
+      $('#proSub').textContent = 'You’ve used all 5 free credits today. Get imgLop Pro for unlimited batches.';
       openModal('proModal'); toast('Out of free credits for today.', 'error'); return;
     }
     if (cropping) exitCrop(false);
@@ -2583,7 +2590,7 @@
     dropzone.hidden = true; viewer.hidden = true; batchEl.hidden = false;
     renderBatch();
     if (problems) toast(problems + (problems === 1 ? ' file was' : ' files were') + ' skipped (unsupported, over 15 MB, or past the ' + BATCH_MAX + '-photo limit).', 'info');
-    if (!pro && files.length > cr.credits) toast('You have ' + cr.credits + ' free credit' + (cr.credits === 1 ? '' : 's') + ' left, so the first ' + cr.credits + ' of ' + files.length + ' photos will be processed. Go Pro for unlimited batches.', 'info');
+    if (!pro && files.length > cr.credits) toast('You have ' + cr.credits + ' free credit' + (cr.credits === 1 ? '' : 's') + ' left, so the first ' + cr.credits + ' of ' + files.length + ' photos will be processed. Get imgLop Pro for unlimited batches.', 'info');
     runBatch();
   }
 
@@ -2631,7 +2638,7 @@
     const b = e.target.closest('[data-act]'); if (!b) return;
     const it = B.items.find(x => x.id === +b.closest('.bcard').dataset.id); if (!it) return;
     if (b.dataset.act === 'dl' && it.resBlob) saveFile(it.resBlob, baseOf(it.name) + '-cutout.png');
-    else if (b.dataset.act === 'upgrade') { $('#proSub').textContent = 'Unlock unlimited batches and ZIP downloads with Pro.'; openModal('proModal'); }
+    else if (b.dataset.act === 'upgrade') { $('#proSub').textContent = 'Unlock unlimited batches and ZIP downloads with imgLop Pro.'; openModal('proModal'); }
     else if (b.dataset.act === 'pdf' && it.resBlob) {
       try { DOC.items.push(await makeDocItem(it.resBlob, baseOf(it.name) + '-cutout.png')); renderDocs(); toast('Added to your PDF (' + DOC.items.length + (DOC.items.length === 1 ? ' page' : ' pages') + ').', 'success'); }
       catch (err) { toast('Couldn’t add that image to the PDF.', 'error'); }
@@ -2648,7 +2655,7 @@
   });
   $('#batchZip').addEventListener('click', async () => {
     if (BATCH_ZIP_PRO_ONLY && !isPro()) {
-      $('#proSub').textContent = '“Download all as ZIP” is a Pro feature. Downloading each cutout stays free.';
+      $('#proSub').textContent = '“Download all as ZIP” is an imgLop Pro feature. Downloading each cutout stays free.';
       openModal('proModal'); return;
     }
     const done = B.items.filter(i => i.status === 'done'); if (!done.length) return;
@@ -2661,9 +2668,9 @@
     saveFile(makeZip(files), 'imglop-cutouts.zip');
   });
 
-  /* ───────── Accounts (required for Pro) ─────────
+  /* ───────── Accounts (required for imgLop Pro) ─────────
      Front end only: you need a small backend (or a hosted auth + Stripe service) behind these URLs.
-     Set them as data-* attributes on the #authConfig element in the Pro modal. All requests/responses are JSON.
+     Set them as data-* attributes on the #authConfig element in the imgLop Pro modal. All requests/responses are JSON.
        POST signup    { email, password, plan, priceId }   -> { token, email, plan: 'free'|'pro', status, userId? }
        POST signin    { email, password }                  -> { token, email, plan, status, renewsAt?, userId? }
        GET  account   (Authorization: Bearer <token>)      -> { email, plan, status, renewsAt? }
@@ -2678,7 +2685,7 @@
   const authCfg = $('#authConfig').dataset;
   const SESSION_KEY = 'imgLop_session';
   try { const raw = store.get(SESSION_KEY); if (raw) { const s0 = JSON.parse(raw); if (s0 && s0.token && s0.email) AUTH.session = s0; } } catch (e) {}
-  // Design preview: open the page with ?demo=account (Pro subscriber) or ?demo=free (signed in, not subscribed).
+  // Design preview: open the page with ?demo=account (imgLop Pro subscriber) or ?demo=free (signed in, not subscribed).
   // Uses sample data only and saves nothing. Set to false before launch.
   const ALLOW_DEMO_FLAG = false; // design-preview only; keep false in production
   try {
@@ -2696,7 +2703,7 @@
 
   function refreshProUI() {
     const pro = isPro(), pill = $('#creditPill');
-    if (pro) { pill.innerHTML = '<svg class="i fill"><use href="#i-bolt"/></svg><span>Pro<span class="pill-long"> · unlimited</span></span>'; pill.title = 'Pro: unlimited AI background removals'; }
+    if (pro) { pill.innerHTML = '<svg class="i fill"><use href="#i-bolt"/></svg><span>imgLop Pro<span class="pill-long"> · unlimited</span></span>'; pill.title = 'imgLop Pro: unlimited AI background removals'; }
     else {
       pill.innerHTML = '<svg class="i fill"><use href="#i-bolt"/></svg><span><b id="creditCount">' + cr.credits + '</b>/5<span class="pill-long"> AI removals</span></span>';
       pill.title = 'Free AI background removals today. PDF and QR tools are unlimited.';
@@ -2706,13 +2713,13 @@
     pb.classList.toggle('primary', !signed);
     pb.innerHTML = signed
       ? '<svg class="i"><use href="#i-user"/></svg><span>Account</span>' + (pro ? '<span class="badge">PRO</span>' : '')
-      : '<svg class="i"><use href="#i-crown"/></svg><span>Go Pro</span>';
+      : '<svg class="i"><use href="#i-crown"/></svg><span>imgLop Pro</span>';
     if (B.items.length) updateBatchHead();
     updateAds();
   }
 
   // ---- Ads (Google AdSense-ready). OFF until you set enabled:true and fill in client + slot. ----
-  // Only free users see ads. Pro users never load the ad script. Files you process never touch the ad code.
+  // Only free users see ads. imgLop Pro users never load the ad script. Files you process never touch the ad code.
   const ADS = { enabled: false, client: 'ca-pub-XXXXXXXXXXXXXXXX', slot: 'XXXXXXXXXX' };
   let adsLoaded = false;
   const adChoice = () => store.get('imgLop_adc'); // 'p' personalized, 'n' non-personalized
@@ -2807,7 +2814,7 @@
       saveSession({ token: d.token, email: d.email || email, plan: d.plan === 'pro' ? 'pro' : 'free', status: d.status || '', renewsAt: d.renewsAt || '', userId: d.userId || '' });
       $('#authPass').value = '';
       refreshProUI(); renderAuthModal();
-      if (AUTH.session.plan === 'pro') toast('Welcome back — Pro is active.', 'success');
+      if (AUTH.session.plan === 'pro') toast('Welcome back — imgLop Pro is active.', 'success');
       else if (authMode === 'signup') { toast('Account created. Taking you to checkout…', 'success'); startCheckout(); }
       else toast('Signed in.', 'success');
     } catch (err) { authError(err.message || 'Something went wrong. Please try again.'); }
@@ -2878,8 +2885,8 @@
     try { c = new URLSearchParams(location.search).get('checkout') || ''; } catch (e) {}
     if (c === 'cancel') toast('Checkout was canceled. You haven’t been charged.', 'info');
     if (c === 'success') {
-      toast('Payment received — activating Pro…', 'success');
-      for (let i = 0; i < 6; i++) { if (await refreshAccount()) { toast('Pro is active. Thank you!', 'success'); break; } await new Promise(r => setTimeout(r, 2000)); }
+      toast('Payment received — activating imgLop Pro…', 'success');
+      for (let i = 0; i < 6; i++) { if (await refreshAccount()) { toast('imgLop Pro is active. Thank you!', 'success'); break; } await new Promise(r => setTimeout(r, 2000)); }
     } else await refreshAccount();
     if (c) { try { history.replaceState(null, '', location.pathname); } catch (e) {} }
   })();
@@ -3018,22 +3025,22 @@
       a: 'Yes. Your photos, PDFs and QR text are processed <b>in your browser</b> and are not uploaded to our servers or used to train models. Read the <button type="button" class="linkbtn" data-info-open="privacy">Privacy Policy</button> for details.' },
     { chip: 'Daily limit', k: ['limit', 'daily', 'credit', 'free', 'how many', 'unlimited', 'per day', 'reset'],
       a: 'Free users get <b>5 AI background removals per day</b>. They reset at midnight in your time zone. Brush tools, crop and downloads never use credits, and neither do failed removals. The PDF and QR tools have <b>no daily limit</b>.' },
-    { chip: 'What does Pro include?', k: ['pro', 'premium', 'upgrade', 'paid', 'subscription', 'subscribe', 'price', 'pricing', 'cost', 'how much', 'plan', 'ads', 'ad-free'],
-      a: 'Pro is <b>$4.99/month or $39.99/year</b>. It includes unlimited cutouts, batches with ZIP download, the erase, restore and Magic erase brushes, Ultra HD downloads, priority processing and <b>no ads</b>. <button type="button" class="linkbtn" data-act="pro">See Pro</button>' },
+    { chip: 'What does imgLop Pro include?', k: ['pro', 'premium', 'upgrade', 'paid', 'subscription', 'subscribe', 'price', 'pricing', 'cost', 'how much', 'plan', 'ads', 'ad-free'],
+      a: 'imgLop Pro is <b>$4.99/month or $39.99/year</b>. It includes unlimited cutouts, batches with ZIP download, the erase, restore and Magic erase brushes, Ultra HD downloads, priority processing and <b>no ads</b>. <button type="button" class="linkbtn" data-act="pro">See imgLop Pro</button>' },
     { chip: 'iPhone / HEIC photos', k: ['heic', 'heif', 'iphone', 'apple', 'format', 'jpg', 'jpeg', 'png', 'webp', 'file type'],
       a: 'Yes. imgLop accepts <b>PNG, JPG, WebP and iPhone HEIC/HEIF</b> photos. HEIC files are converted automatically, and you can download your result as PNG or JPG.' },
     { chip: 'Edit the edges', k: ['brush', 'erase', 'restore', 'refine', 'edge', 'fix', 'mistake', 'magic', 'undo', 'touch up'],
-      a: 'After the AI removes the background, open <b>Refine</b> to erase leftovers, restore parts that were removed by mistake, or use Magic erase on enclosed areas. You can undo and redo every edit. The brush tools are part of Pro.' },
+      a: 'After the AI removes the background, open <b>Refine</b> to erase leftovers, restore parts that were removed by mistake, or use Magic erase on enclosed areas. You can undo and redo every edit. The brush tools are part of imgLop Pro.' },
     { chip: 'Many photos at once', k: ['batch', 'many', 'multiple', 'bulk', 'zip', 'several', 'at once'],
-      a: 'Drop up to <b>40 photos</b> to run a batch. Free users can batch up to their remaining daily credits. Pro has unlimited batches and a one-click <b>Download all as ZIP</b>.' },
+      a: 'Drop up to <b>40 photos</b> to run a batch. Free users can batch up to their remaining daily credits. imgLop Pro has unlimited batches and a one-click <b>Download all as ZIP</b>.' },
     { chip: 'PDF & QR tools', k: ['pdf', 'qr', 'document', 'convert', 'code', 'scan'],
       a: 'The <b>Document Suite</b> turns images into a PDF, and <b>Quick Utilities</b> makes custom QR codes. Both are free, unlimited, need no account, and run entirely in your browser.' },
     { chip: 'Cancel or refund', k: ['cancel', 'refund', 'money back', 'charged', 'billing', 'invoice', 'receipt'],
-      a: 'You can cancel any time from <b>Account → Manage subscription</b>. You keep Pro until the end of the period you paid for. For a billing mistake, email <a href="mailto:' + EMAIL + '">' + EMAIL + '</a> within 14 days. See the <button type="button" class="linkbtn" data-info-open="terms">Terms of Service</button>.' },
+      a: 'You can cancel any time from <b>Account → Manage subscription</b>. You keep imgLop Pro until the end of the period you paid for. For a billing mistake, email <a href="mailto:' + EMAIL + '">' + EMAIL + '</a> within 14 days. See the <button type="button" class="linkbtn" data-info-open="terms">Terms of Service</button>.' },
     { chip: 'Contact support', k: ['contact', 'support', 'help', 'email', 'human', 'person', 'bug', 'problem', 'broken', 'error', 'not working', 'report'],
       a: 'You can reach the BonBon Labs team at <a href="mailto:' + EMAIL + '">' + EMAIL + '</a>. Please include what you tried and what browser you use.' },
     { chip: null, k: ['account', 'sign in', 'signin', 'login', 'log in', 'password', 'forgot', 'reset', 'sign up', 'signup'],
-      a: 'Only Pro needs an account. Use <b>Go Pro</b> at the top to sign up or sign in. If you forgot your password, choose <b>Forgot password?</b> on the Sign in tab. The free tools never need an account.' },
+      a: 'Only imgLop Pro needs an account. Use the <b>imgLop Pro</b> button at the top to sign up or sign in. If you forgot your password, choose <b>Forgot password?</b> on the Sign in tab. The free tools never need an account.' },
     { chip: null, k: ['hello', 'hi', 'hey', 'hola', 'sua', 'suostei', 'សួស្តី', 'thanks', 'thank', 'អរគុណ'],
       a: 'សួស្តី! Happy to help. Try one of the questions below, or type your own.' }
   ];
@@ -3069,7 +3076,7 @@
     panel.hidden = false; btn.hidden = true;
     if (!started) {
       started = true;
-      add('bot', 'សួស្តី! I\'m <b>Sovanna</b> (សុវណ្ណា), imgLop\'s virtual assistant. I can answer common questions about the tools, Pro and privacy.');
+      add('bot', 'សួស្តី! I\'m <b>Sovanna</b> (សុវណ្ណា), imgLop\'s virtual assistant. I can answer common questions about the tools, imgLop Pro and privacy.');
       TOPICS.forEach(function (t) {
         if (!t.chip) return;
         var b = document.createElement('button'); b.type = 'button'; b.textContent = t.chip;
