@@ -662,6 +662,10 @@
     .seg button span { display: none; }
     .side { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
   }
+
+  /* Scroll reveal: sections fade and rise slightly as they scroll into view. The classes are added by script only, so the page is fully visible without JavaScript. */
+  .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.22,.7,.25,1), transform .7s cubic-bezier(.22,.7,.25,1); transition-delay: var(--rv-d, 0ms); will-change: opacity, transform; }
+  .rv.rv-in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   }
@@ -3136,6 +3140,37 @@
   });
 })();
 </script>
-<!-- imgLop build 2026-10-13b -->
+<script>
+/* Scroll reveal for the lower sections (features, pricing, comparison, FAQ, footer). Skipped for visitors who prefer reduced motion. */
+(function () {
+  try {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var targets = [];
+    document.querySelectorAll('main > .section').forEach(function (sec) {
+      Array.prototype.forEach.call(sec.children, function (ch) {
+        if (ch.classList.contains('features')) { Array.prototype.forEach.call(ch.children, function (f, i) { f.style.setProperty('--rv-d', (i * 70) + 'ms'); targets.push(f); }); }
+        else targets.push(ch);
+      });
+    });
+    var foot = document.querySelector('body > footer, footer'); if (foot) targets.push(foot);
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target; io.unobserve(el);
+        el.classList.add('rv-in');
+        // Once the animation is done, remove the helper classes so hover effects and layout behave exactly as before.
+        setTimeout(function () { el.classList.remove('rv', 'rv-in'); el.style.removeProperty('--rv-d'); }, 1200);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    targets.forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.9) return; // already on screen at load: leave alone
+      el.classList.add('rv'); io.observe(el);
+    });
+  } catch (e) { /* never block the page */ }
+})();
+</script>
+<!-- imgLop build 2026-10-13c -->
 </body>
 </html>
