@@ -1,0 +1,27 @@
+name: Self-host libraries and fonts
+
+# Run this by hand: GitHub > Actions > "Self-host libraries and fonts" > Run workflow.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download libraries and fonts
+        run: |
+          npm install --no-audit --no-fund
+          npm run vendor
+      - name: Save the result to the repo
+        run: |
+          git config user.name "imgLop vendor bot"
+          git config user.email "bonbonlabs.app@gmail.com"
+          git add public
+          git diff --cached --quiet && echo "Nothing to change" || (git commit -m "Self-host libraries and fonts" && git push)
