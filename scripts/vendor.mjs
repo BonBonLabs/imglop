@@ -13,21 +13,29 @@ const need = p => fs.existsSync(p) || fail('Missing ' + path.relative(root, p) +
 const copy = (from, to) => { need(from); fs.mkdirSync(path.dirname(to), { recursive: true }); fs.copyFileSync(from, to); };
 
 // 1) JavaScript libraries
-// Each entry: [candidate source files (first one that exists wins), destination]
+// Each entry: [files to look for in node_modules (first one found wins), exact CDN file the site uses today (fallback), destination]
+// Some npm packages do not ship their browser build, so when no local file exists we download the very same file the site loads today.
+const CDN_FIX = u => process.env.VENDOR_TEST_BASE ? u.replace(/^https:\/\/[^/]+/, process.env.VENDOR_TEST_BASE) : u;
 const libs = [
-  [['pdf-lib/dist/pdf-lib.min.js', 'pdf-lib/dist/pdf-lib.js'], 'vendor/pdf-lib.min.js'],
-  [['qrcode/build/qrcode.min.js', 'qrcode/build/qrcode.js'], 'vendor/qrcode.min.js'],
-  [['heic2any/dist/heic2any.min.js', 'heic2any/dist/heic2any.js'], 'vendor/heic2any.min.js'],
-  [['onnxruntime-web/dist/ort.min.js', 'onnxruntime-web/dist/ort.js'], 'vendor/ort/ort.min.js'],
+  [['pdf-lib/dist/pdf-lib.min.js', 'pdf-lib/dist/pdf-lib.js'], 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js', 'vendor/pdf-lib.min.js'],
+  [['qrcode/build/qrcode.min.js', 'qrcode/build/qrcode.js'], 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js', 'vendor/qrcode.min.js'],
+  [['heic2any/dist/heic2any.min.js', 'heic2any/dist/heic2any.js'], 'https://cdnjs.cloudflare.com/ajax/libs/heic2any/0.0.4/heic2any.min.js', 'vendor/heic2any.min.js'],
+  [['onnxruntime-web/dist/ort.min.js', 'onnxruntime-web/dist/ort.js'], 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js', 'vendor/ort/ort.min.js'],
 ];
-for (const [cands, to] of libs) {
+for (const [cands, url, to] of libs) {
   const found = cands.map(c => path.join(nm, c)).find(f => fs.existsSync(f));
-  if (!found) {
-    const dir = path.dirname(path.join(nm, cands[0]));
-    fail('Could not find ' + cands.join(' or ') + '. Files that exist in ' + path.relative(root, dir) + ': ' + (fs.existsSync(dir) ? fs.readdirSync(dir).join(', ') : '(folder missing)'));
+  const dest = path.join(site, to);
+  if (found) {
+    copy(found, dest);
+    console.log('  ' + path.relative(root, found) + '  ->  public/' + to);
+  } else {
+    const res = await fetch(CDN_FIX(url));
+    if (!res.ok) fail('Could not find ' + cands[0] + ' and downloading ' + url + ' failed (HTTP ' + res.status + ')');
+    const buf = Buffer.from(await res.arrayBuffer());
+    if (buf.length < 1000) fail('Downloaded file from ' + url + ' looks too small (' + buf.length + ' bytes)');
+    fs.mkdirSync(path.dirname(dest), { recursive: true }); fs.writeFileSync(dest, buf);
+    console.log('  downloaded ' + url + '  ->  public/' + to + ' (' + Math.round(buf.length / 1024) + ' KB)');
   }
-  copy(found, path.join(site, to));
-  console.log('  ' + path.relative(root, found) + '  ->  public/' + to);
 }
 
 // ONNX Runtime WebAssembly files (skip the big GPU/JSEP builds; this site uses the plain "wasm" provider)
