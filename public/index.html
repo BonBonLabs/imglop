@@ -22,15 +22,13 @@
 <meta name="author" content="BonBon Labs">
 <meta name="google-adsense-account" content="ca-pub-3940133342040742">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Kantumruy+Pro:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./fonts/fonts.css">
 
 <!-- HEIC decoding (script-only library) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/heic2any/0.0.4/heic2any.min.js"></script>
+<script src="./vendor/heic2any.min.js"></script>
 <!-- Client-side PDF compiler and QR generator (no uploads) -->
-<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="./vendor/pdf-lib.min.js"></script>
+<script src="./vendor/qrcode.min.js"></script>
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Client-side image-to-PDF converter","Custom QR code generator"]}
@@ -1574,7 +1572,7 @@
     u2net: { size: 320, mean: [0.485, 0.456, 0.406], std: [0.229, 0.224, 0.225] },
     'isnet-general-use': { size: 1024, mean: [0.5, 0.5, 0.5], std: [1, 1, 1] }
   };
-  const ORT_BASE = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/';
+  const ORT_BASE = './vendor/ort/';
   const MAX_OUT_EDGE = 4096; // keeps memory safe on phones
 
   // rembg preprocessing: resize -> divide by the image's max value -> subtract mean, divide by std -> NCHW float32
