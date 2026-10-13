@@ -4,6 +4,8 @@
 // Safe to re-run. It stops with a clear message if anything it expects is missing.
 import fs from 'node:fs';
 import path from 'node:path';
+import vm from 'node:vm';
+import { execFileSync } from 'node:child_process';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const site = path.join(root, 'public'); // the folder Cloudflare publishes
@@ -18,16 +20,28 @@ const copy = (from, to) => { need(from); fs.mkdirSync(path.dirname(to), { recurs
 const CDN_FIX = u => process.env.VENDOR_TEST_BASE ? u.replace(/^https:\/\/[^/]+/, process.env.VENDOR_TEST_BASE) : u;
 const libs = [
   [['pdf-lib/dist/pdf-lib.min.js', 'pdf-lib/dist/pdf-lib.js'], 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js', 'vendor/pdf-lib.min.js'],
-  [['qrcode/build/qrcode.min.js', 'qrcode/build/qrcode.js'], 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js', 'vendor/qrcode.min.js'],
+  [['qrcode/build/qrcode.min.js', 'qrcode/build/qrcode.js'], 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js', 'vendor/qrcode.min.js', { entry: 'qrcode/lib/browser.js', global: 'QRCode', must: 'toCanvas' }],
   [['heic2any/dist/heic2any.min.js', 'heic2any/dist/heic2any.js'], 'https://cdnjs.cloudflare.com/ajax/libs/heic2any/0.0.4/heic2any.min.js', 'vendor/heic2any.min.js'],
   [['onnxruntime-web/dist/ort.min.js', 'onnxruntime-web/dist/ort.js'], 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js', 'vendor/ort/ort.min.js'],
 ];
-for (const [cands, url, to] of libs) {
+// The qrcode 1.5.3 npm package ships no ready-made browser file (and the CDN has none either), so we build one from its source.
+function bundle(entry, dest, globalName, must) {
+  const [cmd, pre] = process.env.VENDOR_ESBUILD ? [process.env.VENDOR_ESBUILD, []] : ['npx', ['--yes', 'esbuild@0.24.0']];
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  execFileSync(cmd, [...pre, entry, '--bundle', '--minify', '--format=iife', '--global-name=' + globalName, '--platform=browser', '--outfile=' + dest], { stdio: 'inherit' });
+  const ctx = { window: {}, self: {}, document: {}, navigator: {} }; vm.createContext(ctx);
+  vm.runInContext(fs.readFileSync(dest, 'utf8'), ctx);
+  if (!ctx[globalName] || typeof ctx[globalName][must] !== 'function') fail('The built ' + globalName + ' file does not provide ' + must + '()');
+}
+for (const [cands, url, to, bundleCfg] of libs) {
   const found = cands.map(c => path.join(nm, c)).find(f => fs.existsSync(f));
   const dest = path.join(site, to);
   if (found) {
     copy(found, dest);
     console.log('  ' + path.relative(root, found) + '  ->  public/' + to);
+  } else if (bundleCfg && fs.existsSync(path.join(nm, bundleCfg.entry))) {
+    bundle(path.join(nm, bundleCfg.entry), dest, bundleCfg.global, bundleCfg.must);
+    console.log('  built ' + bundleCfg.entry + '  ->  public/' + to + ' (' + Math.round(fs.statSync(dest).size / 1024) + ' KB)');
   } else {
     const res = await fetch(CDN_FIX(url));
     if (!res.ok) fail('Could not find ' + cands[0] + ' and downloading ' + url + ' failed (HTTP ' + res.status + ')');
