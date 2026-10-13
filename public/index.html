@@ -172,7 +172,10 @@
   .topbar-in { max-width: 1200px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
   .logo { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; font-size: 18px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 8px 20px -8px var(--accent-glow); transition: transform .3s; }
-  .brand:hover .logo { transform: rotate(-12deg) scale(1.06); }
+  @media (hover: hover) { .brand:hover .logo { transform: rotate(-12deg) scale(1.06); } }
+  /* Tap/click wiggle: plays on every click, including phones and tablets where there is no hover */
+  @keyframes logoTap { 0% { transform: rotate(0) scale(1); } 35% { transform: rotate(-14deg) scale(1.12); } 70% { transform: rotate(6deg) scale(1.04); } 100% { transform: rotate(0) scale(1); } }
+  .logo.logo-tap { animation: logoTap .6s cubic-bezier(.34, 1.4, .64, 1); }
   .brand-name { font-weight: 800; font-size: 20px; letter-spacing: -.03em; }
   .brand-km { font-family: var(--khmer); font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; margin-left: 6px; }
   .actions { display: flex; align-items: center; gap: 8px; }
@@ -2183,11 +2186,37 @@
     $('#creditPill').hidden = v !== 'studio';
     $$('#cats button').forEach(b => b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'));
     if (v === 'utils') qrRefresh();
-    if (!opts || !opts.noScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!opts || !opts.noScroll) scrollTopSmooth();
+  }
+  // Animated scroll to the top. Drawn frame by frame so it also works on phones, where the browser's built-in smooth scrolling is
+  // often ignored (older iOS Safari, or when the page height changes while scrolling). Stops if the visitor touches or scrolls.
+  let topAnim = 0;
+  function scrollTopSmooth() {
+    const start = window.scrollY || document.documentElement.scrollTop || 0;
+    cancelAnimationFrame(topAnim);
+    if (start < 2) return;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { window.scrollTo(0, 0); return; }
+    const root = document.documentElement, prev = root.style.scrollBehavior, dur = Math.min(750, 320 + start * 0.12), t0 = performance.now();
+    root.style.scrollBehavior = 'auto';
+    const stop = () => { cancelAnimationFrame(topAnim); root.style.scrollBehavior = prev; ['wheel', 'touchstart', 'keydown'].forEach(ev => window.removeEventListener(ev, stop)); };
+    ['wheel', 'touchstart', 'keydown'].forEach(ev => window.addEventListener(ev, stop, { passive: true }));
+    const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur);
+      window.scrollTo(0, Math.round(start * (1 - ease(k))));
+      if (k < 1) topAnim = requestAnimationFrame(step); else stop();
+    };
+    topAnim = requestAnimationFrame(step);
   }
   $$('#cats button').forEach(b => b.addEventListener('click', () => showView(b.dataset.view)));
   $$('[data-go]').forEach(b => b.addEventListener('click', () => showView(b.dataset.go)));
-  $('.brand').addEventListener('click', e => { e.preventDefault(); showView('studio'); });
+  $('.brand').addEventListener('click', e => {
+    e.preventDefault();
+    const lg = $('.brand .logo');
+    lg.classList.remove('logo-tap'); void lg.offsetWidth; lg.classList.add('logo-tap');
+    setTimeout(() => lg.classList.remove('logo-tap'), 700);
+    showView('studio');
+  });
 
   /* ───────── Pricing toggle + Stripe routing ───────── */
   const PLANS = {
