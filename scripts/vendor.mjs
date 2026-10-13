@@ -13,13 +13,22 @@ const need = p => fs.existsSync(p) || fail('Missing ' + path.relative(root, p) +
 const copy = (from, to) => { need(from); fs.mkdirSync(path.dirname(to), { recursive: true }); fs.copyFileSync(from, to); };
 
 // 1) JavaScript libraries
+// Each entry: [candidate source files (first one that exists wins), destination]
 const libs = [
-  ['pdf-lib/dist/pdf-lib.min.js', 'vendor/pdf-lib.min.js'],
-  ['qrcode/build/qrcode.min.js', 'vendor/qrcode.min.js'],
-  ['heic2any/dist/heic2any.min.js', 'vendor/heic2any.min.js'],
-  ['onnxruntime-web/dist/ort.min.js', 'vendor/ort/ort.min.js'],
+  [['pdf-lib/dist/pdf-lib.min.js', 'pdf-lib/dist/pdf-lib.js'], 'vendor/pdf-lib.min.js'],
+  [['qrcode/build/qrcode.min.js', 'qrcode/build/qrcode.js'], 'vendor/qrcode.min.js'],
+  [['heic2any/dist/heic2any.min.js', 'heic2any/dist/heic2any.js'], 'vendor/heic2any.min.js'],
+  [['onnxruntime-web/dist/ort.min.js', 'onnxruntime-web/dist/ort.js'], 'vendor/ort/ort.min.js'],
 ];
-for (const [f, t] of libs) copy(path.join(nm, f), path.join(site, t));
+for (const [cands, to] of libs) {
+  const found = cands.map(c => path.join(nm, c)).find(f => fs.existsSync(f));
+  if (!found) {
+    const dir = path.dirname(path.join(nm, cands[0]));
+    fail('Could not find ' + cands.join(' or ') + '. Files that exist in ' + path.relative(root, dir) + ': ' + (fs.existsSync(dir) ? fs.readdirSync(dir).join(', ') : '(folder missing)'));
+  }
+  copy(found, path.join(site, to));
+  console.log('  ' + path.relative(root, found) + '  ->  public/' + to);
+}
 
 // ONNX Runtime WebAssembly files (skip the big GPU/JSEP builds; this site uses the plain "wasm" provider)
 const ortDist = path.join(nm, 'onnxruntime-web/dist');
