@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Convert HEIC to JPG (Free, Private, Batch) | imgLop</title>
+<meta name="description" content="Turn iPhone HEIC photos into JPG, PNG or WEBP in your browser. Convert up to 40 at once and download a ZIP. Free, with no upload.">
+<link rel="canonical" href="https://imglop.app/guides/convert-heic-to-jpg/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="imgLop">
+<meta property="og:title" content="How to Convert HEIC to JPG (Free, Private, Batch) | imgLop">
+<meta property="og:description" content="Turn iPhone HEIC photos into JPG, PNG or WEBP in your browser. Convert up to 40 at once and download a ZIP. Free, with no upload.">
+<meta property="og:url" content="https://imglop.app/guides/convert-heic-to-jpg/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>/* imgLop Guides: shared styles. Matches the main site's colors and fonts (fonts are self-hosted at /fonts/). */
+:root {
+  box-sizing: border-box; color-scheme: light;
+  --bg: #f6f5f9; --bar: rgba(246,245,249,.78); --surface: #ffffff; --surface-2: #f1f0f6; --surface-3: #e8e7f0;
+  --border: rgba(24,24,45,.09); --border-strong: rgba(24,24,45,.18); --text: #14141f; --muted: #6a6a80;
+  --accent: #e11d48; --accent-2: #fb5a7a; --accent-soft: rgba(225,29,72,.08); --accent-glow: rgba(225,29,72,.35); --ok: #16a34a;
+  --blob-1: rgba(244,63,94,.16); --blob-2: rgba(99,102,241,.14);
+  --shadow-sm: 0 1px 2px rgba(24,24,45,.05); --shadow: 0 1px 2px rgba(24,24,45,.04), 0 18px 40px -18px rgba(24,24,45,.22);
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark; --bg: #09090e; --bar: rgba(9,9,14,.72); --surface: #13131b; --surface-2: #1a1a24; --surface-3: #232330;
+    --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.18); --text: #f3f3f8; --muted: #9b9bb2;
+    --accent: #fb4d70; --accent-2: #ff8aa0; --accent-soft: rgba(251,77,112,.12); --accent-glow: rgba(251,77,112,.42); --ok: #4ade80;
+    --blob-1: rgba(251,77,112,.18); --blob-2: rgba(99,102,241,.2);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 1px 2px rgba(0,0,0,.4), 0 24px 50px -20px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark; --bg: #09090e; --bar: rgba(9,9,14,.72); --surface: #13131b; --surface-2: #1a1a24; --surface-3: #232330;
+  --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.18); --text: #f3f3f8; --muted: #9b9bb2;
+  --accent: #fb4d70; --accent-2: #ff8aa0; --accent-soft: rgba(251,77,112,.12); --accent-glow: rgba(251,77,112,.42); --ok: #4ade80;
+  --blob-1: rgba(251,77,112,.18); --blob-2: rgba(99,102,241,.2);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 1px 2px rgba(0,0,0,.4), 0 24px 50px -20px rgba(0,0,0,.7);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-height: 100vh; font-family: var(--font); font-size: 16px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.ambient::before, .ambient::after { content: ""; position: absolute; border-radius: 50%; filter: blur(90px); }
+.ambient::before { width: 520px; height: 520px; top: -180px; left: -120px; background: var(--blob-1); }
+.ambient::after { width: 560px; height: 560px; top: 160px; right: -200px; background: var(--blob-2); }
+.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* header */
+.topbar { position: sticky; top: 0; z-index: 40; background: var(--bar); backdrop-filter: saturate(1.6) blur(16px); -webkit-backdrop-filter: saturate(1.6) blur(16px); border-bottom: 1px solid var(--border); }
+.topbar-in { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.logo { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; font-size: 18px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 8px 20px -8px var(--accent-glow); }
+.brand-name { font-weight: 800; font-size: 20px; letter-spacing: -.03em; }
+.topnav { display: flex; align-items: center; gap: 6px; }
+.topnav a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 8px 12px; border-radius: 999px; }
+.topnav a:hover { color: var(--text); background: var(--surface-2); }
+.topnav a[aria-current="page"] { color: var(--text); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { color: #fff; border: 0; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 10px 24px -10px var(--accent-glow); }
+.btn.primary:hover { filter: brightness(1.04); }
+.btn.sm { padding: 8px 14px; font-size: 14px; border-radius: 12px; }
+
+/* page */
+main { max-width: 740px; margin: 0 auto; padding: 28px 20px 40px; }
+main.wide { max-width: 1000px; }
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 6px 0 22px; }
+.crumbs a { color: inherit; text-decoration: none; } .crumbs a:hover { color: var(--text); text-decoration: underline; }
+.eyebrow { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(2rem, 5.2vw, 3.1rem); line-height: 1.08; letter-spacing: -.035em; font-weight: 800; margin: 10px 0 14px; }
+h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; font-size: 1.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 22px; }
+.lead { font-size: 19px; line-height: 1.6; color: var(--text); margin: 0 0 26px; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); line-height: 1.2; letter-spacing: -.025em; margin: 44px 0 12px; }
+h3 { font-size: 1.1rem; margin: 26px 0 6px; letter-spacing: -.01em; }
+p { margin: 0 0 16px; }
+ul, ol { margin: 0 0 18px; padding-left: 1.3em; } li { margin: 0 0 8px; } li::marker { color: var(--accent); font-weight: 700; }
+strong { font-weight: 700; }
+.try { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 26px 0 8px; padding: 18px 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.try b { display: block; font-size: 16px; } .try span { color: var(--muted); font-size: 14.5px; }
+.note { margin: 22px 0; padding: 14px 18px; border-radius: 14px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); font-size: 15px; }
+.note p:last-child { margin: 0; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0 0 22px; }
+.steps > li { counter-increment: s; position: relative; padding: 2px 0 2px 48px; margin: 0 0 18px; }
+.steps > li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 15px; color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.steps > li b { display: block; margin-bottom: 2px; }
+.cmp { width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 15px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: block; overflow-x: auto; }
+.cmp th, .cmp td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.cmp th { background: var(--surface-2); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.cmp tr:last-child td { border-bottom: 0; }
+.faq details { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; margin: 0 0 10px; }
+.faq summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); font-size: 20px; line-height: 1; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin: 10px 0 0; color: var(--muted); }
+.related { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 10px 0 0; }
+.card { display: block; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px; box-shadow: var(--shadow-sm); transition: transform .18s, border-color .18s, box-shadow .18s; }
+.card:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
+.card small { color: var(--accent); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.card h3 { margin: 8px 0 8px; font-size: 1.15rem; line-height: 1.25; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.card .read { display: inline-block; margin-top: 12px; color: var(--accent); font-weight: 700; font-size: 14px; }
+.hub-head { text-align: center; padding: 34px 0 26px; } .hub-head .lead { max-width: 600px; margin: 0 auto; color: var(--muted); }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+
+/* footer */
+footer { border-top: 1px solid var(--border); margin-top: 50px; }
+.foot-in { max-width: 1100px; margin: 0 auto; padding: 26px 20px 40px; display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; font-size: 14px; color: var(--muted); }
+.foot-in a { color: inherit; text-decoration: none; } .foot-in a:hover { color: var(--text); text-decoration: underline; }
+.foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .topnav a:not(.btn) { display: none; }
+  .lead { font-size: 17.5px; }
+  .try .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+</style>
+<script>try{var t=localStorage.getItem('imgLop_theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to convert HEIC photos to JPG", "description": "Turn iPhone HEIC photos into JPG, PNG or WEBP in your browser. Convert up to 40 at once and download a ZIP. Free, with no upload.", "datePublished": "2026-10-14", "dateModified": "2026-10-14", "mainEntityOfPage": "https://imglop.app/guides/convert-heic-to-jpg/", "author": {"@type": "Organization", "name": "BonBon Labs"}, "publisher": {"@type": "Organization", "name": "BonBon Labs", "url": "https://imglop.app"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "imgLop", "item": "https://imglop.app/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://imglop.app/guides/"}, {"@type": "ListItem", "position": 3, "name": "How to convert HEIC photos to JPG", "item": "https://imglop.app/guides/convert-heic-to-jpg/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I open a HEIC file on Windows?", "acceptedAnswer": {"@type": "Answer", "text": "The simplest way is to convert it to JPG. Use the Convert format tab, add the file and choose JPG."}}, {"@type": "Question", "name": "Does converting HEIC to JPG lower the quality?", "acceptedAnswer": {"@type": "Answer", "text": "A little, because JPG is compressed. At the default quality of 92, the result looks very close to the original for normal use."}}, {"@type": "Question", "name": "Can I convert many HEIC photos at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, up to 40 photos at a time, each up to 40 MB. They download together as one ZIP."}}, {"@type": "Question", "name": "Are my photos uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. The conversion runs in your browser tab, so the photos stay on your device."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Convert format is free, has no daily limit and needs no account."}}]}</script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<header class="topbar"><div class="topbar-in">
+<a class="brand" href="/" aria-label="imgLop home"><span class="logo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span><span class="brand-name">imgLop</span></a>
+<nav class="topnav" aria-label="Main"><a href="/guides/">Guides</a><a href="/">Tools</a><a class="btn primary sm" href="/">Open imgLop</a></nav>
+</div></header>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">imgLop</a> / <a href="/guides/">Guides</a> / Photo editing</nav>
+<span class="eyebrow">Photo editing</span>
+<h1>How to convert HEIC photos to JPG</h1>
+<p class="meta">By BonBon Labs &middot; Updated October 14, 2026</p>
+<p class="lead">Your iPhone saves photos as HEIC, and many sites and programs cannot open them. This guide shows how to change them to JPG in a few clicks, one photo or forty at once, without uploading anything.</p>
+<div class="try"><div><b>Convert your photos</b><span>Free and unlimited. HEIC, PNG, JPG and WEBP.</span></div><a class="btn primary" href="/?tool=convert">Open Convert format</a></div>
+
+<h2>What HEIC is, and why you might want JPG</h2>
+<p>Newer iPhones and iPads save photos as <b>HEIC</b>. It keeps files small, but plenty of websites, older Windows PCs, printers and email systems cannot open it. <b>JPG</b> opens almost everywhere, so converting is the quickest way to share a photo that someone else cannot open.</p>
+
+<h2>Step by step</h2>
+<ol class="steps">
+<li><b>Open the tool.</b>Go to <a href="/?tool=convert">imgLop's Convert format tab</a> in Creative Studio. No account is needed.</li>
+<li><b>Add your HEIC photos.</b>Click <b style="display:inline">Choose photos</b> or drag them in. You can add up to 40 photos, up to 40 MB each. On an iPhone, tap Choose photos and select them from your library.</li>
+<li><b>Choose the format.</b>Under <b style="display:inline">Format</b>, pick <b style="display:inline">JPG</b>. PNG is there too if you need it, and so is WEBP if your browser supports it. Otherwise, use JPG for photos or PNG for graphics and logos.</li>
+<li><b>Set the quality.</b>The slider starts at 92, which keeps photos looking close to the original. Lower it if you also want smaller files.</li>
+<li><b>Click Convert.</b>The picture size stays the same, except that photos over 16 megapixels are reduced so every browser can handle them.</li>
+<li><b>Download.</b>One photo downloads directly. Several download together as a ZIP with <b style="display:inline">Download all (ZIP)</b>. Converted files keep their original names, with the new file ending (for example, IMG_1234.heic becomes IMG_1234.jpg).</li>
+</ol>
+
+<h2>JPG, PNG or WEBP?</h2>
+<table class="cmp"><thead><tr><th>Format</th><th>Best for</th><th>Keep in mind</th></tr></thead><tbody>
+<tr><td>JPG</td><td>Photos you want to share, email or upload anywhere</td><td>Smaller files, works almost everywhere, no transparency.</td></tr>
+<tr><td>PNG</td><td>Graphics, screenshots, and images with transparency</td><td>Lossless but large for photos.</td></tr>
+<tr><td>WEBP</td><td>Websites that accept it</td><td>Small files, but some older programs cannot open it.</td></tr>
+</tbody></table>
+
+<h2>Tips</h2>
+<ul>
+<li><b>Transparent areas.</b> PNG and WEBP keep see-through parts. JPG cannot be transparent, so when JPG is the chosen format, a <b style="display:inline">Fill transparent areas with</b> option appears (White, Light gray or Black) for the tool to fill them.</li>
+<li><b>Need smaller files too?</b> Use the <a href="/guides/compress-images-without-losing-quality/">Resize &amp; compress tab</a>, which also accepts HEIC and lets you set a size.</li>
+<li><b>Stop taking HEIC photos.</b> On an iPhone, open <b style="display:inline">Settings</b>, then <b style="display:inline">Camera</b>, then <b style="display:inline">Formats</b>, and choose <b style="display:inline">Most Compatible</b>. New photos will be saved as JPG, and photos you already took stay as HEIC. The new photos use more space as a result.</li>
+<li><b>Converting to PDF instead?</b> You do not need to convert first. The <a href="/guides/convert-heic-to-pdf/">Images to PDF tool</a> accepts HEIC directly.</li>
+</ul>
+
+<div class="note"><p><b>Privacy:</b> Your photos are converted inside your browser tab. Nothing is uploaded, and the tool is free with no daily limit.</p></div>
+
+<section class="faq" aria-labelledby="faq"><h2 id="faq">Questions people ask</h2><details><summary>How do I open a HEIC file on Windows?</summary><p>The simplest way is to convert it to JPG. Use the Convert format tab, add the file and choose JPG.</p></details><details><summary>Does converting HEIC to JPG lower the quality?</summary><p>A little, because JPG is compressed. At the default quality of 92, the result looks very close to the original for normal use.</p></details><details><summary>Can I convert many HEIC photos at once?</summary><p>Yes, up to 40 photos at a time, each up to 40 MB. They download together as one ZIP.</p></details><details><summary>Are my photos uploaded?</summary><p>No. The conversion runs in your browser tab, so the photos stay on your device.</p></details><details><summary>Is it free?</summary><p>Yes. Convert format is free, has no daily limit and needs no account.</p></details></section>
+<h2>More guides</h2><div class="related"><a class="card" href="/guides/compress-images-without-losing-quality/"><small>Photo editing</small><h3>How to compress images without losing quality</h3><p>Make photos small enough for email and upload forms, and keep them looking good, with no upload.</p><span class="read">Read the guide &rarr;</span></a><a class="card" href="/guides/convert-heic-to-pdf/"><small>Documents</small><h3>How to convert HEIC photos to a PDF</h3><p>Combine iPhone photos into one tidy PDF with the page size and file size you want, with no upload.</p><span class="read">Read the guide &rarr;</span></a></div>
+</main>
+<footer><div class="foot-in"><span>&copy; 2026 imgLop by BonBon Labs. Your photos stay on your device.</span>
+<span class="foot-links"><a href="/">Home</a><a href="/guides/">Guides</a><a href="mailto:support@imglop.app">support@imglop.app</a></span></div></footer>
+</body>
+</html>
