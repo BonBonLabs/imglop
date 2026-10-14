@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>imgLop — AI Image Studio</title>
-<meta name="description" content="Remove image backgrounds with AI, convert images to PDF and create custom QR codes — free, private and 100% in your browser. Erase &amp; restore brushes, HEIC support, no sign-up needed for the free tools.">
-<meta name="keywords" content="background remover, free image background removal, transparent PNG, HEIC converter, image to PDF, JPG to PDF, QR code generator, custom QR code, ecommerce product photo editor">
+<meta name="description" content="Remove image backgrounds with AI, resize, compress and convert photos, turn images into PDF and create custom QR codes — free, private and 100% in your browser. HEIC support, no sign-up needed for the free tools.">
+<meta name="keywords" content="background remover, free image background removal, transparent PNG, HEIC converter, image to PDF, JPG to PDF, QR code generator, custom QR code, Wi-Fi QR code, resize image, compress image, convert image format, ecommerce product photo editor">
 <link rel="canonical" href="https://imglop.app/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="imgLop — AI Image Studio">
@@ -31,7 +31,7 @@
 <script src="./vendor/qrcode.min.js"></script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Client-side image-to-PDF converter","Custom QR code generator"]}
+{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Resize and compress images","Convert image formats","Client-side image-to-PDF converter","Custom QR code generator","Wi-Fi QR codes"]}
 </script>
 
 <script>
@@ -395,6 +395,27 @@
   .privacy-note .i { color: var(--accent); font-size: 17px; margin-top: 2px; flex: none; }
   .privacy-note b { color: var(--text); }
 
+  /* Creative Studio tool tabs + resize/convert tools */
+  .tooltabs { display: flex; gap: 2px; padding: 4px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--border); width: max-content; max-width: 100%; margin: 26px auto 0; overflow-x: auto; }
+  .tooltabs button { display: inline-flex; align-items: center; gap: 8px; border: 0; background: transparent; padding: 8px 15px; border-radius: 10px; font-size: 13.5px; font-weight: 600; color: var(--muted); white-space: nowrap; transition: all .2s; }
+  .tooltabs button:hover { color: var(--text); }
+  .tooltabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+  .tooltabs button[aria-selected="true"] .i { color: var(--accent); }
+  .tooltabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .io-tool .hero { padding-top: 34px; }
+  .io-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .io-chips button { border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); border-radius: 999px; padding: 4px 11px; font-size: 12px; font-weight: 600; }
+  .io-chips button:hover, .io-chips button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  .field input[type=number] { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); font: inherit; font-size: 14px; font-weight: 500; }
+  .field input[type=range] { accent-color: var(--accent); width: 100%; }
+  .field .rv { color: var(--text); font-weight: 700; float: right; }
+  .field[hidden], .io-note[hidden] { display: none !important; }
+  .io-note { margin: 0; font-size: 12.5px; color: var(--muted); }
+  .pdf-item .meta .after { color: var(--text); font-weight: 600; }
+  .pdf-item .meta .save { color: var(--ok); font-weight: 700; }
+  .pdf-item .meta .bad { color: var(--accent); font-weight: 600; }
+  .pdf-item .st { font-size: 12px; font-weight: 600; color: var(--muted); }
+
   .qr-card { padding: 24px; }
   .qr-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; align-items: start; }
   .qr-form { display: grid; gap: 18px; }
@@ -466,6 +487,11 @@
   }
   @media (max-width: 960px) { .qr-grid { grid-template-columns: 1fr; } .qr-preview { position: static; } .spotlights, .plans { grid-template-columns: 1fr; } }
   @media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } .cats button { padding: 8px 10px; font-size: 12.5px; gap: 6px; } .spot, .plan { padding: 24px; } }
+  /* Phones: show every tab at once (icon above label) instead of hiding the last one off-screen */
+  @media (max-width: 600px) {
+    .cats, .tooltabs { width: 100%; overflow: visible; }
+    .cats button, .tooltabs button { flex: 1 1 0; min-width: 0; flex-direction: column; justify-content: center; gap: 4px; padding: 8px 4px; min-height: 54px; white-space: normal; text-align: center; line-height: 1.2; font-size: 12px; }
+  }
 
   /* Accounts + footer links */
   .authtabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); margin-bottom: 14px; }
@@ -728,7 +754,7 @@
       <button type="button" data-view="utils" aria-current="false"><svg class="i"><use href="#i-qr"/></svg>Quick Utilities</button>
     </nav>
     <div class="actions">
-      <span class="pill" id="creditPill" title="Free AI background removals today. PDF and QR tools are unlimited."><svg class="i fill"><use href="#i-bolt"/></svg><span><b id="creditCount">5</b>/5<span class="pill-long"> AI removals</span></span></span>
+      <span class="pill" id="creditPill" title="Free AI background removals today. Resize, convert, PDF and QR tools are unlimited."><svg class="i fill"><use href="#i-bolt"/></svg><span><b id="creditCount">5</b>/5<span class="pill-long"> AI removals</span></span></span>
       <button class="icon-btn tip-btn" id="tipBtn" hidden aria-label="Tip jar" title="Tip jar"><svg class="i fill" style="color:var(--accent)"><use href="#i-heart"/></svg></button>
       <button class="icon-btn theme" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
         <svg class="i moon"><use href="#i-moon"/></svg><svg class="i sun"><use href="#i-sun"/></svg>
@@ -740,6 +766,12 @@
 
 <main>
   <div class="view" id="view-studio">
+  <div class="tooltabs" id="toolTabs" role="tablist" aria-label="Creative Studio tools">
+    <button type="button" role="tab" data-tool="bg" aria-selected="true"><svg class="i"><use href="#i-wand"/></svg>Background remover</button>
+    <button type="button" role="tab" data-tool="resize" aria-selected="false"><svg class="i"><use href="#i-crop"/></svg>Resize &amp; compress</button>
+    <button type="button" role="tab" data-tool="convert" aria-selected="false"><svg class="i"><use href="#i-layers"/></svg>Convert format</button>
+  </div>
+  <div id="tool-bg" role="tabpanel">
   <section class="hero">
     <span class="eyebrow"><svg class="i fill"><use href="#i-bolt"/></svg>Free · No sign-up for free tools · Private by design</span>
     <h1>Remove backgrounds<br><em>in a blink.</em></h1>
@@ -916,6 +948,131 @@
 
   </div>
 
+  <div class="io-tool" id="tool-rz" role="tabpanel" hidden>
+    <section class="hero">
+      <span class="eyebrow"><svg class="i"><use href="#i-shield"/></svg>Resize &amp; compress · 100% in your browser</span>
+      <h1>Smaller photos,<br><em>same great look.</em></h1>
+      <p>Shrink photos for email, forms and websites. Set the size, choose JPG, WEBP or PNG, and aim for a quality or a file size. Nothing is uploaded.</p>
+    </section>
+    <section class="workspace">
+      <div class="card studio">
+        <input type="file" id="rzInput" class="sr" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/avif,image/heic,image/heif,.heic,.heif" multiple tabindex="-1">
+        <div class="dropzone" id="rzDrop" role="button" tabindex="0" aria-label="Add photos to resize or compress. Drag and drop, or press Enter to browse files.">
+          <div class="dz-art" aria-hidden="true"><span class="c1"></span><span class="c2"></span><span class="c3"><svg class="i"><use href="#i-crop"/></svg></span></div>
+          <h2>Drop photos to resize or compress</h2>
+          <p>or <b>browse files</b></p>
+          <div class="dz-actions"><button type="button" class="btn primary" id="rzBrowse"><svg class="i"><use href="#i-plus"/></svg>Choose photos</button></div>
+          <div class="dz-formats"><i>PNG</i><i>JPG</i><i>WEBP</i><i>HEIC</i><span style="align-self:center;margin-left:4px">up to 40 photos · 40 MB each</span></div>
+        </div>
+        <div id="rzListWrap" hidden>
+          <div class="pdf-head">
+            <b id="rzCount">0 photos</b>
+            <div class="tools">
+              <button type="button" class="btn sm" id="rzAdd"><svg class="i"><use href="#i-plus"/></svg>Add more</button>
+              <button type="button" class="btn ghost sm" id="rzClear">Clear all</button>
+            </div>
+          </div>
+          <ul class="pdf-list" id="rzItems"></ul>
+        </div>
+      </div>
+      <aside class="card panel">
+        <div>
+          <h3>Size</h3>
+          <div class="fields">
+            <label class="field">Resize
+              <select id="rzMode"><option value="orig">Keep original size</option><option value="edge" selected>Set the longest side</option></select></label>
+            <div class="field" id="rzEdgeWrap"><span>Longest side (pixels)</span>
+              <input type="number" id="rzEdge" min="16" max="8000" step="1" value="1600" inputmode="numeric" aria-label="Longest side in pixels">
+              <div class="io-chips" id="rzChips" role="group" aria-label="Common sizes"><button type="button" data-v="3000">3000</button><button type="button" data-v="2048">2048</button><button type="button" data-v="1600">1600</button><button type="button" data-v="1080">1080</button><button type="button" data-v="800">800</button></div></div>
+            <p class="io-note" id="rzNote">Photos are never enlarged. Very large photos are limited to 16 megapixels so every browser can handle them.</p>
+          </div>
+        </div>
+        <div>
+          <h3>Compress</h3>
+          <div class="fields">
+            <label class="field">Save as
+              <select id="rzFmt"><option value="jpg" selected>JPG (best for photos)</option><option value="webp">WEBP (smaller files)</option><option value="png">PNG (lossless, keeps transparency)</option></select></label>
+            <label class="field" id="rzByWrap">Compress by
+              <select id="rzBy"><option value="q" selected>Quality</option><option value="kb">Target file size</option></select></label>
+            <label class="field" id="rzQWrap"><span>Quality <b class="rv" id="rzQv">80</b></span>
+              <input type="range" id="rzQ" min="30" max="100" value="80"></label>
+            <div class="field" id="rzKWrap" hidden><span>Aim for under (KB)</span>
+              <input type="number" id="rzKB" min="10" max="20000" step="10" value="200" inputmode="numeric" aria-label="Target size in kilobytes">
+              <div class="io-chips" id="rzKChips" role="group" aria-label="Common target sizes"><button type="button" data-v="100">100 KB</button><button type="button" data-v="200">200 KB</button><button type="button" data-v="500">500 KB</button><button type="button" data-v="1000">1 MB</button></div></div>
+            <p class="io-note" id="rzPngNote" hidden>PNG is lossless, so quality and target size don’t apply. Resizing still makes it smaller.</p>
+            <p class="io-note" id="rzKbNote" hidden>If a photo can’t reach the target at good quality, it is also made a little smaller until it fits.</p>
+          </div>
+        </div>
+        <div>
+          <h3>Create</h3>
+          <button type="button" class="btn primary cta block" id="rzGo" disabled><svg class="i"><use href="#i-crop"/></svg>Resize &amp; compress</button>
+          <div class="pdf-prog" id="rzProg" hidden><p id="rzProgText">Working…</p><div class="bar"><div class="bar-fill" id="rzFill"></div></div></div>
+          <div class="pdf-done" id="rzDone" hidden>
+            <button type="button" class="btn primary cta block" id="rzZip"><svg class="i"><use href="#i-download"/></svg>Download all (ZIP)</button>
+            <small id="rzDoneInfo"></small>
+          </div>
+        </div>
+        <div class="privacy-note"><svg class="i"><use href="#i-shield"/></svg><span><b>Private by design.</b> Your photos are processed in this browser tab. Nothing is uploaded, and no sign-up is needed. Free and unlimited.</span></div>
+      </aside>
+    </section>
+  </div>
+
+  <div class="io-tool" id="tool-cv" role="tabpanel" hidden>
+    <section class="hero">
+      <span class="eyebrow"><svg class="i"><use href="#i-shield"/></svg>Convert format · 100% in your browser</span>
+      <h1>Any format,<br><em>one click.</em></h1>
+      <p>Turn HEIC, PNG, JPG and WEBP photos into the format you need. Nothing is uploaded.</p>
+    </section>
+    <section class="workspace">
+      <div class="card studio">
+        <input type="file" id="cvInput" class="sr" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp,image/avif,image/heic,image/heif,.heic,.heif" multiple tabindex="-1">
+        <div class="dropzone" id="cvDrop" role="button" tabindex="0" aria-label="Add photos to convert. Drag and drop, or press Enter to browse files.">
+          <div class="dz-art" aria-hidden="true"><span class="c1"></span><span class="c2"></span><span class="c3"><svg class="i"><use href="#i-layers"/></svg></span></div>
+          <h2>Drop photos to convert</h2>
+          <p>or <b>browse files</b></p>
+          <div class="dz-actions"><button type="button" class="btn primary" id="cvBrowse"><svg class="i"><use href="#i-plus"/></svg>Choose photos</button></div>
+          <div class="dz-formats"><i>PNG</i><i>JPG</i><i>WEBP</i><i>HEIC</i><span style="align-self:center;margin-left:4px">up to 40 photos · 40 MB each</span></div>
+        </div>
+        <div id="cvListWrap" hidden>
+          <div class="pdf-head">
+            <b id="cvCount">0 photos</b>
+            <div class="tools">
+              <button type="button" class="btn sm" id="cvAdd"><svg class="i"><use href="#i-plus"/></svg>Add more</button>
+              <button type="button" class="btn ghost sm" id="cvClear">Clear all</button>
+            </div>
+          </div>
+          <ul class="pdf-list" id="cvItems"></ul>
+        </div>
+      </div>
+      <aside class="card panel">
+        <div>
+          <h3>Convert to</h3>
+          <div class="fields">
+            <label class="field">Format
+              <select id="cvFmt"><option value="png">PNG (lossless, keeps transparency)</option><option value="jpg" selected>JPG (smaller, works everywhere)</option><option value="webp">WEBP (modern, small)</option></select></label>
+            <label class="field" id="cvQWrap"><span>Quality <b class="rv" id="cvQv">92</b></span>
+              <input type="range" id="cvQ" min="50" max="100" value="92"></label>
+            <label class="field" id="cvBgWrap">Fill transparent areas with
+              <select id="cvBg"><option value="#ffffff" selected>White</option><option value="#f3f4f6">Light gray</option><option value="#0b0b12">Black</option></select></label>
+            <p class="io-note">Size stays the same. Photos over 16 megapixels are reduced so every browser can handle them.</p>
+          </div>
+        </div>
+        <div>
+          <h3>Create</h3>
+          <button type="button" class="btn primary cta block" id="cvGo" disabled><svg class="i"><use href="#i-layers"/></svg>Convert</button>
+          <div class="pdf-prog" id="cvProg" hidden><p id="cvProgText">Working…</p><div class="bar"><div class="bar-fill" id="cvFill"></div></div></div>
+          <div class="pdf-done" id="cvDone" hidden>
+            <button type="button" class="btn primary cta block" id="cvZip"><svg class="i"><use href="#i-download"/></svg>Download all (ZIP)</button>
+            <small id="cvDoneInfo"></small>
+          </div>
+        </div>
+        <div class="privacy-note"><svg class="i"><use href="#i-shield"/></svg><span><b>Private by design.</b> Your photos are converted in this browser tab. Nothing is uploaded, and no sign-up is needed. Free and unlimited.</span></div>
+      </aside>
+    </section>
+  </div>
+
+  </div>
+
   <!-- Document Suite -->
   <div class="view" id="view-docs" hidden>
     <section class="hero">
@@ -985,14 +1142,27 @@
     <section class="hero">
       <span class="eyebrow"><svg class="i"><use href="#i-bolt"/></svg>Quick Utilities · Free &amp; unlimited</span>
       <h1>QR codes,<br><em>your way.</em></h1>
-      <p>Turn any link or text into a custom QR code, pick your own colors and download a crisp PNG — all generated privately in your browser.</p>
+      <p>Turn any link, text or Wi-Fi login into a custom QR code, pick your own colors and download a crisp PNG — all generated privately in your browser.</p>
     </section>
     <section class="workspace">
       <div class="card qr-card">
         <div class="qr-grid">
           <div class="qr-form">
-            <label class="field">Text or URL
+            <label class="field">What is the code for?
+              <select id="qrMode"><option value="text" selected>A link or text</option><option value="wifi">Wi-Fi network</option></select></label>
+            <label class="field" id="qrTextWrap">Text or URL
               <textarea id="qrText" rows="4" maxlength="1000" placeholder="https://imglop.app" spellcheck="false">https://imglop.app</textarea></label>
+            <div class="qr-form" id="qrWifiWrap" hidden>
+              <label class="field">Network name (SSID)
+                <input type="text" id="wfSsid" maxlength="32" placeholder="MyWiFi" spellcheck="false" autocomplete="off" autocapitalize="off"></label>
+              <label class="field">Password
+                <input type="text" id="wfPass" maxlength="63" placeholder="Your Wi-Fi password" spellcheck="false" autocomplete="off" autocapitalize="off"></label>
+              <div class="row2">
+                <label class="field">Security
+                  <select id="wfSec"><option value="WPA" selected>WPA / WPA2 / WPA3</option><option value="WEP">WEP (older routers)</option><option value="nopass">No password</option></select></label>
+                <label class="qr-check" style="align-self:end;padding-bottom:10px"><input type="checkbox" id="wfHidden"> Hidden network</label>
+              </div>
+            </div>
             <div class="row2">
               <div class="field"><span>Foreground color</span>
                 <div class="colorfield"><input type="color" id="qrFg" value="#14141f" aria-label="Foreground color"><input type="text" id="qrFgHex" value="#14141F" maxlength="7" spellcheck="false" aria-label="Foreground hex"></div></div>
@@ -1065,6 +1235,8 @@
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-split"/></svg></div><h3>Compare, crop &amp; export</h3><p>Slide between before and after, crop to any ratio, and save a transparent PNG or a JPG with your chosen backdrop.</p></div>
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-layers"/></svg></div><h3>Batch cutouts <span class="badge">imgLop Pro ZIP</span></h3><p>Drop up to 40 photos at once. Free users batch up to their remaining daily credits; imgLop Pro is unlimited with a one-click ZIP download.</p></div>
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-file"/></svg></div><h3>Cutout-to-PDF workflow</h3><p>Send any finished cutout, or a whole batch, straight into the PDF tool with no re-uploading.</p></div>
+      <div class="feature"><div class="ic"><svg class="i"><use href="#i-crop"/></svg></div><h3>Resize &amp; compress</h3><p>Shrink photos for email, forms and websites. Set the longest side, pick JPG, WEBP or PNG, and aim for a quality or a target file size. Free and unlimited.</p></div>
+      <div class="feature"><div class="ic"><svg class="i"><use href="#i-layers"/></svg></div><h3>Convert formats</h3><p>Turn HEIC, PNG, JPG and WEBP into the format you need, one photo or many at once. Free and unlimited.</p></div>
       <div class="feature"><div class="ic"><svg class="i"><use href="#i-bolt"/></svg></div><h3>No watermark, no sign-up to start</h3><p>Use the free tools without creating an account. An account is only needed for imgLop Pro.</p></div>
     </div>
     <div class="group-label"><svg class="i"><use href="#i-file"/></svg>Document Suite &amp; Quick Utilities <span class="badge">New</span></div>
@@ -1083,7 +1255,7 @@
       <article class="spot">
         <div class="ic"><svg class="i"><use href="#i-qr"/></svg></div>
         <h3>Custom QR Code Generator</h3>
-        <p>Create scannable QR codes for links and text. Choose your own foreground and background colors, then save a crisp PNG.</p>
+        <p>Create scannable QR codes for links, text and Wi-Fi logins. Choose your own foreground and background colors, then save a crisp PNG.</p>
         <ul class="ticks">
           <li><svg class="i"><use href="#i-check"/></svg>No software to install</li>
           <li><svg class="i"><use href="#i-check"/></svg>No sign-up or account</li>
@@ -1098,7 +1270,7 @@
     <div class="section-head">
       <small>Pricing</small>
       <h2>Simple pricing. Start free.</h2>
-      <p>PDF and QR tools are free and unlimited. imgLop Pro (coming soon) adds unlimited AI cutouts and the brush tools.</p>
+      <p>Resize, convert, PDF and QR tools are free and unlimited. imgLop Pro (coming soon) adds unlimited AI cutouts and the brush tools.</p>
     </div>
     <div class="billing" data-plan-toggle data-plan="yearly" role="group" aria-label="Billing period">
       <span class="thumb" aria-hidden="true"></span>
@@ -1129,7 +1301,7 @@
           <li><svg class="i"><use href="#i-check"/></svg>Erase, restore &amp; Magic erase brushes</li>
           <li><svg class="i"><use href="#i-check"/></svg>Account required · sign in on any device</li>
         </ul>
-        <button type="button" class="btn primary block" data-open-pro><svg class="i"><use href="#i-crown"/></svg>Get notified when Pro launches</button>
+        <button type="button" class="btn primary block" data-open-pro><svg class="i"><use href="#i-crown"/></svg>Get notified when imgLop Pro launches</button>
       </div>
     </div>
     <p class="cmp-note">imgLop Pro requires an account (your email). Prices exclude any applicable taxes, which may be added where required.</p>
@@ -1166,11 +1338,12 @@
       <details><summary>Are my uploaded photos kept private?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Processing happens entirely in your browser, and your images are never uploaded to our servers or used to train models.</p></details>
       <details><summary>Can I edit iPhone HEIC photos?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Absolutely. HEIC/HEIF files are decoded automatically so you can cut them out and download as PNG or JPG.</p></details>
       <details><summary>What can the brush tools do?<svg class="i"><use href="#i-chevron"/></svg></summary><p>After the AI removes the background, open Refine to erase leftover pieces, restore details that were removed by mistake, or use Magic erase to clear enclosed areas such as the inside of an “O”. You can undo and redo every edit.</p></details>
-      <details><summary>Is there a daily limit?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Free guests get 5 full-resolution credits every day. This limit only applies to AI background removal — PDF conversion and QR generation have no daily limit. imgLop Pro, coming soon, will be $4.99/month or $39.99/year for unlimited cutouts. Credits reset at midnight in your time zone, and brush tools, crop and downloads never use credits (and neither do failed removals).</p></details>
+      <details><summary>Is there a daily limit?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Free guests get 5 full-resolution credits every day. This limit only applies to AI background removal — resizing, compressing, converting, PDF conversion and QR generation have no daily limit. imgLop Pro, coming soon, will be $4.99/month or $39.99/year for unlimited cutouts. Credits reset at midnight in your time zone, and brush tools, crop and downloads never use credits (and neither do failed removals).</p></details>
       <details><summary>What does imgLop Pro include?<svg class="i"><use href="#i-chevron"/></svg></summary><p>imgLop Pro is coming soon. When it launches it will cost ($4.99/month, or $39.99/year — about 33% less) and include unlimited cutouts and batches with ZIP download, and the erase, restore and Magic erase brush tools.</p></details>
+      <details><summary>Can I resize, compress or convert photos?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Creative Studio has Resize &amp; compress and Convert format tabs. Set the longest side, pick JPG, WEBP or PNG, and aim for a quality or a target file size, or convert HEIC, PNG, JPG and WEBP photos to the format you need. Both tools are free and unlimited, handle up to 40 photos at a time (40 MB each) and run entirely in your browser, so nothing is uploaded.</p></details>
       <details><summary>Is the Image-to-PDF converter free and unlimited?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Converting images to PDF is free for basic use with no daily limit. Everything is compiled locally in your browser, so your files are never uploaded to our servers.</p></details>
-      <details><summary>Is the QR code generator free and private?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Create as many QR codes as you like, pick your own colors and download a PNG. Your text or link is processed 100% in your browser and never sent to our servers.</p></details>
-      <details><summary>Do the PDF and QR tools need an account or software?<svg class="i"><use href="#i-chevron"/></svg></summary><p>No. They run right in your browser with nothing to install and no sign-up.</p></details>
+      <details><summary>Is the QR code generator free and private?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Create as many QR codes as you like for links, text or your Wi-Fi network, pick your own colors and download a PNG. Your text, link or Wi-Fi password is processed 100% in your browser and never sent to our servers.</p></details>
+      <details><summary>Do the resize, convert, PDF and QR tools need an account or software?<svg class="i"><use href="#i-chevron"/></svg></summary><p>No. They run right in your browser with nothing to install and no sign-up.</p></details>
       <details><summary>Can I remove backgrounds from many photos at once?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Drop up to 40 photos to run a batch. Free users can batch up to their remaining daily credits, and imgLop Pro, coming soon, will have unlimited batches plus a one-click “Download all as ZIP”. Everything is processed in your browser.</p></details>
       <details><summary>Do I need an account for imgLop Pro?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes, once it launches. The free tools never need an account, but imgLop Pro will require creating one with your email so your subscription is tied to you and works on any device. Your photos, PDFs and QR text still never leave your browser.</p></details>
       <details><summary>How do I cancel, and what is the refund policy?<svg class="i"><use href="#i-chevron"/></svg></summary><p>imgLop Pro isn’t on sale yet, so there is nothing to cancel right now. Once it launches, you can cancel any time from Account → Manage subscription. Cancelling stops the next renewal and you keep imgLop Pro until the end of the period you have paid for. Fees are generally non-refundable, but if you were charged in error, contact support within 14 days and we will review it. See the Terms of Service for details.</p></details>
@@ -2184,10 +2357,22 @@
 
   /* ───────── Category navigation (Creative Studio / Document Suite / Quick Utilities) ───────── */
   const VIEWS = ['studio', 'docs', 'utils'];
+  const TOOLS = ['bg', 'resize', 'convert'];
+  const TOOL_PANEL = { bg: 'tool-bg', resize: 'tool-rz', convert: 'tool-cv' };
+  let studioTool = 'bg', curView = 'studio';
+  function showTool(t) {
+    if (!TOOLS.includes(t)) t = 'bg';
+    studioTool = t;
+    TOOLS.forEach(id => { $('#' + TOOL_PANEL[id]).hidden = id !== t; });
+    $$('#toolTabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tool === t ? 'true' : 'false'));
+    $('#creditPill').hidden = !(curView === 'studio' && t === 'bg');
+  }
+  $$('#toolTabs button').forEach(b => b.addEventListener('click', () => showTool(b.dataset.tool)));
   function showView(v, opts) {
     if (!VIEWS.includes(v)) v = 'studio';
     VIEWS.forEach(id => { $('#view-' + id).hidden = id !== v; });
-    $('#creditPill').hidden = v !== 'studio';
+    curView = v;
+    $('#creditPill').hidden = !(v === 'studio' && studioTool === 'bg');
     $$('#cats button').forEach(b => b.setAttribute('aria-current', b.dataset.view === v ? 'page' : 'false'));
     if (v === 'utils') qrRefresh();
     if (!opts || !opts.noScroll) scrollTopSmooth();
@@ -2440,12 +2625,21 @@
 
   /* ───────── Quick Utilities: client-side QR code generator (qrcode) ───────── */
   const qrText = $('#qrText'), qrFg = $('#qrFg'), qrFgHex = $('#qrFgHex'), qrBg = $('#qrBg'), qrBgHex = $('#qrBgHex');
+  const qrMode = $('#qrMode'), wfSsid = $('#wfSsid'), wfPass = $('#wfPass'), wfSec = $('#wfSec'), wfHidden = $('#wfHidden');
   const qrTrans = $('#qrTransparent'), qrEcc = $('#qrEcc'), qrSizeSel = $('#qrSize'), qrMargin = $('#qrMargin');
   const qrCanvas = $('#qrCanvas'), qrEmpty = $('#qrEmpty'), qrWarn = $('#qrWarn'), qrFrame = $('#qrFrame'), qrDl = $('#qrDownload');
   const HEX6 = /^#[0-9a-f]{6}$/i;
   const lum = hex => { const c = hexRgb(hex).map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
   const contrast = (a, b) => { const l1 = lum(a), l2 = lum(b); return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05); };
   const qrOpts = width => ({ errorCorrectionLevel: qrEcc.value, margin: +qrMargin.value, width, color: { dark: qrFg.value, light: qrTrans.checked ? '#00000000' : qrBg.value } });
+  // What gets encoded. Wi-Fi codes use the standard WIFI:T:<security>;S:<name>;P:<password>;H:true;; format. Special characters are escaped.
+  const wfEsc = v => String(v).replace(/([\\;,":])/g, '\\$1');
+  function qrValue() {
+    if (qrMode.value !== 'wifi') return qrText.value;
+    if (!wfSsid.value) return '';
+    const sec = wfSec.value;
+    return 'WIFI:T:' + sec + ';S:' + wfEsc(wfSsid.value) + ';' + (sec === 'nopass' ? '' : 'P:' + wfEsc(wfPass.value) + ';') + (wfHidden.checked ? 'H:true;' : '') + ';';
+  }
   let qrTimer = 0, qrSeq = 0;
   function qrRefresh() { clearTimeout(qrTimer); qrTimer = setTimeout(qrDraw, 120); }
   function qrShowEmpty(msg) { qrCanvas.hidden = true; qrEmpty.hidden = false; qrEmpty.textContent = msg; qrDl.disabled = true; }
@@ -2460,11 +2654,13 @@
       if (c < 3) warn = 'Low contrast: this code may be hard to scan. Use a darker foreground or a lighter background.';
       else if (lum(qrFg.value) > lum(qrBg.value)) warn = 'Light-on-dark codes work on most modern phones, but some older scanners need a dark code on a light background.';
     } else warn = 'Transparent codes scan best when placed on a plain, light background.';
+    if (qrMode.value === 'wifi' && wfSec.value === 'WPA' && wfSsid.value && wfPass.value.length < 8) warn = 'WPA passwords need at least 8 characters. Check the password you entered.' + (warn ? ' ' + warn : '');
     qrWarn.hidden = !warn; qrWarn.textContent = warn;
+    $('#qrTextWrap').hidden = qrMode.value === 'wifi'; $('#qrWifiWrap').hidden = qrMode.value !== 'wifi'; $('#wfPass').closest('.field').hidden = wfSec.value === 'nopass';
     if (typeof QRCode === 'undefined') { qrShowEmpty('The QR library couldn’t load. Check your connection and refresh the page.'); return; }
-    if (!qrText.value.trim()) { qrShowEmpty('Type a link or some text to generate your QR code.'); return; }
+    if (!qrValue().trim()) { qrShowEmpty(qrMode.value === 'wifi' ? 'Enter your network name to create your Wi-Fi QR code.' : 'Type a link or some text to generate your QR code.'); return; }
     try {
-      await QRCode.toCanvas(qrCanvas, qrText.value, qrOpts(640));
+      await QRCode.toCanvas(qrCanvas, qrValue(), qrOpts(640));
       if (seq !== qrSeq) return;
       qrCanvas.hidden = false; qrEmpty.hidden = true; qrDl.disabled = false;
     } catch (err) {
@@ -2481,24 +2677,30 @@
     hexInput.addEventListener('blur', () => { hexInput.value = picker.value.toUpperCase(); });
   }
   syncColor(qrFg, qrFgHex); syncColor(qrBg, qrBgHex);
-  [qrText, qrTrans, qrEcc, qrMargin].forEach(el => el.addEventListener('input', qrRefresh));
+  [qrText, qrTrans, qrEcc, qrMargin, qrMode, wfSsid, wfPass, wfSec, wfHidden].forEach(el => el.addEventListener('input', qrRefresh));
+  [qrMode, wfSec, wfHidden].forEach(el => el.addEventListener('change', qrRefresh));
   $$('#qrPresets .preset').forEach(b => b.addEventListener('click', () => {
     qrFg.value = b.dataset.fg; qrBg.value = b.dataset.bg; qrFgHex.value = b.dataset.fg.toUpperCase(); qrBgHex.value = b.dataset.bg.toUpperCase();
     qrTrans.checked = false; qrRefresh();
   }));
   qrDl.addEventListener('click', async () => {
-    if (!qrText.value.trim() || typeof QRCode === 'undefined') return;
+    if (!qrValue().trim() || typeof QRCode === 'undefined') return;
     try {
       const off = document.createElement('canvas');
-      await QRCode.toCanvas(off, qrText.value, qrOpts(+qrSizeSel.value));
+      await QRCode.toCanvas(off, qrValue(), qrOpts(+qrSizeSel.value));
       const blob = await new Promise((res, rej) => off.toBlob(b => b ? res(b) : rej(new Error('encode')), 'image/png'));
-      saveFile(blob, 'imglop-qr-code.png');
+      saveFile(blob, qrMode.value === 'wifi' ? 'imglop-wifi-qr-code.png' : 'imglop-qr-code.png');
     } catch (err) { console.error(err); toast('Couldn’t create the PNG. Try a smaller size.', 'error'); }
   });
   qrRefresh();
 
-  // Deep links: ?view=docs or ?view=utils
-  try { const v = new URLSearchParams(location.search).get('view'); if (VIEWS.includes(v)) showView(v, { noScroll: true }); } catch (e) {}
+  // Deep links: ?view=docs, ?view=utils, ?view=utils&qr=wifi, ?tool=resize, ?tool=convert
+  try {
+    const q = new URLSearchParams(location.search), v = q.get('view'), t = q.get('tool'), qm = q.get('qr');
+    if (qm === 'wifi') { qrMode.value = 'wifi'; qrRefresh(); }
+    if (TOOLS.includes(t)) { showView('studio', { noScroll: true }); showTool(t); }
+    else if (VIEWS.includes(v)) showView(v, { noScroll: true });
+  } catch (e) {}
 
   /* ───────── Tiny dependency-free ZIP writer (stored, no compression — PNGs are already compressed) ───────── */
   const CRC_T = (() => {
@@ -2536,6 +2738,204 @@
     end.setUint32(12, cdSize, true); end.setUint32(16, offset, true); end.setUint16(20, 0, true);
     return new Blob([...parts, ...central, new Uint8Array(end.buffer)], { type: 'application/zip' });
   }
+
+
+  /* ───────── Creative Studio: Resize & compress, Convert format (client-side canvas; nothing is uploaded) ───────── */
+  const IO_MAX_ITEMS = 40, IO_MAX_BYTES = 40 * 1024 * 1024, IO_MAX_PIXELS = 16000000;
+  const WEBP_OK = (() => { try { return document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0; } catch (e) { return false; } })();
+  const IO_MIME = { jpg: 'image/jpeg', webp: 'image/webp', png: 'image/png' };
+  const fmtSize = b => b >= 1048576 ? (b / 1048576).toFixed(2) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB';
+  if (!WEBP_OK) $$('#rzFmt option[value="webp"], #cvFmt option[value="webp"]').forEach(o => o.remove());
+  const canvasBlob = (cv, type, q) => new Promise((res, rej) => cv.toBlob(b => b ? res(b) : rej(new Error('encode')), type, q));
+
+  function makeIO(p, cfg) {
+    const st = { items: [], seq: 0, busy: false, results: 0 };
+    const input = $('#' + p + 'Input'), drop = $('#' + p + 'Drop'), list = $('#' + p + 'Items'), go = $('#' + cfg.go);
+    const E = id => $('#' + p + id);
+
+    async function decode(file) {
+      let blob = file, type = typeOf(file);
+      if (/hei[cf]/i.test(type) || /\.hei[cf]$/i.test(file.name || '')) {
+        if (typeof heic2any !== 'function') throw new Error('heic');
+        const out = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.95 });
+        blob = Array.isArray(out) ? out[0] : out; type = 'image/jpeg';
+      }
+      if (!/^image\/(png|jpe?g|webp|gif|bmp|avif)$/i.test(type)) throw new Error('type');
+      if (file.size > IO_MAX_BYTES) throw new Error('size');
+      const url = URL.createObjectURL(blob);
+      let img;
+      try { img = await loadImg(url); } catch (e) { URL.revokeObjectURL(url); throw e; }
+      return { id: ++st.seq, name: file.name || 'photo', origSize: file.size, blob, url, w: img.naturalWidth, h: img.naturalHeight, out: null, outName: '', outW: 0, outH: 0, err: '' };
+    }
+    async function add(files) {
+      let skipped = 0;
+      for (const f of [...files]) {
+        if (st.items.length >= IO_MAX_ITEMS) { toast('You can add up to ' + IO_MAX_ITEMS + ' photos at a time.', 'error'); break; }
+        try { st.items.push(await decode(f)); } catch (e) { skipped++; }
+      }
+      if (skipped) toast(skipped + (skipped === 1 ? ' file was' : ' files were') + ' skipped (not a supported image, or over 40 MB).', 'error');
+      dirty(); render();
+    }
+    function dirty() { st.items.forEach(it => { it.out = null; it.err = ''; }); E('Done').hidden = true; }
+    function render() {
+      const n = st.items.length;
+      drop.classList.toggle('compact', n > 0);
+      E('ListWrap').hidden = n === 0;
+      E('Count').textContent = n + (n === 1 ? ' photo' : ' photos');
+      list.innerHTML = st.items.map((it, i) => {
+        let line;
+        if (it.err) line = '<span class="bad">' + esc(it.err) + '</span>';
+        else if (it.out) {
+          const pct = Math.round((1 - it.out.size / it.origSize) * 100);
+          line = '<span>' + fmtSize(it.origSize) + ' → </span><span class="after">' + fmtSize(it.out.size) + '</span> ' + (pct > 0 ? '<span class="save">−' + pct + '%</span>' : '<span>(' + (pct < 0 ? '+' + (-pct) + '%' : 'same size') + ')</span>') + '<span> · ' + it.outW + '×' + it.outH + '</span>';
+        } else line = '<span>' + it.w + '×' + it.h + ' · ' + fmtSize(it.origSize) + '</span>';
+        return '<li class="pdf-item" data-id="' + it.id + '"><span class="num">' + (i + 1) + '</span>' +
+          '<img class="thumb checker" src="' + it.url + '" alt="">' +
+          '<div class="meta"><b>' + esc(it.name) + '</b>' + line + '</div>' +
+          '<div class="ctrls">' + (it.out ? '<button type="button" class="icon-btn" data-act="dl" aria-label="Download ' + esc(it.outName) + '" title="Download"><svg class="i"><use href="#i-download"/></svg></button>' : '') +
+          '<button type="button" class="icon-btn" data-act="del" aria-label="Remove"><svg class="i"><use href="#i-trash"/></svg></button></div></li>';
+      }).join('');
+      go.disabled = n === 0 || st.busy;
+    }
+    list.addEventListener('click', e => {
+      const b = e.target.closest('[data-act]'); if (!b) return;
+      const id = +b.closest('.pdf-item').dataset.id, it = st.items.find(x => x.id === id); if (!it) return;
+      if (b.dataset.act === 'dl' && it.out) saveFile(it.out, it.outName);
+      else if (b.dataset.act === 'del') { URL.revokeObjectURL(it.url); st.items = st.items.filter(x => x.id !== id); afterChange(); }
+    });
+    function afterChange() { E('Done').hidden = !st.items.some(x => x.out); updateDone(); render(); }
+    function updateDone() {
+      const ok = st.items.filter(x => x.out);
+      if (!ok.length) { E('Done').hidden = true; return; }
+      const a = ok.reduce((s, x) => s + x.origSize, 0), b = ok.reduce((s, x) => s + x.out.size, 0);
+      E('Done').hidden = false;
+      E('Zip').firstChild && (E('Zip').lastChild.textContent = ok.length > 1 ? 'Download all (ZIP)' : 'Download');
+      E('DoneInfo').textContent = ok.length + (ok.length === 1 ? ' photo' : ' photos') + ' ready · ' + fmtSize(a) + ' → ' + fmtSize(b);
+    }
+    E('Zip').addEventListener('click', async () => {
+      const ok = st.items.filter(x => x.out);
+      if (!ok.length) return;
+      if (ok.length === 1) { saveFile(ok[0].out, ok[0].outName); return; }
+      const used = new Set(), files = [];
+      for (const it of ok) {
+        let nm = it.outName, k = 1; const dot = nm.lastIndexOf('.'), base = nm.slice(0, dot), ext = nm.slice(dot);
+        while (used.has(nm.toLowerCase())) nm = base + '-' + (++k) + ext;
+        used.add(nm.toLowerCase());
+        files.push({ name: nm, data: new Uint8Array(await it.out.arrayBuffer()) });
+      }
+      saveFile(makeZip(files), 'imglop-' + cfg.zipName + '.zip');
+    });
+
+    // Draw at a given scale, then encode.
+    async function render1(it, img, scale, fmt, quality, bg) {
+      const cw = Math.max(1, Math.round(it.w * scale)), ch = Math.max(1, Math.round(it.h * scale));
+      const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+      const ctx = cv.getContext('2d');
+      if (fmt === 'jpg') { ctx.fillStyle = bg; ctx.fillRect(0, 0, cw, ch); }
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, cw, ch);
+      const blob = await canvasBlob(cv, IO_MIME[fmt], fmt === 'png' ? undefined : quality);
+      cv.width = cv.height = 1;
+      return { blob, w: cw, h: ch };
+    }
+    async function process(it) {
+      const o = cfg.options();
+      const img = await loadImg(it.url);
+      let scale = 1;
+      if (o.edge) { const m = Math.max(it.w, it.h); if (o.edge < m) scale = o.edge / m; }
+      if (it.w * it.h * scale * scale > IO_MAX_PIXELS) scale = Math.sqrt(IO_MAX_PIXELS / (it.w * it.h));
+      let res;
+      if (o.targetKB && o.fmt !== 'png') {
+        const limit = o.targetKB * 1024;
+        for (let tries = 0; tries < 8; tries++) {
+          // binary-search the quality, 0.35 to 0.95
+          let lo = 0.35, hi = 0.95, best = null;
+          const top = await render1(it, img, scale, o.fmt, hi, o.bg);
+          if (top.blob.size <= limit) { best = top; }
+          else {
+            const bottom = await render1(it, img, scale, o.fmt, lo, o.bg);
+            if (bottom.blob.size <= limit) {
+              best = bottom;
+              for (let k = 0; k < 6; k++) {
+                const mid = (lo + hi) / 2, r = await render1(it, img, scale, o.fmt, mid, o.bg);
+                if (r.blob.size <= limit) { best = r; lo = mid; } else hi = mid;
+              }
+            } else res = bottom;
+          }
+          if (best) { res = best; break; }
+          if (scale * it.w < 64 || scale * it.h < 64) break;
+          scale *= 0.85;
+        }
+      } else res = await render1(it, img, scale, o.fmt, o.q, o.bg);
+      it.out = res.blob; it.outW = res.w; it.outH = res.h;
+      it.outName = baseOf(it.name) + cfg.suffix + '.' + o.fmt;
+    }
+    go.addEventListener('click', async () => {
+      if (st.busy || !st.items.length) return;
+      st.busy = true; go.disabled = true; E('Prog').hidden = false; E('Done').hidden = true;
+      const total = st.items.length; let done = 0;
+      for (const it of st.items) {
+        E('ProgText').textContent = 'Working on ' + (done + 1) + ' of ' + total + '…';
+        E('Fill').style.width = Math.round(done / total * 100) + '%';
+        await nextFrame();
+        try { await process(it); } catch (e) { it.out = null; it.err = 'Couldn’t process this photo. It may be too large for this browser.'; }
+        done++;
+      }
+      E('Fill').style.width = '100%';
+      st.busy = false; E('Prog').hidden = true;
+      updateDone(); render();
+      const failed = st.items.filter(x => x.err).length;
+      toast(failed ? 'Finished with ' + failed + ' problem' + (failed > 1 ? 's' : '') + '.' : 'Done. Your files are ready.', failed ? 'error' : 'success');
+    });
+    E('Clear').addEventListener('click', () => { st.items.forEach(x => URL.revokeObjectURL(x.url)); st.items = []; E('Done').hidden = true; render(); });
+    E('Add').addEventListener('click', () => input.click());
+    E('Browse').addEventListener('click', e => { e.stopPropagation(); input.click(); });
+    drop.addEventListener('click', () => input.click());
+    drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+    input.addEventListener('change', () => { if (input.files.length) add(input.files); input.value = ''; });
+    ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+    drop.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) add(e.dataTransfer.files); });
+    return { dirty: () => { dirty(); updateDone(); render(); }, state: st };
+  }
+
+  const clampInt = (v, lo, hi, d) => { v = Math.round(+v); return isFinite(v) ? Math.min(hi, Math.max(lo, v)) : d; };
+  const rz = makeIO('rz', {
+    go: 'rzGo', suffix: '-imglop', zipName: 'resized-photos',
+    options: () => {
+      const fmt = $('#rzFmt').value, by = $('#rzBy').value;
+      return { fmt, bg: '#ffffff', q: clampInt($('#rzQ').value, 30, 100, 80) / 100,
+        edge: $('#rzMode').value === 'edge' ? clampInt($('#rzEdge').value, 16, 8000, 1600) : 0,
+        targetKB: by === 'kb' && fmt !== 'png' ? clampInt($('#rzKB').value, 10, 20000, 200) : 0 };
+    }
+  });
+  function rzSync() {
+    const png = $('#rzFmt').value === 'png', kb = $('#rzBy').value === 'kb';
+    $('#rzEdgeWrap').hidden = $('#rzMode').value !== 'edge';
+    $('#rzByWrap').hidden = png; $('#rzQWrap').hidden = png || kb; $('#rzKWrap').hidden = png || !kb;
+    $('#rzPngNote').hidden = !png; $('#rzKbNote').hidden = png || !kb;
+    $('#rzQv').textContent = $('#rzQ').value;
+    rz.dirty();
+  }
+  ['#rzMode', '#rzFmt', '#rzBy'].forEach(id => $(id).addEventListener('change', rzSync));
+  ['#rzQ', '#rzEdge', '#rzKB'].forEach(id => $(id).addEventListener('input', rzSync));
+  $$('#rzChips button').forEach(b => b.addEventListener('click', () => { $('#rzEdge').value = b.dataset.v; rzSync(); }));
+  $$('#rzKChips button').forEach(b => b.addEventListener('click', () => { $('#rzKB').value = b.dataset.v; rzSync(); }));
+  rzSync();
+
+  const cv = makeIO('cv', {
+    go: 'cvGo', suffix: '', zipName: 'converted-photos',
+    options: () => ({ fmt: $('#cvFmt').value, bg: $('#cvBg').value, q: clampInt($('#cvQ').value, 50, 100, 92) / 100, edge: 0, targetKB: 0 })
+  });
+  function cvSync() {
+    const f = $('#cvFmt').value;
+    $('#cvQWrap').hidden = f === 'png'; $('#cvBgWrap').hidden = f !== 'jpg';
+    $('#cvQv').textContent = $('#cvQ').value;
+    cv.dirty();
+  }
+  ['#cvFmt', '#cvBg'].forEach(id => $(id).addEventListener('change', cvSync));
+  $('#cvQ').addEventListener('input', cvSync);
+  cvSync();
 
   /* ───────── Batch background removal (free: up to remaining credits · imgLop Pro: unlimited + ZIP) ───────── */
   // Placeholder gating (runs in the browser). Real enforcement needs accounts + server checks.
@@ -3067,7 +3467,7 @@
     { chip: 'Is it private?', k: ['private', 'privacy', 'upload', 'safe', 'secure', 'server', 'data', 'store', 'saved', 'train'],
       a: 'Yes. Your photos, PDFs and QR text are processed <b>in your browser</b> and are not uploaded to our servers or used to train models. Read the <button type="button" class="linkbtn" data-info-open="privacy">Privacy Policy</button> for details.' },
     { chip: 'Daily limit', k: ['limit', 'daily', 'credit', 'free', 'how many', 'unlimited', 'per day', 'reset'],
-      a: 'Free users get <b>5 AI background removals per day</b>. They reset at midnight in your time zone. Brush tools, crop and downloads never use credits, and neither do failed removals. The PDF and QR tools have <b>no daily limit</b>.' },
+      a: 'Free users get <b>5 AI background removals per day</b>. They reset at midnight in your time zone. Brush tools, crop and downloads never use credits, and neither do failed removals. Resize &amp; compress, Convert format, PDF and QR tools have <b>no daily limit</b>.' },
     { chip: 'What does imgLop Pro include?', k: ['pro', 'premium', 'upgrade', 'paid', 'subscription', 'subscribe', 'price', 'pricing', 'cost', 'how much', 'plan', 'ads', 'ad-free'],
       a: 'imgLop Pro is <b>coming soon</b> and is planned at <b>$4.99/month or $39.99/year</b>. It will include unlimited cutouts, batches with ZIP download, and the erase, restore and Magic erase brushes. <button type="button" class="linkbtn" data-act="pro">See imgLop Pro</button>' },
     { chip: 'iPhone / HEIC photos', k: ['heic', 'heif', 'iphone', 'apple', 'format', 'jpg', 'jpeg', 'png', 'webp', 'file type'],
@@ -3075,15 +3475,17 @@
     { chip: 'Edit the edges', k: ['brush', 'erase', 'restore', 'refine', 'edge', 'fix', 'mistake', 'magic', 'undo', 'touch up'],
       a: 'After the AI removes the background, open <b>Refine</b> to erase leftovers, restore parts that were removed by mistake, or use Magic erase on enclosed areas. You can undo and redo every edit. The brush tools are part of imgLop Pro, which is coming soon.' },
     { chip: 'Many photos at once', k: ['batch', 'many', 'multiple', 'bulk', 'zip', 'several', 'at once'],
-      a: 'Drop up to <b>40 photos</b> to run a batch. Free users can batch up to their remaining daily credits. imgLop Pro, coming soon, will have unlimited batches and a one-click <b>Download all as ZIP</b>.' },
-    { chip: 'PDF & QR tools', k: ['pdf', 'qr', 'document', 'convert', 'code', 'scan'],
-      a: 'The <b>Document Suite</b> turns images into a PDF, and <b>Quick Utilities</b> makes custom QR codes. Both are free, unlimited, need no account, and run entirely in your browser.' },
+      a: 'Drop up to <b>40 photos</b> to run a batch. Free users can batch up to their remaining daily credits. imgLop Pro, coming soon, will have unlimited batches and a one-click <b>Download all as ZIP</b> for background removal. <b>Resize &amp; compress</b> and <b>Convert format</b> batches download as a free ZIP.' },
+    { chip: 'Resize, compress & convert', k: ['resize', 'compress', 'compression', 'shrink', 'smaller', 'reduce', 'file size', 'size', 'kb', 'convert', 'conversion', 'change format', 'heic to', 'to jpg', 'to png', 'to webp', 'optimize'],
+      a: '<b>Creative Studio</b> has <b>Resize &amp; compress</b> and <b>Convert format</b> tabs. Both are free, unlimited, run in your browser, take up to <b>40 photos</b> (40 MB each) and download as a ZIP. Convert turns HEIC, PNG, JPG and WebP photos into PNG, JPG or WebP. Resize lets you set the longest side and aim for a quality or a file size.' },
+    { chip: 'PDF & QR tools', k: ['pdf', 'qr', 'document', 'code', 'scan', 'wifi', 'wi fi', 'wifi password', 'wi fi password', 'wifi network', 'wi fi network'],
+      a: 'The <b>Document Suite</b> turns images into a PDF, and <b>Quick Utilities</b> makes custom QR codes for links, text and <b>Wi-Fi logins</b>. Both are free, unlimited, need no account, and run entirely in your browser.' },
     { chip: 'Cancel or refund', k: ['cancel', 'refund', 'money back', 'charged', 'billing', 'invoice', 'receipt'],
       a: 'imgLop Pro isn’t on sale yet, so there is nothing to cancel or refund right now. When it launches you will be able to cancel any time from <b>Account → Manage subscription</b> and keep imgLop Pro until the end of the period you paid for. If you ever see a charge you don’t expect, email <a href="mailto:' + EMAIL + '">' + EMAIL + '</a> within 14 days. See the <button type="button" class="linkbtn" data-info-open="terms">Terms of Service</button>.' },
     { chip: 'Contact support', k: ['contact', 'support', 'help', 'email', 'human', 'person', 'bug', 'problem', 'broken', 'error', 'not working', 'report'],
       a: 'You can reach the BonBon Labs team at <a href="mailto:' + EMAIL + '">' + EMAIL + '</a>. Please include what you tried and what browser you use.' },
     { chip: null, k: ['account', 'sign in', 'signin', 'login', 'log in', 'password', 'forgot', 'reset', 'sign up', 'signup'],
-      a: 'Only imgLop Pro needs an account. Use the <b>imgLop Pro</b> button at the top to sign up or sign in. If you forgot your password, choose <b>Forgot password?</b> on the Sign in tab. The free tools never need an account.' },
+      a: 'There are no accounts yet. imgLop Pro is <b>coming soon</b>: tap <b>Get notified</b> to hear when it launches. The free tools never need an account.' },
     { chip: null, k: ['hello', 'hi', 'hey', 'hola', 'sua', 'suostei', 'សួស្តី', 'thanks', 'thank', 'អរគុណ'],
       a: 'សួស្តី! Happy to help. Try one of the questions below, or type your own.' }
   ];
@@ -3171,6 +3573,6 @@
   } catch (e) { /* never block the page */ }
 })();
 </script>
-<!-- imgLop build 2026-10-13f -->
+<!-- imgLop build 2026-10-14a -->
 </body>
 </html>
