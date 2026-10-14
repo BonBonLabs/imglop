@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Make a Logo Background Transparent (Free PNG) | imgLop</title>
+<meta name="description" content="Remove the background from a logo and save it as a transparent PNG, free and without uploading it. Includes what works, what does not, and how to check the edges.">
+<link rel="canonical" href="https://imglop.app/guides/make-a-logo-transparent/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="imgLop">
+<meta property="og:title" content="How to Make a Logo Background Transparent (Free PNG) | imgLop">
+<meta property="og:description" content="Remove the background from a logo and save it as a transparent PNG, free and without uploading it. Includes what works, what does not, and how to check the edges.">
+<meta property="og:url" content="https://imglop.app/guides/make-a-logo-transparent/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>/* imgLop Guides: shared styles. Matches the main site's colors and fonts (fonts are self-hosted at /fonts/). */
+:root {
+  box-sizing: border-box; color-scheme: light;
+  --bg: #f6f5f9; --bar: rgba(246,245,249,.78); --surface: #ffffff; --surface-2: #f1f0f6; --surface-3: #e8e7f0;
+  --border: rgba(24,24,45,.09); --border-strong: rgba(24,24,45,.18); --text: #14141f; --muted: #6a6a80;
+  --accent: #e11d48; --accent-2: #fb5a7a; --accent-soft: rgba(225,29,72,.08); --accent-glow: rgba(225,29,72,.35); --ok: #16a34a;
+  --blob-1: rgba(244,63,94,.16); --blob-2: rgba(99,102,241,.14);
+  --shadow-sm: 0 1px 2px rgba(24,24,45,.05); --shadow: 0 1px 2px rgba(24,24,45,.04), 0 18px 40px -18px rgba(24,24,45,.22);
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark; --bg: #09090e; --bar: rgba(9,9,14,.72); --surface: #13131b; --surface-2: #1a1a24; --surface-3: #232330;
+    --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.18); --text: #f3f3f8; --muted: #9b9bb2;
+    --accent: #fb4d70; --accent-2: #ff8aa0; --accent-soft: rgba(251,77,112,.12); --accent-glow: rgba(251,77,112,.42); --ok: #4ade80;
+    --blob-1: rgba(251,77,112,.18); --blob-2: rgba(99,102,241,.2);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 1px 2px rgba(0,0,0,.4), 0 24px 50px -20px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark; --bg: #09090e; --bar: rgba(9,9,14,.72); --surface: #13131b; --surface-2: #1a1a24; --surface-3: #232330;
+  --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.18); --text: #f3f3f8; --muted: #9b9bb2;
+  --accent: #fb4d70; --accent-2: #ff8aa0; --accent-soft: rgba(251,77,112,.12); --accent-glow: rgba(251,77,112,.42); --ok: #4ade80;
+  --blob-1: rgba(251,77,112,.18); --blob-2: rgba(99,102,241,.2);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 1px 2px rgba(0,0,0,.4), 0 24px 50px -20px rgba(0,0,0,.7);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-height: 100vh; font-family: var(--font); font-size: 16px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.ambient::before, .ambient::after { content: ""; position: absolute; border-radius: 50%; filter: blur(90px); }
+.ambient::before { width: 520px; height: 520px; top: -180px; left: -120px; background: var(--blob-1); }
+.ambient::after { width: 560px; height: 560px; top: 160px; right: -200px; background: var(--blob-2); }
+.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* header */
+.topbar { position: sticky; top: 0; z-index: 40; background: var(--bar); backdrop-filter: saturate(1.6) blur(16px); -webkit-backdrop-filter: saturate(1.6) blur(16px); border-bottom: 1px solid var(--border); }
+.topbar-in { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.logo { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; font-size: 18px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 8px 20px -8px var(--accent-glow); }
+.brand-name { font-weight: 800; font-size: 20px; letter-spacing: -.03em; }
+.topnav { display: flex; align-items: center; gap: 6px; }
+.topnav a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 8px 12px; border-radius: 999px; }
+.topnav a:hover { color: var(--text); background: var(--surface-2); }
+.topnav a[aria-current="page"] { color: var(--text); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { color: #fff; border: 0; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 10px 24px -10px var(--accent-glow); }
+.btn.primary:hover { filter: brightness(1.04); }
+.btn.sm { padding: 8px 14px; font-size: 14px; border-radius: 12px; }
+
+/* page */
+main { max-width: 740px; margin: 0 auto; padding: 28px 20px 40px; }
+main.wide { max-width: 1000px; }
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 6px 0 22px; }
+.crumbs a { color: inherit; text-decoration: none; } .crumbs a:hover { color: var(--text); text-decoration: underline; }
+.eyebrow { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(2rem, 5.2vw, 3.1rem); line-height: 1.08; letter-spacing: -.035em; font-weight: 800; margin: 10px 0 14px; }
+h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; font-size: 1.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 22px; }
+.lead { font-size: 19px; line-height: 1.6; color: var(--text); margin: 0 0 26px; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); line-height: 1.2; letter-spacing: -.025em; margin: 44px 0 12px; }
+h3 { font-size: 1.1rem; margin: 26px 0 6px; letter-spacing: -.01em; }
+p { margin: 0 0 16px; }
+ul, ol { margin: 0 0 18px; padding-left: 1.3em; } li { margin: 0 0 8px; } li::marker { color: var(--accent); font-weight: 700; }
+strong { font-weight: 700; }
+.try { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 26px 0 8px; padding: 18px 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.try b { display: block; font-size: 16px; } .try span { color: var(--muted); font-size: 14.5px; }
+.note { margin: 22px 0; padding: 14px 18px; border-radius: 14px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); font-size: 15px; }
+.note p:last-child { margin: 0; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0 0 22px; }
+.steps > li { counter-increment: s; position: relative; padding: 2px 0 2px 48px; margin: 0 0 18px; }
+.steps > li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 15px; color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.steps > li b { display: block; margin-bottom: 2px; }
+.cmp { width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 15px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: block; overflow-x: auto; }
+.cmp th, .cmp td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.cmp th { background: var(--surface-2); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.cmp tr:last-child td { border-bottom: 0; }
+.faq details { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; margin: 0 0 10px; }
+.faq summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); font-size: 20px; line-height: 1; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin: 10px 0 0; color: var(--muted); }
+.related { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 10px 0 0; }
+.card { display: block; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px; box-shadow: var(--shadow-sm); transition: transform .18s, border-color .18s, box-shadow .18s; }
+.card:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
+.card small { color: var(--accent); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.card h3 { margin: 8px 0 8px; font-size: 1.15rem; line-height: 1.25; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.card .read { display: inline-block; margin-top: 12px; color: var(--accent); font-weight: 700; font-size: 14px; }
+.hub-head { text-align: center; padding: 34px 0 26px; } .hub-head .lead { max-width: 600px; margin: 0 auto; color: var(--muted); }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+
+/* footer */
+footer { border-top: 1px solid var(--border); margin-top: 50px; }
+.foot-in { max-width: 1100px; margin: 0 auto; padding: 26px 20px 40px; display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; font-size: 14px; color: var(--muted); }
+.foot-in a { color: inherit; text-decoration: none; } .foot-in a:hover { color: var(--text); text-decoration: underline; }
+.foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .topnav a:not(.btn) { display: none; }
+  .lead { font-size: 17.5px; }
+  .try .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+</style>
+<script>try{var t=localStorage.getItem('imgLop_theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to make a logo background transparent", "description": "Remove the background from a logo and save it as a transparent PNG, free and without uploading it. Includes what works, what does not, and how to check the edges.", "datePublished": "2026-10-14", "dateModified": "2026-10-14", "mainEntityOfPage": "https://imglop.app/guides/make-a-logo-transparent/", "author": {"@type": "Organization", "name": "BonBon Labs"}, "publisher": {"@type": "Organization", "name": "BonBon Labs", "url": "https://imglop.app"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "imgLop", "item": "https://imglop.app/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://imglop.app/guides/"}, {"@type": "ListItem", "position": 3, "name": "How to make a logo background transparent", "item": "https://imglop.app/guides/make-a-logo-transparent/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Will the logo stay transparent when I upload it?", "acceptedAnswer": {"@type": "Answer", "text": "A PNG keeps its transparency. Some sites convert uploads to JPG, which fills transparent areas with white. If that happens, look for a setting that keeps PNG, or ask the site's support."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. You get 5 free AI background removals per day with no account."}}, {"@type": "Question", "name": "Is my logo uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. The background removal runs in your browser on your own device."}}, {"@type": "Question", "name": "Can I get a vector (SVG) logo from this?", "acceptedAnswer": {"@type": "Answer", "text": "No. The result is a PNG picture. A vector file has to come from the original design file, or from a designer."}}, {"@type": "Question", "name": "The edges look rough. What can I do?", "acceptedAnswer": {"@type": "Answer", "text": "Start from a larger, sharper file, and one with strong contrast between the logo and its background. Fine lines, tiny text and soft shadows are the hardest cases."}}]}</script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<header class="topbar"><div class="topbar-in">
+<a class="brand" href="/" aria-label="imgLop home"><span class="logo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span><span class="brand-name">imgLop</span></a>
+<nav class="topnav" aria-label="Main"><a href="/guides/">Guides</a><a href="/">Tools</a><a class="btn primary sm" href="/">Open imgLop</a></nav>
+</div></header>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">imgLop</a> / <a href="/guides/">Guides</a> / Photo editing</nav>
+<span class="eyebrow">Photo editing</span>
+<h1>How to make a logo background transparent</h1>
+<p class="meta">By BonBon Labs &middot; Updated October 14, 2026</p>
+<p class="lead">A logo with a white box around it looks wrong on colored banners, slides and photos. Here is how to turn a logo picture into a transparent PNG for free, and when you need the original file instead.</p>
+<div class="try"><div><b>Remove the background</b><span>Free, no account, 5 removals a day.</span></div><a class="btn primary" href="/">Open the background remover</a></div>
+
+<h2>What a transparent logo is for</h2>
+<p>A logo saved with a white box around it looks wrong on a colored banner, a slide or a photo. A logo saved as a <b>transparent PNG</b> has no box, so it sits cleanly on any color. It is the format most website builders, presentation programs and design tools want for logos.</p>
+
+<div class="note"><p><b>Be realistic:</b> This works best when your logo is a flat picture on a plain background, such as a JPG or a screenshot with a white or single-color background. If you still have the original from your designer, such as an SVG, AI or PDF file, use that for print and large sizes, since it is sharp at any size. Think of this method as a quick fix when all you have is a picture.</p></div>
+
+<h2>Step by step</h2>
+<ol class="steps">
+<li><b>Find the biggest, cleanest version.</b>A larger, sharper file gives cleaner edges. A tiny, blurry logo stays tiny and blurry.</li>
+<li><b>Open imgLop and choose your logo.</b>On the home page, click <b style="display:inline">Choose a photo</b> and pick the file. PNG, JPG, WEBP and HEIC work, up to 15 MB. Each photo uses 1 of your 5 free daily credits, and no account is needed.</li>
+<li><b>Wait a few seconds.</b>The AI runs in your browser, so your logo is not uploaded. The first run downloads the model once.</li>
+<li><b>Check the edges.</b>Use the <b style="display:inline">Slider</b> view to compare the result with the original. Zoom in on thin lines, small text and curves. Try different backdrop swatches, such as a dark one, to reveal any leftover specks.</li>
+<li><b>Download the transparent PNG.</b>Click <b style="display:inline">Download PNG</b>. This file stays transparent. The <b style="display:inline">Download JPG with backdrop</b> button makes a JPG instead, which cannot be transparent.</li>
+<li><b>Test it.</b>Place the PNG on a light and a dark background in your slide or website and check that it looks right on both.</li>
+</ol>
+
+<h2>What works and what does not</h2>
+<table class="cmp"><thead><tr><th>Your logo</th><th>Result</th></tr></thead><tbody>
+<tr><td>Solid shapes on a plain background</td><td>Usually clean.</td></tr>
+<tr><td>Logo photographed on a shirt, sign or mug</td><td>Possible, but check the edges closely.</td></tr>
+<tr><td>Very thin lines, tiny text or soft shadows</td><td>May lose detail or keep a faint edge.</td></tr>
+<tr><td>White logo on a white background</td><td>Hard for any tool. Find a version on a darker background first.</td></tr>
+</tbody></table>
+
+<h2>Tips</h2>
+<ul>
+<li><b>Keep logos as PNG (or WEBP).</b> WEBP appears as a choice only if your browser supports it, so PNG is the safe pick. Saving a logo as JPG, in any imgLop tool, fills see-through areas with a solid color and the transparency is lost.</li>
+<li><b>Changing a JPG to a PNG does not make it transparent.</b> The Convert format tool keeps the transparency a PNG already has, but it cannot create transparency from a solid background. Remove the background first.</li>
+<li><b>Start with the largest file.</b> You can make a transparent PNG smaller afterward with the <a href="/guides/compress-images-without-losing-quality/">Resize &amp; compress tab</a>, by choosing PNG as the format (or WEBP, if your browser offers it), but you cannot add detail that was never there.</li>
+<li><b>Several logos?</b> Each one uses a credit, and the batch ZIP download is part of imgLop Pro, which is not available yet. Download each transparent PNG from its card.</li>
+<li><b>Making a QR code?</b> The QR maker has its own option for a transparent background, so you do not need this tool for that. See the <a href="/guides/qr-code-that-scans-when-printed/">QR printing guide</a>.</li>
+</ul>
+
+<div class="note"><p><b>Privacy:</b> The background is removed in your browser. Your logo, including unreleased designs, is not sent to a server.</p></div>
+
+<section class="faq" aria-labelledby="faq"><h2 id="faq">Questions people ask</h2><details><summary>Will the logo stay transparent when I upload it?</summary><p>A PNG keeps its transparency. Some sites convert uploads to JPG, which fills transparent areas with white. If that happens, look for a setting that keeps PNG, or ask the site's support.</p></details><details><summary>Is it free?</summary><p>Yes. You get 5 free AI background removals per day with no account.</p></details><details><summary>Is my logo uploaded?</summary><p>No. The background removal runs in your browser on your own device.</p></details><details><summary>Can I get a vector (SVG) logo from this?</summary><p>No. The result is a PNG picture. A vector file has to come from the original design file, or from a designer.</p></details><details><summary>The edges look rough. What can I do?</summary><p>Start from a larger, sharper file, and one with strong contrast between the logo and its background. Fine lines, tiny text and soft shadows are the hardest cases.</p></details></section>
+<h2>More guides</h2><div class="related"><a class="card" href="/guides/remove-background-product-photo/"><small>Photo editing</small><h3>How to remove the background from a product photo</h3><p>Get a transparent PNG or a clean white JPG in about a minute. Free, and the photo never leaves your device.</p><span class="read">Read the guide &rarr;</span></a><a class="card" href="/guides/compress-images-without-losing-quality/"><small>Photo editing</small><h3>How to compress images without losing quality</h3><p>Make photos small enough for email and upload forms, and keep them looking good, with no upload.</p><span class="read">Read the guide &rarr;</span></a></div>
+</main>
+<footer><div class="foot-in"><span>&copy; 2026 imgLop by BonBon Labs. Your photos stay on your device.</span>
+<span class="foot-links"><a href="/">Home</a><a href="/guides/">Guides</a><a href="mailto:support@imglop.app">support@imglop.app</a></span></div></footer>
+</body>
+</html>
