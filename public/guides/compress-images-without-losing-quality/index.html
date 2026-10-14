@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Compress Images Without Losing Quality (Free, Private) | imgLop</title>
+<meta name="description" content="Shrink photos for email, forms and websites: set the size, choose JPG or WEBP, and aim for a quality or a file size. Free, in your browser, with no upload.">
+<link rel="canonical" href="https://imglop.app/guides/compress-images-without-losing-quality/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="imgLop">
+<meta property="og:title" content="How to Compress Images Without Losing Quality (Free, Private) | imgLop">
+<meta property="og:description" content="Shrink photos for email, forms and websites: set the size, choose JPG or WEBP, and aim for a quality or a file size. Free, in your browser, with no upload.">
+<meta property="og:url" content="https://imglop.app/guides/compress-images-without-losing-quality/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<style>/* imgLop Guides: shared styles. Matches the main site's colors and fonts (fonts are self-hosted at /fonts/). */
+:root {
+  box-sizing: border-box; color-scheme: light;
+  --bg: #f6f5f9; --bar: rgba(246,245,249,.78); --surface: #ffffff; --surface-2: #f1f0f6; --surface-3: #e8e7f0;
+  --border: rgba(24,24,45,.09); --border-strong: rgba(24,24,45,.18); --text: #14141f; --muted: #6a6a80;
+  --accent: #e11d48; --accent-2: #fb5a7a; --accent-soft: rgba(225,29,72,.08); --accent-glow: rgba(225,29,72,.35); --ok: #16a34a;
+  --blob-1: rgba(244,63,94,.16); --blob-2: rgba(99,102,241,.14);
+  --shadow-sm: 0 1px 2px rgba(24,24,45,.05); --shadow: 0 1px 2px rgba(24,24,45,.04), 0 18px 40px -18px rgba(24,24,45,.22);
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark; --bg: #09090e; --bar: rgba(9,9,14,.72); --surface: #13131b; --surface-2: #1a1a24; --surface-3: #232330;
+    --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.18); --text: #f3f3f8; --muted: #9b9bb2;
+    --accent: #fb4d70; --accent-2: #ff8aa0; --accent-soft: rgba(251,77,112,.12); --accent-glow: rgba(251,77,112,.42); --ok: #4ade80;
+    --blob-1: rgba(251,77,112,.18); --blob-2: rgba(99,102,241,.2);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 1px 2px rgba(0,0,0,.4), 0 24px 50px -20px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark; --bg: #09090e; --bar: rgba(9,9,14,.72); --surface: #13131b; --surface-2: #1a1a24; --surface-3: #232330;
+  --border: rgba(255,255,255,.08); --border-strong: rgba(255,255,255,.18); --text: #f3f3f8; --muted: #9b9bb2;
+  --accent: #fb4d70; --accent-2: #ff8aa0; --accent-soft: rgba(251,77,112,.12); --accent-glow: rgba(251,77,112,.42); --ok: #4ade80;
+  --blob-1: rgba(251,77,112,.18); --blob-2: rgba(99,102,241,.2);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4); --shadow: 0 1px 2px rgba(0,0,0,.4), 0 24px 50px -20px rgba(0,0,0,.7);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; min-height: 100vh; font-family: var(--font); font-size: 16px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+.ambient { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.ambient::before, .ambient::after { content: ""; position: absolute; border-radius: 50%; filter: blur(90px); }
+.ambient::before { width: 520px; height: 520px; top: -180px; left: -120px; background: var(--blob-1); }
+.ambient::after { width: 560px; height: 560px; top: 160px; right: -200px; background: var(--blob-2); }
+.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* header */
+.topbar { position: sticky; top: 0; z-index: 40; background: var(--bar); backdrop-filter: saturate(1.6) blur(16px); -webkit-backdrop-filter: saturate(1.6) blur(16px); border-bottom: 1px solid var(--border); }
+.topbar-in { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+.logo { width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center; color: #fff; font-size: 18px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 8px 20px -8px var(--accent-glow); }
+.brand-name { font-weight: 800; font-size: 20px; letter-spacing: -.03em; }
+.topnav { display: flex; align-items: center; gap: 6px; }
+.topnav a { text-decoration: none; color: var(--muted); font-weight: 600; font-size: 14px; padding: 8px 12px; border-radius: 999px; }
+.topnav a:hover { color: var(--text); background: var(--surface-2); }
+.topnav a[aria-current="page"] { color: var(--text); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 20px; border-radius: 14px; font-weight: 700; font-size: 15px; text-decoration: none; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { color: #fff; border: 0; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 10px 24px -10px var(--accent-glow); }
+.btn.primary:hover { filter: brightness(1.04); }
+.btn.sm { padding: 8px 14px; font-size: 14px; border-radius: 12px; }
+
+/* page */
+main { max-width: 740px; margin: 0 auto; padding: 28px 20px 40px; }
+main.wide { max-width: 1000px; }
+.crumbs { font-size: 13.5px; color: var(--muted); margin: 6px 0 22px; }
+.crumbs a { color: inherit; text-decoration: none; } .crumbs a:hover { color: var(--text); text-decoration: underline; }
+.eyebrow { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(2rem, 5.2vw, 3.1rem); line-height: 1.08; letter-spacing: -.035em; font-weight: 800; margin: 10px 0 14px; }
+h1 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -.01em; font-size: 1.08em; color: var(--accent); }
+.meta { color: var(--muted); font-size: 14px; margin: 0 0 22px; }
+.lead { font-size: 19px; line-height: 1.6; color: var(--text); margin: 0 0 26px; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); line-height: 1.2; letter-spacing: -.025em; margin: 44px 0 12px; }
+h3 { font-size: 1.1rem; margin: 26px 0 6px; letter-spacing: -.01em; }
+p { margin: 0 0 16px; }
+ul, ol { margin: 0 0 18px; padding-left: 1.3em; } li { margin: 0 0 8px; } li::marker { color: var(--accent); font-weight: 700; }
+strong { font-weight: 700; }
+.try { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin: 26px 0 8px; padding: 18px 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.try b { display: block; font-size: 16px; } .try span { color: var(--muted); font-size: 14.5px; }
+.note { margin: 22px 0; padding: 14px 18px; border-radius: 14px; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); font-size: 15px; }
+.note p:last-child { margin: 0; }
+.steps { counter-reset: s; list-style: none; padding: 0; margin: 0 0 22px; }
+.steps > li { counter-increment: s; position: relative; padding: 2px 0 2px 48px; margin: 0 0 18px; }
+.steps > li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 15px; color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.steps > li b { display: block; margin-bottom: 2px; }
+.cmp { width: 100%; border-collapse: collapse; margin: 0 0 22px; font-size: 15px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; display: block; overflow-x: auto; }
+.cmp th, .cmp td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.cmp th { background: var(--surface-2); font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.cmp tr:last-child td { border-bottom: 0; }
+.faq details { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px; margin: 0 0 10px; }
+.faq summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; color: var(--accent); font-size: 20px; line-height: 1; }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { margin: 10px 0 0; color: var(--muted); }
+.related { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 10px 0 0; }
+.card { display: block; text-decoration: none; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px; box-shadow: var(--shadow-sm); transition: transform .18s, border-color .18s, box-shadow .18s; }
+.card:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow); }
+.card small { color: var(--accent); font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.card h3 { margin: 8px 0 8px; font-size: 1.15rem; line-height: 1.25; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; }
+.card .read { display: inline-block; margin-top: 12px; color: var(--accent); font-weight: 700; font-size: 14px; }
+.hub-head { text-align: center; padding: 34px 0 26px; } .hub-head .lead { max-width: 600px; margin: 0 auto; color: var(--muted); }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+
+/* footer */
+footer { border-top: 1px solid var(--border); margin-top: 50px; }
+.foot-in { max-width: 1100px; margin: 0 auto; padding: 26px 20px 40px; display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; font-size: 14px; color: var(--muted); }
+.foot-in a { color: inherit; text-decoration: none; } .foot-in a:hover { color: var(--text); text-decoration: underline; }
+.foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .topnav a:not(.btn) { display: none; }
+  .lead { font-size: 17.5px; }
+  .try .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .card { transition: none; } }
+</style>
+<script>try{var t=localStorage.getItem('imgLop_theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to compress images without losing quality", "description": "Shrink photos for email, forms and websites: set the size, choose JPG or WEBP, and aim for a quality or a file size. Free, in your browser, with no upload.", "datePublished": "2026-10-14", "dateModified": "2026-10-14", "mainEntityOfPage": "https://imglop.app/guides/compress-images-without-losing-quality/", "author": {"@type": "Organization", "name": "BonBon Labs"}, "publisher": {"@type": "Organization", "name": "BonBon Labs", "url": "https://imglop.app"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "imgLop", "item": "https://imglop.app/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://imglop.app/guides/"}, {"@type": "ListItem", "position": 3, "name": "How to compress images without losing quality", "item": "https://imglop.app/guides/compress-images-without-losing-quality/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does compressing a photo reduce its quality?", "acceptedAnswer": {"@type": "Answer", "text": "A little, with JPG and WEBP. At a quality of about 80 the difference is usually hard to see. PNG is lossless, so only resizing makes a PNG smaller."}}, {"@type": "Question", "name": "How do I get a photo under a certain size, like 200 KB?", "acceptedAnswer": {"@type": "Answer", "text": "Choose Compress by, then Target file size, and type the number of KB. The tool lowers the quality until the photo fits. If it still cannot fit at good quality, it also makes the photo a little smaller."}}, {"@type": "Question", "name": "How many photos can I do at once?", "acceptedAnswer": {"@type": "Answer", "text": "Up to 40 photos, each up to 40 MB. Several photos download together as one ZIP."}}, {"@type": "Question", "name": "Are my photos uploaded?", "acceptedAnswer": {"@type": "Answer", "text": "No. They are processed in your browser tab and never sent to a server."}}, {"@type": "Question", "name": "Is it free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Resize & compress is free, has no daily limit and needs no account."}}, {"@type": "Question", "name": "Can I make a photo bigger?", "acceptedAnswer": {"@type": "Answer", "text": "No. Photos are never enlarged, because making a photo bigger only makes it blurrier."}}]}</script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<header class="topbar"><div class="topbar-in">
+<a class="brand" href="/" aria-label="imgLop home"><span class="logo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span><span class="brand-name">imgLop</span></a>
+<nav class="topnav" aria-label="Main"><a href="/guides/">Guides</a><a href="/">Tools</a><a class="btn primary sm" href="/">Open imgLop</a></nav>
+</div></header>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">imgLop</a> / <a href="/guides/">Guides</a> / Photo editing</nav>
+<span class="eyebrow">Photo editing</span>
+<h1>How to compress images without losing quality</h1>
+<p class="meta">By BonBon Labs &middot; Updated October 14, 2026</p>
+<p class="lead">Photos from a phone are often too big for email, forms and websites. Here is how to make them much smaller while they still look good, for free, without uploading them anywhere.</p>
+<div class="try"><div><b>Shrink your photos</b><span>Free and unlimited. Up to 40 photos at once.</span></div><a class="btn primary" href="/?tool=resize">Open Resize &amp; compress</a></div>
+
+<h2>Why photos need compressing</h2>
+<p>A photo straight from a phone camera can be several megabytes. That is too big for many email limits, job application forms and website uploads, and it makes pages slow to load. You can usually make a photo far smaller with little visible difference, by doing two things: reducing the pixel size to what you actually need, and saving it with a sensible quality setting.</p>
+
+<h2>Step by step</h2>
+<ol class="steps">
+<li><b>Open the tool.</b>Go to <a href="/?tool=resize">imgLop's Resize &amp; compress tab</a> in Creative Studio. No account is needed, and it does not use any of your daily AI credits.</li>
+<li><b>Add your photos.</b>Click <b style="display:inline">Choose photos</b> or drag them in. You can add up to 40 photos, up to 40 MB each. PNG, JPG, WEBP and iPhone HEIC all work.</li>
+<li><b>Set the size.</b>Under <b style="display:inline">Resize</b>, choose <b style="display:inline">Set the longest side</b> and type a number of pixels, or tap one of the shortcuts (3000, 2048, 1600, 1080, 800). The longest side of each photo becomes that number and the other side shrinks to match. Photos are never enlarged, so a small photo stays as it is.</li>
+<li><b>Choose a format.</b>Under <b style="display:inline">Save as</b>, pick <b style="display:inline">JPG</b> for most photos, <b style="display:inline">WEBP</b> if you want even smaller files and the place you are uploading to accepts it (WEBP only appears if your browser can create it, which Safari on iPhone and Mac may not, so use JPG for photos or PNG for logos there), or <b style="display:inline">PNG</b> if you need transparency kept. PNG is lossless, so the quality and target size options are hidden for PNG, and only resizing makes a PNG smaller.</li>
+<li><b>Choose how to compress.</b>Under <b style="display:inline">Compress by</b>, use <b style="display:inline">Quality</b> and the slider (it starts at 80), or switch to <b style="display:inline">Target file size</b> and type a number of KB, such as 200. With a target, the tool lowers the quality until the photo fits, and if it still cannot fit at good quality it also makes the photo a little smaller.</li>
+<li><b>Click Resize &amp; compress.</b>Each photo shows its before and after size when it is done.</li>
+<li><b>Download.</b>One photo downloads directly. Several photos download together as one ZIP file with <b style="display:inline">Download all (ZIP)</b>. The files get an <b style="display:inline">-imglop</b> ending so your originals are never replaced.</li>
+</ol>
+
+<h2>Which settings should I use?</h2>
+<table class="cmp"><thead><tr><th>Where the photo is going</th><th>Longest side</th><th>Setting</th></tr></thead><tbody>
+<tr><td>Email or a message</td><td>1600 px</td><td>JPG, Quality 80</td></tr>
+<tr><td>A form with a file size limit</td><td>1600 px or less</td><td>JPG, Target file size just under the limit</td></tr>
+<tr><td>A blog or website</td><td>1600 px</td><td>JPG, or WEBP if it appears in your browser, Quality 75 to 80</td></tr>
+<tr><td>Social media posts</td><td>1080 px</td><td>JPG, Quality 80</td></tr>
+<tr><td>A screenshot or graphic with sharp text</td><td>Keep original size</td><td>PNG</td></tr>
+</tbody></table>
+<p>These are starting points. Check the size limit or image rules of the place you are uploading to, since they differ and change.</p>
+
+<h2>Tips for good-looking small files</h2>
+<ul>
+<li><b>Reduce the pixels first.</b> Setting the longest side is the biggest saver. A phone photo is often 4000 px or more, and few places need more than 1600.</li>
+<li><b>Do not go too low on quality.</b> Between 70 and 85 is the sweet spot for most photos. Below that, blocky patches can appear in skies and skin.</li>
+<li><b>Use a target size for strict limits.</b> If a form says "under 200 KB", type 200 and let the tool find the quality that fits. Aim a little under the limit, not exactly on it.</li>
+<li><b>Keep the originals.</b> Compressing throws away detail that cannot be brought back. Save your full-size photos somewhere safe.</li>
+<li><b>Do not compress the same file again and again.</b> Each round of JPG compression loses a bit more detail. Start from the original each time.</li>
+</ul>
+
+<div class="note"><p><b>Privacy:</b> Your photos are resized and compressed inside your browser tab. Nothing is uploaded, and the tool is free with no daily limit.</p></div>
+
+<section class="faq" aria-labelledby="faq"><h2 id="faq">Questions people ask</h2><details><summary>Does compressing a photo reduce its quality?</summary><p>A little, with JPG and WEBP. At a quality of about 80 the difference is usually hard to see. PNG is lossless, so only resizing makes a PNG smaller.</p></details><details><summary>How do I get a photo under a certain size, like 200 KB?</summary><p>Choose Compress by, then Target file size, and type the number of KB. The tool lowers the quality until the photo fits. If it still cannot fit at good quality, it also makes the photo a little smaller.</p></details><details><summary>How many photos can I do at once?</summary><p>Up to 40 photos, each up to 40 MB. Several photos download together as one ZIP.</p></details><details><summary>Are my photos uploaded?</summary><p>No. They are processed in your browser tab and never sent to a server.</p></details><details><summary>Is it free?</summary><p>Yes. Resize &amp; compress is free, has no daily limit and needs no account.</p></details><details><summary>Can I make a photo bigger?</summary><p>No. Photos are never enlarged, because making a photo bigger only makes it blurrier.</p></details></section>
+<h2>More guides</h2><div class="related"><a class="card" href="/guides/convert-heic-to-jpg/"><small>Photo editing</small><h3>How to convert HEIC photos to JPG</h3><p>Change iPhone HEIC photos into JPG files that open anywhere, up to 40 at a time.</p><span class="read">Read the guide &rarr;</span></a><a class="card" href="/guides/jpg-to-pdf/"><small>Documents</small><h3>How to turn JPG photos into one PDF</h3><p>Put photos or scans in order, pick the page size, and make one PDF that is easy to send.</p><span class="read">Read the guide &rarr;</span></a></div>
+</main>
+<footer><div class="foot-in"><span>&copy; 2026 imgLop by BonBon Labs. Your photos stay on your device.</span>
+<span class="foot-links"><a href="/">Home</a><a href="/guides/">Guides</a><a href="mailto:support@imglop.app">support@imglop.app</a></span></div></footer>
+</body>
+</html>
