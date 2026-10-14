@@ -729,7 +729,7 @@
     </nav>
     <div class="actions">
       <span class="pill" id="creditPill" title="Free AI background removals today. PDF and QR tools are unlimited."><svg class="i fill"><use href="#i-bolt"/></svg><span><b id="creditCount">5</b>/5<span class="pill-long"> AI removals</span></span></span>
-      <button class="icon-btn tip-btn" id="tipBtn" aria-label="Tip jar" title="Tip jar"><svg class="i fill" style="color:var(--accent)"><use href="#i-heart"/></svg></button>
+      <button class="icon-btn tip-btn" id="tipBtn" hidden aria-label="Tip jar" title="Tip jar"><svg class="i fill" style="color:var(--accent)"><use href="#i-heart"/></svg></button>
       <button class="icon-btn theme" id="themeBtn" aria-label="Toggle dark mode" title="Toggle theme">
         <svg class="i moon"><use href="#i-moon"/></svg><svg class="i sun"><use href="#i-sun"/></svg>
       </button>
@@ -908,8 +908,8 @@
       </div>
 
       <div class="upsell">
-        <div><strong>Want pixel-perfect edges?</strong>Brush tools, unlimited batches + ZIP, no ads.</div>
-        <button class="btn sm" id="proBtn2">imgLop Pro · coming soon</button>
+        <div><strong>Want pixel-perfect edges?</strong>Brush tools, unlimited cutouts and batch ZIP downloads.</div>
+        <button class="btn sm" id="proBtn2">Get notified</button>
       </div>
     </aside>
   </section>
@@ -1100,10 +1100,10 @@
       <h2>Simple pricing. Start free.</h2>
       <p>PDF and QR tools are free and unlimited. imgLop Pro (coming soon) adds unlimited AI cutouts and the brush tools.</p>
     </div>
-    <div class="billing" data-plan-toggle data-plan="monthly" role="group" aria-label="Billing period">
+    <div class="billing" data-plan-toggle data-plan="yearly" role="group" aria-label="Billing period">
       <span class="thumb" aria-hidden="true"></span>
-      <button type="button" data-plan="monthly" aria-pressed="true">Monthly</button>
-      <button type="button" data-plan="yearly" aria-pressed="false">Yearly <em>Save 33%</em></button>
+      <button type="button" data-plan="monthly" aria-pressed="false">Monthly</button>
+      <button type="button" data-plan="yearly" aria-pressed="true">Yearly <em>Save 33%</em></button>
     </div>
     <div class="plans">
       <div class="plan">
@@ -1121,19 +1121,18 @@
       <div class="plan pro">
         <span class="pop">Most popular</span>
         <h3>imgLop Pro</h3>
-        <div class="amt"><b data-price>$4.99</b> <span data-per>/ month</span></div>
-        <small data-note>Billed monthly</small>
+        <div class="amt"><b data-price>$39.99</b> <span data-per>/ year</span></div>
+        <small data-note>Billed yearly · about $3.33/month (save 33%)</small>
         <ul>
           <li><svg class="i"><use href="#i-check"/></svg>Everything in Free</li>
           <li><svg class="i"><use href="#i-check"/></svg>Unlimited AI removals, batches &amp; ZIP download</li>
           <li><svg class="i"><use href="#i-check"/></svg>Erase, restore &amp; Magic erase brushes</li>
-          <li><svg class="i"><use href="#i-check"/></svg>Ad-free experience</li>
           <li><svg class="i"><use href="#i-check"/></svg>Account required · sign in on any device</li>
         </ul>
-        <button type="button" class="btn primary block" data-open-pro><svg class="i"><use href="#i-crown"/></svg>imgLop Pro · coming soon</button>
+        <button type="button" class="btn primary block" data-open-pro><svg class="i"><use href="#i-crown"/></svg>Get notified when Pro launches</button>
       </div>
     </div>
-    <p class="cmp-note">imgLop Pro requires an account (your email). Prices exclude applicable taxes, which are calculated at checkout.</p>
+    <p class="cmp-note">imgLop Pro requires an account (your email). Prices exclude any applicable taxes, which may be added where required.</p>
   </section>
 
   <section class="section" id="compare-table">
@@ -1168,14 +1167,14 @@
       <details><summary>Can I edit iPhone HEIC photos?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Absolutely. HEIC/HEIF files are decoded automatically so you can cut them out and download as PNG or JPG.</p></details>
       <details><summary>What can the brush tools do?<svg class="i"><use href="#i-chevron"/></svg></summary><p>After the AI removes the background, open Refine to erase leftover pieces, restore details that were removed by mistake, or use Magic erase to clear enclosed areas such as the inside of an “O”. You can undo and redo every edit.</p></details>
       <details><summary>Is there a daily limit?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Free guests get 5 full-resolution credits every day. This limit only applies to AI background removal — PDF conversion and QR generation have no daily limit. imgLop Pro, coming soon, will be $4.99/month or $39.99/year for unlimited cutouts. Credits reset at midnight in your time zone, and brush tools, crop and downloads never use credits (and neither do failed removals).</p></details>
-      <details><summary>What does imgLop Pro include?<svg class="i"><use href="#i-chevron"/></svg></summary><p>imgLop Pro is coming soon. When it launches it will cost ($4.99/month, or $39.99/year — about 33% less) and include unlimited cutouts and batches with ZIP download, the erase, restore and Magic erase brush tools, and an ad-free experience.</p></details>
+      <details><summary>What does imgLop Pro include?<svg class="i"><use href="#i-chevron"/></svg></summary><p>imgLop Pro is coming soon. When it launches it will cost ($4.99/month, or $39.99/year — about 33% less) and include unlimited cutouts and batches with ZIP download, and the erase, restore and Magic erase brush tools.</p></details>
       <details><summary>Is the Image-to-PDF converter free and unlimited?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Converting images to PDF is free for basic use with no daily limit. Everything is compiled locally in your browser, so your files are never uploaded to our servers.</p></details>
       <details><summary>Is the QR code generator free and private?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Create as many QR codes as you like, pick your own colors and download a PNG. Your text or link is processed 100% in your browser and never sent to our servers.</p></details>
       <details><summary>Do the PDF and QR tools need an account or software?<svg class="i"><use href="#i-chevron"/></svg></summary><p>No. They run right in your browser with nothing to install and no sign-up.</p></details>
       <details><summary>Can I remove backgrounds from many photos at once?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes. Drop up to 40 photos to run a batch. Free users can batch up to their remaining daily credits, and imgLop Pro, coming soon, will have unlimited batches plus a one-click “Download all as ZIP”. Everything is processed in your browser.</p></details>
       <details><summary>Do I need an account for imgLop Pro?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Yes, once it launches. The free tools never need an account, but imgLop Pro will require creating one with your email so your subscription is tied to you and works on any device. Your photos, PDFs and QR text still never leave your browser.</p></details>
       <details><summary>How do I cancel, and what is the refund policy?<svg class="i"><use href="#i-chevron"/></svg></summary><p>imgLop Pro isn’t on sale yet, so there is nothing to cancel right now. Once it launches, you can cancel any time from Account → Manage subscription. Cancelling stops the next renewal and you keep imgLop Pro until the end of the period you have paid for. Fees are generally non-refundable, but if you were charged in error, contact support within 14 days and we will review it. See the Terms of Service for details.</p></details>
-      <details><summary>Are taxes included in the price?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Prices exclude applicable taxes such as VAT, GST or sales tax. Where they apply, they are calculated and shown at checkout based on your location.</p></details>
+      <details><summary>Are taxes included in the price?<svg class="i"><use href="#i-chevron"/></svg></summary><p>Prices exclude any applicable taxes such as VAT, GST or sales tax. Where required, they may be added based on your location.</p></details>
     </div>
   </section>
 </main>
@@ -1202,7 +1201,7 @@
       <button data-info="terms">Terms of Service</button>
       <button data-info="credits">Credits</button>
       <a id="sourceLink" href="https://github.com/BonBonLabs/imglop" target="_blank" rel="noopener noreferrer">Source code (AGPL-3.0)<svg class="i"><use href="#i-external"/></svg></a>
-      <button id="footTip" style="color:var(--accent)">♥ Tip Jar</button>
+      <button id="footTip" hidden style="color:var(--accent)">♥ Tip Jar</button>
     </div>
     <div class="foot-social" id="footSocial" hidden><span>Follow BonBon Labs:</span></div>
   </div>
@@ -1226,16 +1225,15 @@
     <ul>
       <li><svg class="i"><use href="#i-check"/></svg>Erase, restore &amp; Magic erase brush tools</li>
       <li><svg class="i"><use href="#i-check"/></svg>Unlimited background removals, batches &amp; ZIP download</li>
-      <li><svg class="i"><use href="#i-check"/></svg>Ad-free editing experience</li>
     </ul>
     <div id="planBlock">
-      <div class="billing sm" data-plan-toggle data-plan="monthly" role="group" aria-label="Billing period">
+      <div class="billing sm" data-plan-toggle data-plan="yearly" role="group" aria-label="Billing period">
         <span class="thumb" aria-hidden="true"></span>
-        <button type="button" data-plan="monthly" aria-pressed="true">Monthly</button>
-        <button type="button" data-plan="yearly" aria-pressed="false">Yearly <em>Save 33%</em></button>
+        <button type="button" data-plan="monthly" aria-pressed="false">Monthly</button>
+        <button type="button" data-plan="yearly" aria-pressed="true">Yearly <em>Save 33%</em></button>
       </div>
-      <div class="price"><b data-price>$4.99</b> <span data-per>/ month</span></div>
-      <p class="sub" data-note style="margin:-8px 0 4px">Billed monthly</p>
+      <div class="price"><b data-price>$39.99</b> <span data-per>/ year</span></div>
+      <p class="sub" data-note style="margin:-8px 0 4px">Billed yearly · about $3.33/month (save 33%)</p>
       <p class="sub" style="margin:0 0 16px;font-size:12px">Taxes may apply at checkout.</p>
     </div>
 
@@ -1314,6 +1312,7 @@
   </div>
 </div>
 
+<!-- Tip Jar is ON HOLD until the LLC has its own Stripe account: the two buttons that open this window (#tipBtn, #footTip) are hidden, and "Send tip" below is only a placeholder link. -->
 <div class="modal" id="tipModal" hidden role="dialog" aria-modal="true" aria-labelledby="tipTitle">
   <div class="modal-card">
     <button class="icon-btn x" data-close aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button>
@@ -1410,7 +1409,7 @@
     credits: ['Open-source credits & licenses', '<p>imgLop is free software: you can redistribute and modify it under the terms of the <b>GNU Affero General Public License v3.0</b>. The complete source code is available from the “Source code” link in the footer.</p><p><b>AI background removal:</b> the <b>u2netp</b> model (from <b>U²-Net</b> by Xuebin Qin et al., Apache-2.0), packaged for ONNX by the <b>rembg</b> project (MIT), run in your browser with <b>ONNX Runtime Web</b> (MIT).</p><p><b>PDF creation:</b> pdf-lib (MIT). <b>QR codes:</b> qrcode / node-qrcode (MIT). <b>HEIC conversion:</b> heic2any (MIT), which bundles libheif and libde265 (LGPL-3.0).</p><p><b>Fonts:</b> Inter, Instrument Serif and Kantumruy Pro, licensed under the SIL Open Font License 1.1.</p><p>Thank you to the authors of all of these open-source projects. Full notices are in THIRD_PARTY_NOTICES.md in the source repository.</p>'],
     support: ['Customer Support', '<p>Have questions or need help with your image processing? Reach our team anytime.</p><code>support@imglop.app</code>'],
     privacy: ['Privacy Policy', '<p>At imgLop, your privacy is our top priority.</p><p><b>Your files stay on your device.</b> AI background removal, Image-to-PDF and the QR code generator all run entirely within your browser. Your images, PDFs, text and links are not uploaded to our servers.</p><p><b>Accounts and subscriptions.</b> The free tools do not require an account. To subscribe to imgLop Pro you create an account with your email address and a password. When you subscribe, Stripe collects and processes your email address, billing details and payment information; we do not store your full card number. We store a license record for your account, which includes your email address, account ID, plan (monthly or yearly), subscription status and renewal date, so that we can recognize your subscription when you sign in.</p><p>We do not sell your personal information, and we do not store, catalog, or share the photos, documents, text or links you process. Preferences, credit counters and your sign-in session are stored in your browser. The open-source libraries and fonts that imgLop uses are served from imglop.app itself, so your browser does not contact Google Fonts or any content delivery network to load them.</p><p><b>Advertising.</b> The free version of imgLop may show ads, served by third-party ad partners such as Google AdSense. These partners may use cookies or similar technologies to show and measure ads, and you can choose personalized or non-personalized ads, and change that choice any time with the “Ad choices” link in the footer. Ad partners never receive the photos, documents, text or links you process. imgLop Pro subscribers see no ads and no ad scripts are loaded for them.</p><p>You can ask us to delete your account and license record at any time by emailing support@imglop.app. We may keep limited records where needed for tax, accounting or legal purposes; Stripe also keeps payment records under its own policy.</p>'],
-    terms: ['Terms of Service', '<p>imgLop, a product of BonBon Labs, provides AI background removal, image editing, client-side PDF document formatting, and QR code utility generation (together, the “Services”). By using the Services, you agree to these terms.</p><p><b>Acceptable use.</b> You agree not to upload, convert or encode illegal, harmful, or copyright-infringing content, and not to use the QR code generator to mislead, harass, or direct people to unlawful or malicious destinations. You also agree not to use bots or automated scripts to scrape the Services or abuse the free AI background-removal credits. You are responsible for the content you process and for the links and text you encode.</p><p><b>Your files stay in your browser.</b> Our PDF formatting and QR code generation features run entirely within your browser. Your images, documents, text and links are not uploaded to or stored on our servers for these features.</p><p><b>Accounts.</b> The free tools do not require an account. An imgLop Pro subscription requires an account. You must provide a valid email address, keep your sign-in details secure, and you are responsible for activity under your account. A subscription is for your own use, and we may suspend accounts used to resell or widely share access.</p><p><b>Subscriptions and renewal.</b> imgLop Pro is offered as a monthly ($4.99) or yearly ($39.99) subscription, as shown at checkout. Subscriptions renew automatically at the end of each billing period, for the same period and at the then-current price, until you cancel. Payments are processed by Stripe.</p><p><b>Cancellation.</b> You can cancel at any time from Account → Manage subscription. Cancelling stops future renewals. You keep imgLop Pro until the end of the period you have already paid for, after which your account returns to the free plan.</p><p><b>Refunds.</b> Subscription fees are generally non-refundable, and we do not provide partial refunds for unused time. If you were charged in error, or for a renewal you did not intend, contact support@imglop.app within 14 days of the charge and we will review your request and respond within 5 business days. Nothing in these terms limits any refund or cancellation rights you have under applicable law.</p><p><b>Price changes and taxes.</b> We may change prices for future billing periods and will give notice before a change takes effect. Displayed prices may exclude applicable taxes such as VAT, GST or sales tax, which are calculated and shown at checkout based on your location.</p><p><b>No warranty.</b> The Services are provided "as is" and "as available" without warranty of any kind, including any warranty of merchantability or fitness for a particular purpose. We cannot guarantee that every generated QR code will scan on every device, so please test important codes before printing or publishing them. Free AI background-removal credits are subject to fair-usage policies and reset daily; PDF conversion and QR generation are free for basic use.</p><p><b>Third-party software and AI.</b> The Services use third-party open-source software and AI models. We are not responsible for their availability, accuracy or output, and results may not be perfect. Please keep a copy of your original files.</p><p><b>Limitation of liability.</b> To the fullest extent permitted by law, BonBon Labs will not be liable for any indirect, incidental, special or consequential damages, or for lost data, images, files or profits, arising out of your use of the Services. Our total liability for any claim is limited to the amount you paid us in the 12 months before the claim, or US $50 if you have not paid us anything.</p><p><b>Governing law.</b> These terms are governed by the laws of the State of Florida, United States, without regard to conflict-of-law rules. Nothing in these terms limits any consumer-protection rights you have under the law where you live.</p><p><b>Changes to these terms.</b> We may update these terms from time to time. We will post the new version here, and continuing to use the Services after a change means you accept the updated terms.</p>']
+    terms: ['Terms of Service', '<p>imgLop, a product of BonBon Labs, provides AI background removal, image editing, client-side PDF document formatting, and QR code utility generation (together, the “Services”). By using the Services, you agree to these terms.</p><p><b>Acceptable use.</b> You agree not to upload, convert or encode illegal, harmful, or copyright-infringing content, and not to use the QR code generator to mislead, harass, or direct people to unlawful or malicious destinations. You also agree not to use bots or automated scripts to scrape the Services or abuse the free AI background-removal credits. You are responsible for the content you process and for the links and text you encode.</p><p><b>Your files stay in your browser.</b> Our PDF formatting and QR code generation features run entirely within your browser. Your images, documents, text and links are not uploaded to or stored on our servers for these features.</p><p><b>Accounts.</b> The free tools do not require an account. An imgLop Pro subscription requires an account. You must provide a valid email address, keep your sign-in details secure, and you are responsible for activity under your account. A subscription is for your own use, and we may suspend accounts used to resell or widely share access.</p><p><b>Subscriptions and renewal.</b> imgLop Pro is offered as a monthly ($4.99) or yearly ($39.99) subscription, as shown at checkout. Subscriptions renew automatically at the end of each billing period, for the same period and at the then-current price, until you cancel. Payments are processed by Stripe.</p><p><b>Cancellation.</b> You can cancel at any time from Account → Manage subscription. Cancelling stops future renewals. You keep imgLop Pro until the end of the period you have already paid for, after which your account returns to the free plan.</p><p><b>Refunds.</b> Subscription fees are generally non-refundable, and we do not provide partial refunds for unused time. If you were charged in error, or for a renewal you did not intend, contact support@imglop.app within 14 days of the charge and we will review your request and respond within 5 business days. Nothing in these terms limits any refund or cancellation rights you have under applicable law.</p><p><b>Price changes and taxes.</b> We may change prices for future billing periods and will give notice before a change takes effect. Displayed prices may exclude applicable taxes such as VAT, GST or sales tax, which may be added where required based on your location.</p><p><b>No warranty.</b> The Services are provided "as is" and "as available" without warranty of any kind, including any warranty of merchantability or fitness for a particular purpose. We cannot guarantee that every generated QR code will scan on every device, so please test important codes before printing or publishing them. Free AI background-removal credits are subject to fair-usage policies and reset daily; PDF conversion and QR generation are free for basic use.</p><p><b>Third-party software and AI.</b> The Services use third-party open-source software and AI models. We are not responsible for their availability, accuracy or output, and results may not be perfect. Please keep a copy of your original files.</p><p><b>Limitation of liability.</b> To the fullest extent permitted by law, BonBon Labs will not be liable for any indirect, incidental, special or consequential damages, or for lost data, images, files or profits, arising out of your use of the Services. Our total liability for any claim is limited to the amount you paid us in the 12 months before the claim, or US $50 if you have not paid us anything.</p><p><b>Governing law.</b> These terms are governed by the laws of the State of Florida, United States, without regard to conflict-of-law rules. Nothing in these terms limits any consumer-protection rights you have under the law where you live.</p><p><b>Changes to these terms.</b> We may update these terms from time to time. We will post the new version here, and continuing to use the Services after a change means you accept the updated terms.</p>']
   };
   let lastFocus = null;
   function openModal(id) { if (id === 'proModal' && typeof renderAuthModal === 'function') renderAuthModal(); lastFocus = document.activeElement; const m = $('#' + id); m.hidden = false; const c = $('[data-close]', m); c && c.focus(); }
@@ -2227,9 +2226,9 @@
     monthly: { price: '$4.99', per: '/ month', note: 'Billed monthly', cta: 'Subscribe monthly — $4.99' },
     yearly: { price: '$39.99', per: '/ year', note: 'Billed yearly · about $3.33/month (save 33%)', cta: 'Subscribe yearly — $39.99' }
   };
-  let PLAN = 'monthly';
+  let PLAN = 'yearly';
   function setPlan(p, persist) {
-    if (!PLANS[p]) p = 'monthly';
+    if (!PLANS[p]) p = 'yearly';
     PLAN = p;
     $$('[data-plan-toggle]').forEach(t => {
       t.dataset.plan = p;
@@ -2250,7 +2249,7 @@
     $('#proSub').textContent = 'Unlock high-volume background removal without limits.';
     openModal('proModal');
   }));
-  setPlan(store.get('imgLop_plan') === 'yearly' ? 'yearly' : 'monthly', false);
+  setPlan(store.get('imgLop_plan') === 'monthly' ? 'monthly' : 'yearly', false);
 
   /* ───────── Document Suite: client-side Image → PDF (pdf-lib) ───────── */
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -2555,7 +2554,7 @@
       act = '<button type="button" class="icon-btn" data-act="dl" aria-label="Download PNG" title="Download PNG"><svg class="i"><use href="#i-download"/></svg></button>' +
             '<button type="button" class="icon-btn" data-act="pdf" aria-label="Add to PDF" title="Add to PDF"><svg class="i"><use href="#i-file"/></svg></button>';
     } else if (it.status === 'locked') {
-      act = '<button type="button" class="btn primary sm" data-act="upgrade">imgLop Pro · coming soon</button>';
+      act = '<button type="button" class="btn primary sm" data-act="upgrade">Get notified</button>';
     }
     return '<li class="bcard ' + it.status + '" data-id="' + it.id + '">' +
       '<div class="bthumb' + (it.resUrl ? ' checker' : '') + '">' + thumb + (it.status === 'working' ? '<span class="bspin"></span>' : '') + '</div>' +
@@ -3069,7 +3068,7 @@
     { chip: 'Daily limit', k: ['limit', 'daily', 'credit', 'free', 'how many', 'unlimited', 'per day', 'reset'],
       a: 'Free users get <b>5 AI background removals per day</b>. They reset at midnight in your time zone. Brush tools, crop and downloads never use credits, and neither do failed removals. The PDF and QR tools have <b>no daily limit</b>.' },
     { chip: 'What does imgLop Pro include?', k: ['pro', 'premium', 'upgrade', 'paid', 'subscription', 'subscribe', 'price', 'pricing', 'cost', 'how much', 'plan', 'ads', 'ad-free'],
-      a: 'imgLop Pro is <b>coming soon</b> and is planned at <b>$4.99/month or $39.99/year</b>. It will include unlimited cutouts, batches with ZIP download, the erase, restore and Magic erase brushes, and <b>no ads</b>. <button type="button" class="linkbtn" data-act="pro">See imgLop Pro</button>' },
+      a: 'imgLop Pro is <b>coming soon</b> and is planned at <b>$4.99/month or $39.99/year</b>. It will include unlimited cutouts, batches with ZIP download, and the erase, restore and Magic erase brushes. <button type="button" class="linkbtn" data-act="pro">See imgLop Pro</button>' },
     { chip: 'iPhone / HEIC photos', k: ['heic', 'heif', 'iphone', 'apple', 'format', 'jpg', 'jpeg', 'png', 'webp', 'file type'],
       a: 'Yes. imgLop accepts <b>PNG, JPG, WebP and iPhone HEIC/HEIF</b> photos. HEIC files are converted automatically, and you can download your result as PNG or JPG.' },
     { chip: 'Edit the edges', k: ['brush', 'erase', 'restore', 'refine', 'edge', 'fix', 'mistake', 'magic', 'undo', 'touch up'],
@@ -3171,6 +3170,6 @@
   } catch (e) { /* never block the page */ }
 })();
 </script>
-<!-- imgLop build 2026-10-13c -->
+<!-- imgLop build 2026-10-13e -->
 </body>
 </html>
