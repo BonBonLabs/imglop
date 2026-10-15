@@ -31,7 +31,10 @@
 <script src="./vendor/qrcode.min.js"></script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Resize and compress images","Convert image formats","Client-side image-to-PDF converter","Custom QR code generator","Wi-Fi QR codes"]}
+{"@context":"https://schema.org","@type":"WebSite","name":"imgLop","alternateName":["imglop","imglop.app"],"url":"https://imglop.app/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"imgLop","alternateName":"រូបភាព លុប","url":"https://imglop.app/","author":{"@type":"Organization","name":"BonBon Labs"},"sameAs":["https://www.instagram.com/imglop.app/"],"applicationCategory":"MultimediaApplication","operatingSystem":"All","offers":[{"@type":"Offer","name":"Free","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro monthly","price":"4.99","priceCurrency":"USD"},{"@type":"Offer","name":"imgLop Pro yearly","price":"39.99","priceCurrency":"USD"}],"description":"Free web app for removing photo backgrounds with AI, editing images, compiling images into PDFs and generating custom QR codes — all processed in your browser.","featureList":["AI background removal","Erase and restore brush tools","Resize and compress images","Convert image formats","Client-side image-to-PDF converter","Custom QR code generator","Wi-Fi QR codes"]}
 </script>
 
 <script>
@@ -551,6 +554,11 @@
   .bact { display: flex; gap: 6px; }
   .bact .icon-btn { width: 32px; height: 32px; font-size: 14px; }
 
+  #plainBtn, #plainOpt { display: none; }
+  [data-state="done"] #plainOpt:not([hidden]) { display: inline-flex; }
+  [data-state="done"] #plainBtn { display: inline-flex; }
+  #plainBtn[aria-pressed="true"] { background: var(--accent, #6366f1); color: #fff; border-color: transparent; }
+  #plainBtn.suggest:not([aria-pressed="true"]) { box-shadow: 0 0 0 3px rgba(99,102,241,.35); }
   #refineBtn { display: none; }
   [data-state="done"] #refineBtn { display: inline-flex; }
   #refineBtn .i:last-child { color: #f59e0b; font-size: 13px; }
@@ -573,7 +581,7 @@
   #rGhost[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
   .rhelp { flex-basis: 100%; margin: 0; font-size: 12.5px; color: var(--muted); }
   .studio.refining .seg { display: none !important; }
-  .studio.refining #cropBtn, .studio.refining #newBtn, .studio.refining #runBtn, .studio.refining #refineBtn { opacity: .4; pointer-events: none; }
+  .studio.refining #cropBtn, .studio.refining #newBtn, .studio.refining #runBtn, .studio.refining #plainBtn, .studio.refining #refineBtn { opacity: .4; pointer-events: none; }
   @media (max-width: 600px) { .rbtns { margin-left: 0; } .rctl input[type=range] { width: 90px; } }
 
   .section { margin-top: 84px; }
@@ -818,6 +826,8 @@
               <button type="button" data-mode="result" aria-pressed="false"><svg class="i"><use href="#i-layers"/></svg><span>Result</span></button>
             </div>
             <button type="button" class="btn sm" id="refineBtn"><svg class="i"><use href="#i-eraser"/></svg>Refine<svg class="i" id="refinePro"><use href="#i-crown"/></svg></button>
+            <button type="button" class="btn sm" id="plainBtn" aria-pressed="false" title="For logos, icons and flat graphics on one solid colour. It clears the backdrop colour that touches the edge of the picture. Not for photos or white products on a white backdrop."><svg class="i"><use href="#i-layers"/></svg>Plain background</button>
+            <label class="qr-check" id="plainOpt" hidden title="Also clear background-coloured areas enclosed inside the subject, such as the white inside a ring"><input type="checkbox" id="plainEnc"> Also remove enclosed areas</label>
             <button type="button" class="btn sm" id="cropBtn"><svg class="i"><use href="#i-crop"/></svg>Crop</button>
             <button type="button" class="btn primary sm" id="runBtn" hidden><svg class="i"><use href="#i-spark"/></svg>Remove background</button>
             <button type="button" class="btn sm" id="newBtn"><svg class="i"><use href="#i-plus"/></svg>New image</button>
@@ -1367,6 +1377,7 @@
     <div class="foot-links">
       <button data-info="about">About</button>
       <a href="/guides/">Guides</a>
+      <a id="igLink" href="https://www.instagram.com/imglop.app/" target="_blank" rel="noopener noreferrer">Instagram<svg class="i"><use href="#i-external"/></svg></a>
       <!-- Replace the href with your company's LinkedIn page (it should look like https://www.linkedin.com/company/your-company) -->
       <a id="careersLink" href="https://www.linkedin.com/company/bonbon-labs" target="_blank" rel="noopener noreferrer">Careers<svg class="i"><use href="#i-external"/></svg></a>
       <button data-info="support">Support</button>
@@ -1614,6 +1625,9 @@
   $('#sampleBtn').addEventListener('click', e => { e.stopPropagation(); loadSample(); });
   $('#newBtn').addEventListener('click', () => { if (S.busy) return; resetAll(); });
   $('#runBtn').addEventListener('click', runRemoval);
+  function paintPlain() { const b = $('#plainBtn'); b.setAttribute('aria-pressed', S.plain ? 'true' : 'false'); if (S.plain) b.classList.remove('suggest'); $('#plainOpt').hidden = !S.plain; }
+  $('#plainEnc').addEventListener('change', e => { if (S.busy || !S.origBlob || !S.plain) return; S.plainEnc = e.target.checked; runRemoval(); });
+  $('#plainBtn').addEventListener('click', () => { if (S.busy || !S.origBlob) return; S.plain = !S.plain; paintPlain(); runRemoval(); });
 
   ['dragenter', 'dragover'].forEach(ev => window.addEventListener(ev, e => { e.preventDefault(); if (!viewer.hidden) return; dropzone.classList.add('over'); }));
   window.addEventListener('dragleave', e => { if (!e.relatedTarget) dropzone.classList.remove('over'); });
@@ -1692,6 +1706,7 @@
     if (refining) exitRefine();
     hideBatch();
     S.origBlob = blob; S.origUrl = URL.createObjectURL(blob); S.name = name; S.size = size;
+    S.plain = false; S.plainEnc = false; $('#plainEnc').checked = false; S.charged = false; S.plainAsked = false; paintPlain();
     compare.dataset.result = '0'; compare.classList.remove('solo');
     imgAfter.removeAttribute('src'); sideAfter.removeAttribute('src');
     try {
@@ -1839,7 +1854,12 @@
       // 1) model input
       const S = prof.size, ic = document.createElement('canvas'); ic.width = ic.height = S;
       const ix = ic.getContext('2d', { willReadFrequently: true });
-      ix.imageSmoothingQuality = 'high'; ix.drawImage(img, 0, 0, S, S);
+      // keep the photo's real shape: fit it inside the square, pad the rest with black (squashing it hurt hair, glass and thin parts)
+      const fit = S / Math.max(img.naturalWidth, img.naturalHeight);
+      const pw = Math.max(1, Math.round(img.naturalWidth * fit)), ph = Math.max(1, Math.round(img.naturalHeight * fit));
+      const ox = Math.floor((S - pw) / 2), oy = Math.floor((S - ph) / 2);
+      ix.fillStyle = '#000'; ix.fillRect(0, 0, S, S);
+      ix.imageSmoothingQuality = 'high'; ix.drawImage(img, ox, oy, pw, ph);
       const input = rembgPrepare(ix.getImageData(0, 0, S, S).data, S, prof.mean, prof.std);
       progress.engine('compute:inference', 0, 0);
       await nextFrame();
@@ -1853,7 +1873,7 @@
       mctx.putImageData(mi, 0, 0);
       const full = document.createElement('canvas'); full.width = W; full.height = H;
       const fx = full.getContext('2d', { willReadFrequently: true });
-      fx.imageSmoothingQuality = 'high'; fx.drawImage(mc, 0, 0, W, H);
+      fx.imageSmoothingQuality = 'high'; fx.drawImage(mc, ox, oy, pw, ph, 0, 0, W, H); // only the part that holds the photo
       const maskA = fx.getImageData(0, 0, W, H).data;
       fx.clearRect(0, 0, W, H); fx.drawImage(img, 0, 0, W, H);
       const id = fx.getImageData(0, 0, W, H), d = id.data;
@@ -1861,6 +1881,97 @@
       fx.putImageData(id, 0, 0);
       return await new Promise((res, rej) => full.toBlob(b => b ? res(b) : rej(new Error('Could not encode the result')), 'image/png'));
     } finally { URL.revokeObjectURL(url); }
+  }
+
+
+  // Plain-background mode: for logos, icons and flat graphics on one solid colour.
+  // Finds the backdrop colour from the photo's edges, makes everything close to it transparent,
+  // and removes the backdrop's tint from semi-transparent edge pixels. Runs fully on this device.
+  function edgeBackdrop(d, w, h) {
+    const rs = [], gs = [], bs = [], st = Math.max(1, Math.floor(Math.max(w, h) / 300));
+    const smp = (x, y) => { const i = (y * w + x) * 4; rs.push(d[i]); gs.push(d[i + 1]); bs.push(d[i + 2]); };
+    for (let x = 0; x < w; x += st) { smp(x, 0); smp(x, h - 1); }
+    for (let y = 0; y < h; y += st) { smp(0, y); smp(w - 1, y); }
+    const med = a => { a.sort((p, q) => p - q); return a[a.length >> 1]; };
+    const bg = [med(rs), med(gs), med(bs)];
+    let near = 0;
+    for (let k = 0; k < rs.length; k++) if (Math.max(Math.abs(rs[k] - bg[0]), Math.abs(gs[k] - bg[1]), Math.abs(bs[k] - bg[2])) <= 24) near++;
+    return { bg, uniform: near / rs.length };
+  }
+  async function removePlain(blob, enclosed) {
+    const url = URL.createObjectURL(blob);
+    try {
+      const img = await loadImg(url);
+      const sc = Math.min(1, MAX_OUT_EDGE / Math.max(img.naturalWidth, img.naturalHeight));
+      const W = Math.max(1, Math.round(img.naturalWidth * sc)), H = Math.max(1, Math.round(img.naturalHeight * sc));
+      const c = document.createElement('canvas'); c.width = W; c.height = H;
+      const ctx = c.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0, W, H);
+      const id = ctx.getImageData(0, 0, W, H), d = id.data;
+      const { bg, uniform } = edgeBackdrop(d, W, H);
+      if (uniform < 0.9) throw new Error('No single-colour backdrop found');
+      const LO = 10, HI = 60, n = W * H;
+      const dst = new Uint8Array(n);
+      for (let p = 0; p < n; p++) { const i = p * 4; dst[p] = Math.min(255, Math.max(Math.abs(d[i] - bg[0]), Math.abs(d[i + 1] - bg[1]), Math.abs(d[i + 2] - bg[2]))); }
+      // Backdrop = near-backdrop-colour pixels that connect to the photo's outer edge. White inside the subject (a label, a highlight)
+      // is kept unless "also remove enclosed areas" is on.
+      const reach = new Uint8Array(n);
+      if (enclosed) reach.fill(1);
+      else {
+        const stack = new Int32Array(n); let sp = 0;
+        const push = p => { if (!reach[p] && dst[p] < HI) { reach[p] = 1; stack[sp++] = p; } };
+        for (let x = 0; x < W; x++) { push(x); push((H - 1) * W + x); }
+        for (let y = 0; y < H; y++) { push(y * W); push(y * W + W - 1); }
+        while (sp) {
+          const p = stack[--sp], x = p % W;
+          if (x > 0) push(p - 1); if (x < W - 1) push(p + 1); if (p >= W) push(p - W); if (p < n - W) push(p + W);
+        }
+      }
+      for (let i = 0; i < d.length; i += 4) {
+        const dist = dst[i >> 2];
+        const a = !reach[i >> 2] ? 1 : dist <= LO ? 0 : dist >= HI ? 1 : (dist - LO) / (HI - LO);
+        if (a > 0 && a < 1) for (let k = 0; k < 3; k++) d[i + k] = Math.max(0, Math.min(255, Math.round((d[i + k] - (1 - a) * bg[k]) / a)));
+        d[i + 3] = Math.round(a * 255);
+      }
+      ctx.putImageData(id, 0, 0);
+      return await new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error('Could not encode the result')), 'image/png'));
+    } finally { URL.revokeObjectURL(url); }
+  }
+  // Only SUGGESTS plain mode; never switches on its own. True when almost the whole photo edge is one flat colour.
+  async function looksLikeFlatGraphic(blob) {
+    const url = URL.createObjectURL(blob);
+    try {
+      const img = await loadImg(url), sc = Math.min(1, 600 / Math.max(img.naturalWidth, img.naturalHeight));
+      const w = Math.max(1, Math.round(img.naturalWidth * sc)), h = Math.max(1, Math.round(img.naturalHeight * sc));
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const ctx = c.getContext('2d', { willReadFrequently: true }); ctx.drawImage(img, 0, 0, w, h);
+      const d = ctx.getImageData(0, 0, w, h).data, e = edgeBackdrop(d, w, h);
+      if (e.uniform < 0.985) return false;
+      // flat graphics also use few colours: count distinct coarse colours
+      const seen = new Set(); for (let i = 0; i < d.length; i += 16) seen.add((d[i] >> 4) << 8 | (d[i + 1] >> 4) << 4 | d[i + 2] >> 4);
+      return seen.size < 200;
+    } catch (err) { return false; } finally { URL.revokeObjectURL(url); }
+  }
+
+  // Share of a cutout that is solid, measured on a small copy
+  async function solidShare(b) {
+    const bm = await createImageBitmap(b), sc = Math.min(1, 300 / Math.max(bm.width, bm.height));
+    const w = Math.max(1, Math.round(bm.width * sc)), h = Math.max(1, Math.round(bm.height * sc));
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(bm, 0, 0, w, h);
+    const d = x.getImageData(0, 0, w, h).data; let n = 0;
+    for (let i = 3; i < d.length; i += 4) if (d[i] > 128) n++;
+    return n / (w * h);
+  }
+  // Suggest plain mode only for flat graphics where it would NOT lose parts the AI kept
+  // (a white product on a white backdrop would lose its white parts, so it is not suggested).
+  async function suggestPlain(origBlob, aiBlob) {
+    try {
+      if (!(await looksLikeFlatGraphic(origBlob))) return false;
+      const plain = await removePlain(origBlob, false);
+      const [a, p] = await Promise.all([solidShare(aiBlob), solidShare(plain)]);
+      return p >= 0.85 * a;
+    } catch (e) { return false; }
   }
 
   // Lightweight built-in fallback: flood-fills a plain / softly graded background from the edges.
@@ -1909,21 +2020,23 @@
   async function runRemoval() {
     if (S.busy || !S.origBlob) return;
     if (cropping) exitCrop(true);
-    if (cr.credits <= 0 && !isPro()) {
+    if (cr.credits <= 0 && !isPro() && !S.charged) {
       $('#proSub').textContent = 'You’ve used all 5 free credits today. imgLop Pro, coming soon, will offer unlimited cutouts.';
       openModal('proModal'); toast('Out of free credits for today.', 'error');
       $('#runBtn').hidden = false; setState('ready'); return;
     }
     S.busy = true; setState('busy'); $('#runBtn').hidden = true;
     openBusy('Removing background…'); progress.start();
-    const t0 = performance.now(); let blob, mode = 'ai';
+    const t0 = performance.now(); let blob, mode = S.plain ? 'plain' : 'ai';
     try {
-      try { blob = await removeWithAI(S.origBlob); }
+      if (S.plain) { blob = await removePlain(S.origBlob, S.plainEnc); }
+      else try { blob = await removeWithAI(S.origBlob); }
       catch (err) { console.warn('AI engine unavailable, using quick mode:', err); mode = 'quick'; await nextFrame(); blob = await removeLocal(S.origUrl); }
     } catch (err) {
       console.error(err);
       progress.stop(); closeBusy(); S.busy = false; setState('ready'); $('#runBtn').hidden = false;
-      toast(mode === 'quick' ? 'Couldn’t find a clean background to remove. Try a photo with a plainer backdrop.' : 'Background removal failed. Please try again.', 'error');
+      if (mode === 'plain') { S.plain = false; paintPlain(); }
+      toast(mode === 'plain' ? 'Plain background mode needs a photo with one solid colour around the edges.' : mode === 'quick' ? 'Couldn’t find a clean background to remove. Try a photo with a plainer backdrop.' : 'Background removal failed. Please try again.', 'error');
       return;
     }
     try {
@@ -1932,13 +2045,15 @@
       await loadImg(S.resultUrl);
       imgAfter.src = sideAfter.src = S.resultUrl;
       compare.dataset.result = '1';
-      if (!isPro()) useCredit();
+      if (!isPro() && !S.charged) { useCredit(); S.charged = true; } // switching modes on the same photo is free
       await new Promise(r => setTimeout(r, 380));
       closeBusy(); S.busy = false;
       setState('done'); setMode('slider', true);
       const secs = ((performance.now() - t0) / 1000).toFixed(1);
       $('#statusText').innerHTML = '<span class="ok"><svg class="i"><use href="#i-check"/></svg>Background removed in ' + secs + 's</span>';
-      $('#statusRight').innerHTML = (mode === 'ai' ? '<span class="badge">AI engine</span>' : '<span class="badge" title="The AI model could not load here, so the built-in quick cutout was used. It works best on plain backgrounds.">Quick mode</span>') + ' &nbsp;Drag the handle to compare' + (creditsNote() ? ' &nbsp;· ' + creditsNote() : '');
+      $('#statusRight').innerHTML = (mode === 'plain' ? '<span class="badge">Plain background</span>' : mode === 'ai' ? '<span class="badge">AI engine</span>' : '<span class="badge" title="The AI model could not load here, so the built-in quick cutout was used. It works best on plain backgrounds.">Quick mode</span>') + ' &nbsp;Drag the handle to compare' + (creditsNote() ? ' &nbsp;· ' + creditsNote() : '');
+      paintPlain();
+      if (mode === 'ai' && !S.plainAsked) { S.plainAsked = true; suggestPlain(S.origBlob, blob).then(f => { if (f && S.resultBlob === blob) { $('#plainBtn').classList.add('suggest'); toast('This looks like a logo or flat graphic. Try “Plain background” for cleaner edges. Tick “Also remove enclosed areas” to clear white inside it.', 'info'); } }); }
       if (mode === 'quick') toast('AI model couldn’t load in this environment, so the built-in quick cutout was used. It works best on plain backgrounds.', 'info');
     } catch (err) {
       console.error(err); closeBusy(); S.busy = false; setState('ready'); $('#runBtn').hidden = false; toast('Something went wrong showing the result.', 'error');
@@ -3573,6 +3688,6 @@
   } catch (e) { /* never block the page */ }
 })();
 </script>
-<!-- imgLop build 2026-10-14a -->
+<!-- imgLop build 2026-10-15a -->
 </body>
 </html>
