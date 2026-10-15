@@ -11,11 +11,10 @@ button:disabled{opacity:.4} button.g{background:#333}
 #warn{background:#7c2d12;border-radius:10px;padding:10px;display:none;margin:10px 0}
 </style></head><body style="background:#111;color:#eee;font-family:-apple-system,system-ui,sans-serif">
 <noscript><p style="color:#fff;padding:16px">JavaScript is turned off in this browser, so the test cannot run.</p></noscript>
-<div id="boot" style="padding:8px 16px;color:#9f9">Page file loaded (version 2). If the buttons below do not appear, send Claude a screenshot.</div>
 <div id="err" style="display:none;padding:10px 16px;background:#7c2d12;color:#fff;white-space:pre-wrap"></div>
 <script>window.addEventListener("error",function(e){var x=document.getElementById("err");x.style.display="block";x.textContent+="Error: "+(e.message||e.type)+(e.filename?" ("+e.filename.split("/").pop()+":"+e.lineno+")":"")+"\n";},true);</script>
 <h1>imgLop lab: speed test</h1>
-<p>Private test page. Everything runs on this phone. Step 1: choose one photo. Step 2: tap a run button and wait. Don't switch apps while it runs.</p>
+<p>Internal speed test. Everything runs on your device and no photo is uploaded.</p>
 <div id="warn"></div>
 <label class="b g" for="f">1. Choose a photo</label><input id="f" type="file" accept="image/*" hidden>
 <p id="fi">No photo chosen.</p>
@@ -30,7 +29,7 @@ const $=s=>document.querySelector(s), logEl=$('#log'), T=[];
 const log=t=>{logEl.textContent+=t+'\n'};
 let photo=null;
 // detect a previous run that never finished (Safari reloaded the tab = out of memory)
-try{ if(sessionStorage.getItem('lab_running')){ const w=$('#warn'); w.style.display='block'; w.textContent='The page reloaded during the last run: "'+sessionStorage.getItem('lab_running')+'". That usually means Safari ran out of memory. Please tell Claude.'; log('LAST RUN DID NOT FINISH: '+sessionStorage.getItem('lab_running')); sessionStorage.removeItem('lab_running'); } }catch(e){}
+try{ if(sessionStorage.getItem('lab_running')){ const w=$('#warn'); w.style.display='block'; w.textContent='The page reloaded during the last run: "'+sessionStorage.getItem('lab_running')+'". That usually means Safari ran out of memory. Please report this to the site owner.'; log('LAST RUN DID NOT FINISH: '+sessionStorage.getItem('lab_running')); sessionStorage.removeItem('lab_running'); } }catch(e){}
 log('Phone: '+navigator.userAgent);
 log('crossOriginIsolated: '+self.crossOriginIsolated+' | cores: '+(navigator.hardwareConcurrency||'?'));
 $('#f').onchange=async e=>{ photo=e.target.files[0]; if(!photo)return; $('#fi').textContent=photo.name+' ('+(photo.size/1048576).toFixed(1)+' MB)'; $('#r1').disabled=$('#r2').disabled=false; };
