@@ -408,7 +408,7 @@
 
   /* Creative Studio tool tabs + resize/convert tools */
   /* Tool tabs: underline style, so they read differently from the category pill bar in the header */
-  .tooltabs { display: flex; gap: 34px; padding: 0; border-radius: 0; background: transparent; border: 0; border-bottom: 1px solid var(--border-strong); width: max-content; max-width: 100%; margin: 26px auto 0; overflow-x: auto; }
+  .tooltabs { display: flex; gap: 34px; padding: 0; border-radius: 0; background: transparent; border: 0; border-bottom: 1px solid var(--border-strong); width: max-content; max-width: 100%; margin: 26px auto 0; overflow: visible; flex-wrap: wrap; justify-content: center; }
   .tooltabs button { display: inline-flex; align-items: center; gap: 9px; border: 0; border-bottom: 3px solid transparent; margin-bottom: -1px; background: transparent; padding: 12px 4px; border-radius: 0; font-size: 14.5px; font-weight: 600; color: var(--muted); white-space: nowrap; transition: color .2s, border-color .2s; }
   .tooltabs button:hover { color: var(--text); }
   .tooltabs button[aria-selected="true"] { background: transparent; color: var(--text); box-shadow: none; border-bottom-color: var(--accent); }
@@ -3784,6 +3784,6 @@
   } catch (e) { /* never block the page */ }
 })();
 </script>
-<!-- imgLop build 2026-10-15h -->
+<!-- imgLop build 2026-10-15i -->
 </body>
 </html>
