@@ -813,7 +813,7 @@
           <button type="button" class="btn primary" id="browseBtn"><svg class="i"><use href="#i-plus"/></svg>Choose a photo</button>
           <button type="button" class="btn" id="sampleBtn"><svg class="i"><use href="#i-spark"/></svg>Try a sample</button>
         </div>
-        <label class="bq" id="bqDz"><input type="checkbox" class="bqChk"> <span><b>Best quality</b> <em class="bqNote">one-time 47 MB download, for hair, glass and busy scenes. Uses more battery and may warm your device.</em></span></label>
+        <label class="bq" id="bqDz"><input type="checkbox" class="bqChk"> <span><b>Best quality</b> <em class="bqNote">one-time 47 MB download, for hair, glass and busy scenes. Slower and uses more battery.</em></span></label>
         <div class="dz-formats"><i>PNG</i><i>JPG</i><i>WEBP</i><i>HEIC</i><span style="align-self:center;margin-left:4px">up to 15 MB each · batch up to 40</span></div>
       </div>
 
@@ -842,7 +842,7 @@
             </div>
             <button type="button" class="btn sm" id="refineBtn"><svg class="i"><use href="#i-eraser"/></svg>Refine<svg class="i" id="refinePro"><use href="#i-crown"/></svg></button>
             <button type="button" class="btn sm" id="plainBtn" aria-pressed="false" title="For logos, icons and flat graphics on one solid colour. It clears the backdrop colour that touches the edge of the picture. Not for photos or white products on a white backdrop."><svg class="i"><use href="#i-layers"/></svg>Plain background</button>
-            <label class="qr-check bq" id="bqBar" title="Slower, more detailed cutouts for hair, glass and busy scenes. One-time 47 MB download, then kept on this device. Uses more battery and may warm your device."><input type="checkbox" class="bqChk"> Best quality</label>
+            <label class="qr-check bq" id="bqBar" title="Slower, more detailed cutouts for hair, glass and busy scenes. One-time 47 MB download, then kept on this device. Slower and uses more battery."><input type="checkbox" class="bqChk"> Best quality</label>
             <label class="qr-check" id="plainOpt" hidden title="Also clear background-coloured areas enclosed inside the subject, such as the white inside a ring"><input type="checkbox" id="plainEnc"> Also remove enclosed areas</label>
             <button type="button" class="btn sm" id="cropBtn"><svg class="i"><use href="#i-crop"/></svg>Crop</button>
             <button type="button" class="btn primary sm" id="runBtn" hidden><svg class="i"><use href="#i-spark"/></svg>Remove background</button>
@@ -1648,7 +1648,7 @@
   function paintBq() {
     $$('.bqChk').forEach(c => { c.checked = bq.on; });
     const ready = store.get('imgLop_bq_ready') === '1';
-    $$('.bqNote').forEach(n => { n.textContent = ready ? 'downloaded and ready on this device. Uses more battery and may warm your device.' : 'one-time 47 MB download, for hair, glass and busy scenes. Uses more battery and may warm your device.'; });
+    $$('.bqNote').forEach(n => { n.textContent = ready ? 'downloaded and ready on this device. Slower and uses more battery.' : 'one-time 47 MB download, for hair, glass and busy scenes. Slower and uses more battery.'; });
   }
   $$('.bqChk').forEach(c => c.addEventListener('change', e => {
     bq.on = e.target.checked; if (bq.on) bq.failed = false; store.set(BQ_PREF, bq.on ? '1' : '0'); paintBq();
@@ -3783,6 +3783,6 @@
   } catch (e) { /* never block the page */ }
 })();
 </script>
-<!-- imgLop build 2026-10-15f -->
+<!-- imgLop build 2026-10-15g -->
 </body>
 </html>
