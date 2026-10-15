@@ -561,6 +561,9 @@
   .bact { display: flex; gap: 6px; }
   .bact .icon-btn { width: 32px; height: 32px; font-size: 14px; }
 
+  .bq { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); cursor: pointer; margin-top: 12px; position: relative; }
+  .bq b { color: var(--text); font-weight: 600; } .bq em { font-style: normal; }
+  #bqBar { margin-top: 0; }
   #plainBtn, #plainOpt { display: none; }
   [data-state="done"] #plainOpt:not([hidden]) { display: inline-flex; }
   [data-state="done"] #plainBtn { display: inline-flex; }
@@ -807,6 +810,7 @@
           <button type="button" class="btn primary" id="browseBtn"><svg class="i"><use href="#i-plus"/></svg>Choose a photo</button>
           <button type="button" class="btn" id="sampleBtn"><svg class="i"><use href="#i-spark"/></svg>Try a sample</button>
         </div>
+        <label class="bq" id="bqDz"><input type="checkbox" class="bqChk"> <span><b>Best quality</b> <em class="bqNote">one-time 47 MB download, for hair, glass and busy scenes</em></span></label>
         <div class="dz-formats"><i>PNG</i><i>JPG</i><i>WEBP</i><i>HEIC</i><span style="align-self:center;margin-left:4px">up to 15 MB each · batch up to 40</span></div>
       </div>
 
@@ -835,6 +839,7 @@
             </div>
             <button type="button" class="btn sm" id="refineBtn"><svg class="i"><use href="#i-eraser"/></svg>Refine<svg class="i" id="refinePro"><use href="#i-crown"/></svg></button>
             <button type="button" class="btn sm" id="plainBtn" aria-pressed="false" title="For logos, icons and flat graphics on one solid colour. It clears the backdrop colour that touches the edge of the picture. Not for photos or white products on a white backdrop."><svg class="i"><use href="#i-layers"/></svg>Plain background</button>
+            <label class="qr-check bq" id="bqBar" title="Slower, more detailed cutouts for hair, glass and busy scenes. One-time 47 MB download, then kept on this device."><input type="checkbox" class="bqChk"> Best quality</label>
             <label class="qr-check" id="plainOpt" hidden title="Also clear background-coloured areas enclosed inside the subject, such as the white inside a ring"><input type="checkbox" id="plainEnc"> Also remove enclosed areas</label>
             <button type="button" class="btn sm" id="cropBtn"><svg class="i"><use href="#i-crop"/></svg>Crop</button>
             <button type="button" class="btn primary sm" id="runBtn" hidden><svg class="i"><use href="#i-spark"/></svg>Remove background</button>
@@ -1539,7 +1544,8 @@
   /* ───────── Safe storage ───────── */
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+    del(k) { try { localStorage.removeItem(k); } catch (e) {} }
   };
 
   /* ───────── Elements ───────── */
@@ -1598,7 +1604,7 @@
   /* ───────── Modals ───────── */
   const INFO = {
     about: ['About BonBon Labs', '<p>BonBon Labs is an American company building simple, fast online tools that make everyday creative and document work easier.</p><p>imgLop now officially provides <b>AI background removal, image editing, client-side PDF document formatting, and QR code utility generation</b>.</p><p>Our PDF and QR tools run entirely inside your browser, so your files, links and text stay on your device. Questions or feedback? We would love to hear from you.</p><code>support@imglop.app</code>'],
-    credits: ['Open-source credits & licenses', '<p>imgLop is free software: you can redistribute and modify it under the terms of the <b>GNU Affero General Public License v3.0</b>. The complete source code is available from the “Source code” link in the footer.</p><p><b>AI background removal:</b> the <b>u2netp</b> model (from <b>U²-Net</b> by Xuebin Qin et al., Apache-2.0), packaged for ONNX by the <b>rembg</b> project (MIT), run in your browser with <b>ONNX Runtime Web</b> (MIT).</p><p><b>PDF creation:</b> pdf-lib (MIT). <b>QR codes:</b> qrcode / node-qrcode (MIT). <b>HEIC conversion:</b> heic2any (MIT), which bundles libheif and libde265 (LGPL-3.0).</p><p><b>Fonts:</b> Inter, Instrument Serif and Kantumruy Pro, licensed under the SIL Open Font License 1.1.</p><p>Thank you to the authors of all of these open-source projects. Full notices are in THIRD_PARTY_NOTICES.md in the source repository.</p>'],
+    credits: ['Open-source credits & licenses', '<p>imgLop is free software: you can redistribute and modify it under the terms of the <b>GNU Affero General Public License v3.0</b>. The complete source code is available from the “Source code” link in the footer.</p><p><b>AI background removal:</b> the <b>u2netp</b> model (from <b>U²-Net</b> by Xuebin Qin et al., Apache-2.0) and, for the optional Best quality mode, the <b>isnet-general-use</b> model (from <b>DIS / IS-Net</b> by Xuebin Qin et al., Apache-2.0, stored with 8-bit weights), both packaged for ONNX by the <b>rembg</b> project (MIT), run in your browser with <b>ONNX Runtime Web</b> (MIT).</p><p><b>PDF creation:</b> pdf-lib (MIT). <b>QR codes:</b> qrcode / node-qrcode (MIT). <b>HEIC conversion:</b> heic2any (MIT), which bundles libheif and libde265 (LGPL-3.0).</p><p><b>Fonts:</b> Inter, Instrument Serif and Kantumruy Pro, licensed under the SIL Open Font License 1.1.</p><p>Thank you to the authors of all of these open-source projects. Full notices are in THIRD_PARTY_NOTICES.md in the source repository.</p>'],
     support: ['Customer Support', '<p>Have questions or need help with your image processing? Reach our team anytime.</p><code>support@imglop.app</code>'],
     privacy: ['Privacy Policy', '<p>At imgLop, your privacy is our top priority.</p><p><b>Your files stay on your device.</b> AI background removal, Image-to-PDF and the QR code generator all run entirely within your browser. Your images, PDFs, text and links are not uploaded to our servers.</p><p><b>Accounts and subscriptions.</b> The free tools do not require an account. To subscribe to imgLop Pro you create an account with your email address and a password. When you subscribe, Stripe collects and processes your email address, billing details and payment information; we do not store your full card number. We store a license record for your account, which includes your email address, account ID, plan (monthly or yearly), subscription status and renewal date, so that we can recognize your subscription when you sign in.</p><p>We do not sell your personal information, and we do not store, catalog, or share the photos, documents, text or links you process. Preferences, credit counters and your sign-in session are stored in your browser. The open-source libraries and fonts that imgLop uses are served from imglop.app itself, so your browser does not contact Google Fonts or any content delivery network to load them.</p><p><b>Advertising.</b> The free version of imgLop may show ads, served by third-party ad partners such as Google AdSense. These partners may use cookies or similar technologies to show and measure ads, and you can choose personalized or non-personalized ads, and change that choice any time with the “Ad choices” link in the footer. Ad partners never receive the photos, documents, text or links you process. imgLop Pro subscribers see no ads and no ad scripts are loaded for them.</p><p>You can ask us to delete your account and license record at any time by emailing support@imglop.app. We may keep limited records where needed for tax, accounting or legal purposes; Stripe also keeps payment records under its own policy.</p>'],
     terms: ['Terms of Service', '<p>imgLop, a product of BonBon Labs, provides AI background removal, image editing, client-side PDF document formatting, and QR code utility generation (together, the “Services”). By using the Services, you agree to these terms.</p><p><b>Acceptable use.</b> You agree not to upload, convert or encode illegal, harmful, or copyright-infringing content, and not to use the QR code generator to mislead, harass, or direct people to unlawful or malicious destinations. You also agree not to use bots or automated scripts to scrape the Services or abuse the free AI background-removal credits. You are responsible for the content you process and for the links and text you encode.</p><p><b>Your files stay in your browser.</b> Our PDF formatting and QR code generation features run entirely within your browser. Your images, documents, text and links are not uploaded to or stored on our servers for these features.</p><p><b>Accounts.</b> The free tools do not require an account. An imgLop Pro subscription requires an account. You must provide a valid email address, keep your sign-in details secure, and you are responsible for activity under your account. A subscription is for your own use, and we may suspend accounts used to resell or widely share access.</p><p><b>Subscriptions and renewal.</b> imgLop Pro is offered as a monthly ($4.99) or yearly ($39.99) subscription, as shown at checkout. Subscriptions renew automatically at the end of each billing period, for the same period and at the then-current price, until you cancel. Payments are processed by Stripe.</p><p><b>Cancellation.</b> You can cancel at any time from Account → Manage subscription. Cancelling stops future renewals. You keep imgLop Pro until the end of the period you have already paid for, after which your account returns to the free plan.</p><p><b>Refunds.</b> Subscription fees are generally non-refundable, and we do not provide partial refunds for unused time. If you were charged in error, or for a renewal you did not intend, contact support@imglop.app within 14 days of the charge and we will review your request and respond within 5 business days. Nothing in these terms limits any refund or cancellation rights you have under applicable law.</p><p><b>Price changes and taxes.</b> We may change prices for future billing periods and will give notice before a change takes effect. Displayed prices may exclude applicable taxes such as VAT, GST or sales tax, which may be added where required based on your location.</p><p><b>No warranty.</b> The Services are provided "as is" and "as available" without warranty of any kind, including any warranty of merchantability or fitness for a particular purpose. We cannot guarantee that every generated QR code will scan on every device, so please test important codes before printing or publishing them. Free AI background-removal credits are subject to fair-usage policies and reset daily; PDF conversion and QR generation are free for basic use.</p><p><b>Third-party software and AI.</b> The Services use third-party open-source software and AI models. We are not responsible for their availability, accuracy or output, and results may not be perfect. Please keep a copy of your original files.</p><p><b>Limitation of liability.</b> To the fullest extent permitted by law, BonBon Labs will not be liable for any indirect, incidental, special or consequential damages, or for lost data, images, files or profits, arising out of your use of the Services. Our total liability for any claim is limited to the amount you paid us in the 12 months before the claim, or US $50 if you have not paid us anything.</p><p><b>Governing law.</b> These terms are governed by the laws of the State of Florida, United States, without regard to conflict-of-law rules. Nothing in these terms limits any consumer-protection rights you have under the law where you live.</p><p><b>Changes to these terms.</b> We may update these terms from time to time. We will post the new version here, and continuing to use the Services after a change means you accept the updated terms.</p>']
@@ -1626,12 +1632,33 @@
   const baseName = () => (S.name || 'photo').replace(/\.[^.]+$/, '').replace(/[^\w\-]+/g, '-').slice(0, 60) || 'photo';
 
   /* ───────── Upload handling ───────── */
-  dropzone.addEventListener('click', e => { if (!e.target.closest('#sampleBtn')) fileInput.click(); });
+  dropzone.addEventListener('click', e => { if (!e.target.closest('#sampleBtn, #bqDz')) fileInput.click(); });
   dropzone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
   fileInput.addEventListener('change', e => { const fs = [...(e.target.files || [])]; if (fs.length > 1) handleBatch(fs); else if (fs[0]) handleFile(fs[0]); fileInput.value = ''; });
   $('#sampleBtn').addEventListener('click', e => { e.stopPropagation(); loadSample(); });
   $('#newBtn').addEventListener('click', () => { if (S.busy) return; resetAll(); });
   $('#runBtn').addEventListener('click', runRemoval);
+  // Best quality: opt-in, off by default, remembered on this device
+  const BQ_RUN = 'imgLop_bq_running', BQ_PREF = 'imgLop_bq';
+  const bq = { on: store.get(BQ_PREF) === '1', failed: false, toasted: false };
+  function paintBq() {
+    $$('.bqChk').forEach(c => { c.checked = bq.on; });
+    const ready = store.get('imgLop_bq_ready') === '1';
+    $$('.bqNote').forEach(n => { n.textContent = ready ? 'downloaded and ready on this device' : 'one-time 47 MB download, for hair, glass and busy scenes'; });
+  }
+  $$('.bqChk').forEach(c => c.addEventListener('change', e => {
+    bq.on = e.target.checked; if (bq.on) bq.failed = false; store.set(BQ_PREF, bq.on ? '1' : '0'); paintBq();
+    if (bq.on && store.get('imgLop_bq_ready') !== '1') toast('Best quality downloads a one-time 47 MB model the first time you use it. Wi-Fi recommended.', 'info');
+    if (!S.busy && S.origBlob && !S.plain && !B.running) runRemoval(); // same photo: free
+  }));
+  // If the last Best-quality run closed the page (the phone ran out of memory), switch it off
+  if (store.get(BQ_RUN) === '1') {
+    store.del(BQ_RUN); store.set(BQ_PREF, '0'); bq.on = false;
+    setTimeout(() => toast('Best quality closed the page on this device, so it has been switched off. The fast model will be used.', 'error'), 600);
+  }
+  paintBq();
+  // "Ready" must reflect the real cache (Safari can clear it)
+  (async () => { try { const c = await caches.open('imglop-models-v1'); const hit = await c.match(new URL('./models/isnet-w8.assembled', location.href).href); if (hit) store.set('imgLop_bq_ready', '1'); else store.del('imgLop_bq_ready'); } catch (e) { store.del('imgLop_bq_ready'); } paintBq(); })();
   function paintPlain() { const b = $('#plainBtn'); b.setAttribute('aria-pressed', S.plain ? 'true' : 'false'); if (S.plain) b.classList.remove('suggest'); $('#plainOpt').hidden = !S.plain; }
   $('#plainEnc').addEventListener('change', e => { if (S.busy || !S.origBlob || !S.plain) return; S.plainEnc = e.target.checked; runRemoval(); });
   $('#plainBtn').addEventListener('click', () => { if (S.busy || !S.origBlob) return; S.plain = !S.plain; paintPlain(); runRemoval(); });
@@ -1768,6 +1795,9 @@
        isnet-general-use  ~176 MB   best quality, slowest          https://github.com/danielgatis/rembg/releases/download/v0.0.0/isnet-general-use.onnx
      Then set model + url below. Cloudflare Pages only accepts files up to 25 MB, so larger models need other storage (e.g. R2). */
   const REMBG = { model: 'u2netp', url: './models/u2netp.onnx' };
+  // Optional "Best quality" model: isnet-general-use (DIS, Apache-2.0), weights stored as 8-bit numbers (46.7 MB),
+  // split into 4 self-hosted pieces so each file stays under Cloudflare's 25 MiB static-asset limit.
+  const BEST = { model: 'isnet-general-use', key: 'isnet-w8', bytes: 46719606, parts: [1, 2, 3, 4].map(i => './models/isnet-w8.part' + i) };
   const REMBG_PROFILES = {
     u2netp: { size: 320, mean: [0.485, 0.456, 0.406], std: [0.229, 0.224, 0.225] },
     silueta: { size: 320, mean: [0.485, 0.456, 0.406], std: [0.229, 0.224, 0.225] },
@@ -1836,23 +1866,46 @@
     return buf;
   }
 
-  let rembgSession = null;
-  function getRembgSession() {
-    if (!rembgSession) rembgSession = (async () => {
+  // Downloads the Best-quality pieces from imglop.app only, joins them, and keeps the result in the browser cache
+  async function fetchModelParts(parts, key, expected, onProgress) {
+    const ck = new URL('./models/' + key + '.assembled', location.href).href;
+    let cache = null;
+    try { cache = await caches.open('imglop-models-v1'); const hit = await cache.match(ck); if (hit) { const b = new Uint8Array(await hit.arrayBuffer()); if (b.length === expected) return b; } } catch (e) { cache = null; }
+    const buf = new Uint8Array(expected); let off = 0;
+    for (const u of parts) {
+      const r = await fetch(u, { cache: 'no-store' });
+      if (!r.ok) throw new Error('Model piece not found at ' + u + ' (HTTP ' + r.status + ')');
+      if (r.body && r.body.getReader) {
+        const reader = r.body.getReader();
+        for (;;) { const { done, value } = await reader.read(); if (done) break; if (off + value.length > expected) throw new Error('Model pieces are larger than expected'); buf.set(value, off); off += value.length; onProgress(off, expected); }
+      } else { const b = new Uint8Array(await r.arrayBuffer()); if (off + b.length > expected) throw new Error('Model pieces are larger than expected'); buf.set(b, off); off += b.length; onProgress(off, expected); }
+    }
+    if (off !== expected || buf[0] === 0x3c) throw new Error('The Best-quality model download was incomplete');
+    try { if (cache) await cache.put(ck, new Response(buf, { headers: { 'Content-Type': 'application/octet-stream' } })); } catch (e) {}
+    return buf;
+  }
+
+  const rembgSessions = {};
+  function getRembgSession(which) {
+    which = which || 'fast';
+    if (!rembgSessions[which]) rembgSessions[which] = (async () => {
       const ort = await loadOrt();
       ort.env.wasm.wasmPaths = new URL(ORT_BASE, location.href).href;
       if (!self.crossOriginIsolated) ort.env.wasm.numThreads = 1;
-      const bytes = await fetchModel(REMBG.url, (c, t) => progress.engine('fetch:model', c, t));
+      const bytes = which === 'best'
+        ? await fetchModelParts(BEST.parts, BEST.key, BEST.bytes, (c, t) => progress.engine('fetch:model', c, t))
+        : await fetchModel(REMBG.url, (c, t) => progress.engine('fetch:model', c, t));
+      if (which === 'best') store.set(BQ_RUN, '1'); // download finished: from here memory is the risk (cleared by removeWithAI)
       return ort.InferenceSession.create(bytes, { executionProviders: ['wasm'], graphOptimizationLevel: 'all' });
-    })().catch(e => { rembgSession = null; throw e; });
-    return rembgSession;
+    })().catch(e => { rembgSessions[which] = null; throw e; });
+    return rembgSessions[which];
   }
-
   // Same signature as before: takes the photo Blob, returns a transparent PNG Blob
-  async function removeWithAI(blob) {
-    const prof = REMBG_PROFILES[REMBG.model];
-    if (!prof) throw new Error('Unknown model "' + REMBG.model + '"');
-    const sess = await withTimeout(getRembgSession(), 240000, 'Loading the AI model');
+  async function runModel(blob, which) {
+    const modelName = which === 'best' ? BEST.model : REMBG.model;
+    const prof = REMBG_PROFILES[modelName];
+    if (!prof) throw new Error('Unknown model "' + modelName + '"');
+    const sess = await withTimeout(getRembgSession(which), 240000, 'Loading the AI model');
     const url = URL.createObjectURL(blob);
     try {
       const img = await loadImg(url);
@@ -1981,6 +2034,21 @@
     } catch (e) { return false; }
   }
 
+  // Which engine produced the last result: { engine: 'best' | 'fast', fellBack: bool }
+  const aiInfo = { engine: 'fast', fellBack: false };
+  async function removeWithAI(blob, wantBest) {
+    aiInfo.engine = 'fast'; aiInfo.fellBack = false;
+    if (wantBest && bq.failed) { aiInfo.fellBack = true; wantBest = false; }
+    if (wantBest) {
+      // Crash guard: if the phone runs out of memory the page reloads and this flag is still set (see startup check)
+      if (rembgSessions.best) store.set(BQ_RUN, '1'); // already loaded: inference itself is the risk
+      try { const out = await runModel(blob, 'best'); aiInfo.engine = 'best'; return out; }
+      catch (e) { console.warn('Best quality could not run, using the fast model:', e); aiInfo.fellBack = true; bq.failed = true; }
+      finally { store.del(BQ_RUN); }
+    }
+    return runModel(blob, 'fast');
+  }
+
   // Lightweight built-in fallback: flood-fills a plain / softly graded background from the edges.
   async function removeLocal(url) {
     const img = await loadImg(url);
@@ -2034,10 +2102,11 @@
     }
     S.busy = true; setState('busy'); $('#runBtn').hidden = true;
     openBusy('Removing background…'); progress.start();
+    const bestQuality = !!bq.on && !S.plain;
     const t0 = performance.now(); let blob, mode = S.plain ? 'plain' : 'ai';
     try {
       if (S.plain) { blob = await removePlain(S.origBlob, S.plainEnc); }
-      else try { blob = await removeWithAI(S.origBlob); }
+      else try { blob = await removeWithAI(S.origBlob, bestQuality); }
       catch (err) { console.warn('AI engine unavailable, using quick mode:', err); mode = 'quick'; await nextFrame(); blob = await removeLocal(S.origUrl); }
     } catch (err) {
       console.error(err);
@@ -2058,8 +2127,10 @@
       setState('done'); setMode('slider', true);
       const secs = ((performance.now() - t0) / 1000).toFixed(1);
       $('#statusText').innerHTML = '<span class="ok"><svg class="i"><use href="#i-check"/></svg>Background removed in ' + secs + 's</span>';
-      $('#statusRight').innerHTML = (mode === 'plain' ? '<span class="badge">Plain background</span>' : mode === 'ai' ? '<span class="badge">AI engine</span>' : '<span class="badge" title="The AI model could not load here, so the built-in quick cutout was used. It works best on plain backgrounds.">Quick mode</span>') + ' &nbsp;Drag the handle to compare' + (creditsNote() ? ' &nbsp;· ' + creditsNote() : '');
+      $('#statusRight').innerHTML = (mode === 'plain' ? '<span class="badge">Plain background</span>' : mode === 'ai' ? '<span class="badge">' + (aiInfo.engine === 'best' ? 'AI engine · Best quality' : aiInfo.fellBack ? 'AI engine · fast model' : 'AI engine') + '</span>' : '<span class="badge" title="The AI model could not load here, so the built-in quick cutout was used. It works best on plain backgrounds.">Quick mode</span>') + ' &nbsp;Drag the handle to compare' + (creditsNote() ? ' &nbsp;· ' + creditsNote() : '');
       paintPlain();
+      if (mode === 'ai' && bestQuality && aiInfo.fellBack && !bq.toasted && (bq.toasted = true)) toast('Best quality could not run on this device, so the fast model was used instead.', 'info');
+      if (mode === 'ai' && aiInfo.engine === 'best') { store.set('imgLop_bq_ready', '1'); paintBq(); }
       if (mode === 'ai' && !S.plainAsked) { S.plainAsked = true; suggestPlain(S.origBlob, blob).then(f => { if (f && S.resultBlob === blob) { $('#plainBtn').classList.add('suggest'); toast('This looks like a logo or flat graphic. Try “Plain background” for cleaner edges. Tick “Also remove enclosed areas” to clear white inside it.', 'info'); } }); }
       if (mode === 'quick') toast('AI model couldn’t load in this environment, so the built-in quick cutout was used. It works best on plain backgrounds.', 'info');
     } catch (err) {
@@ -3172,7 +3243,7 @@
         }
         let out = null, mode = 'ai';
         if (!aiDown) {
-          try { out = await removeWithAI(blob); aiOK = true; }
+          try { out = await removeWithAI(blob, false); aiOK = true; }
           catch (e) { console.warn('AI engine unavailable for batch item:', e); if (!aiOK) aiDown = true; }
         }
         if (!out) { mode = 'quick'; await nextFrame(); out = await removeLocal(it.origUrl); }
@@ -3696,6 +3767,6 @@
   } catch (e) { /* never block the page */ }
 })();
 </script>
-<!-- imgLop build 2026-10-15a -->
+<!-- imgLop build 2026-10-15c -->
 </body>
 </html>
